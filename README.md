@@ -54,6 +54,7 @@ $ umi dev
 - [ ] JS 沙箱
 - [ ] 公共依赖加载策略
 - [ ] 预加载
+- [ ] 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 
 ## Installation
 
