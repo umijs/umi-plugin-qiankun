@@ -55,6 +55,9 @@ $ umi dev
 - [ ] 公共依赖加载策略
 - [ ] 预加载
 - [ ] 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
+- [ ] 支持 browserHistory
+- [ ] 父子应用通讯
+- [ ] 子应用嵌套
 
 ## Installation
 
