@@ -18,7 +18,7 @@ Umi plugin for [single-spa](https://single-spa.js.org/).
 
 ![](https://cdn.nlark.com/yuque/0/2019/gif/86025/1556528226619-df48c9c3-a5ec-4796-b23d-78f12b46fb68.gif)
 
-依赖 [umi 的这个 PR](https://github.com/umijs/umi/pull/2340)。
+依赖 [umi 的这个 PR](https://github.com/umijs/umi/pull/2340)，等 umi 更新个版本（或 link 过来）。
 
 安装依赖，
 
@@ -26,7 +26,7 @@ Umi plugin for [single-spa](https://single-spa.js.org/).
 $ yarn
 ```
 
-编译 `src` 为 `es` 目录，
+编译 `src` 为 `lib` 目录，
 
 ```bash
 $ yarn build
@@ -47,10 +47,10 @@ $ umi dev
 
 暂没很多时间深入，有需求的同学最好自己上。
 
-- [ ] 按需加载（配置不放在 slave 里）
+- [x] 按需加载（配置不放在 slave 里）
 - [ ] HTML Entry
-- [ ] Config Entry
-- [ ] CSS 隔离
+- [x] Config Entry
+- [x] CSS 隔离
 - [ ] JS 沙箱
 - [ ] 公共依赖加载策略
 - [ ] 预加载

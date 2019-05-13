@@ -11,7 +11,7 @@ export default function() {
           <li><Link to="/app2">App2</Link></li>
         </ul>
       </header>
-      <div id="slave-root" style={{ padding: 10, background: '#ccc' }}></div>
+      <div id="app-root" style={{ padding: 10, background: '#ccc' }}></div>
     </div>
   );
 }

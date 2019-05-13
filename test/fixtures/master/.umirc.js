@@ -2,16 +2,24 @@
 export default {
   plugins: [
     ['../../../master', {
-      slaves: [
+      apps: [
         {
-          scripts: ['http://localhost:8002/umi.js'],
-          styles: ['http://localhost:8002/umi.css'],
+          name: 'app1',
+          routerPrefix: '/app1',
+          entry: {
+            scripts: [{ src: 'http://localhost:8002/umi.js' }],
+            styles: [{ src: 'http://localhost:8002/umi.css' }],
+          },
         },
         {
-          scripts: ['http://localhost:8003/umi.js'],
-          styles: ['http://localhost:8003/umi.css'],
+          name: 'app2',
+          routerPrefix: '/app2',
+          entry: {
+            scripts: ['http://localhost:8003/umi.js'],
+            styles: ['http://localhost:8003/umi.css'],
+          },
         },
-      ]
+      ],
     }],
   ],
 }

@@ -1,7 +1,8 @@
 /yarn.lock
 /package-lock.json
 /node_modules
-/es
+/lib
+/test/fixtures/**/node_modules
 /test/fixtures/**/dist
 /test/fixtures/**/.umi
 /test/fixtures/**/.umi-production

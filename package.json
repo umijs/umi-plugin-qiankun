@@ -13,10 +13,11 @@
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "np --no-cleanup --yolo --no-publish",
-    "build": "umi-library build --esm babel",
+    "build": "umi-library build --cjs babel",
     "test": "umi-test"
   },
   "dependencies": {
+    "import-html-entry": "^0.4.11",
     "single-spa": "^4.3.2"
   },
   "devDependencies": {
@@ -27,7 +28,8 @@
     "prettier": "1",
     "umi": "2",
     "umi-library": "1",
-    "umi-test": "1"
+    "umi-test": "1",
+    "umi-types": "^0.3.3"
   },
   "husky": {
     "hooks": {
