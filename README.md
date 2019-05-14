@@ -22,7 +22,7 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 ![](https://cdn.nlark.com/yuque/0/2019/gif/86025/1556528226619-df48c9c3-a5ec-4796-b23d-78f12b46fb68.gif)
 
-依赖 [umi 的这个 PR](https://github.com/umijs/umi/pull/2340)，等 umi 更新个版本（或 link 过来）。
+**注：依赖 [umi 的这个 PR](https://github.com/umijs/umi/pull/2340)，等 umi 更新个版本（或者先本地 link 过来跑）。**
 
 安装依赖，
 
@@ -62,6 +62,7 @@ $ umi dev
 - [ ] 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 - [ ] 支持 browserHistory
 - [ ] 子应用嵌套
+- [ ] 子应用单独调试
 
 ## Installation
 
@@ -82,6 +83,7 @@ export default {
       // 注册子应用信息
       apps: [
         {
+          // 唯一 id，传给 single-spa
           name: 'app1',
           // 支持 config entry
           entry: {
@@ -97,6 +99,8 @@ export default {
           },
         },
       ],
+      // JS 沙箱（暂不支持）
+      jsSandBox: false,
     }],
   ],
 }
@@ -110,10 +114,16 @@ export default {
 export default {
   plugins: [
     ['umi-plugin-single-spa/slave', {
+      mountElementId: 'app-root',
     }],
   ],
 }
 ```
+
+## 父子应用通讯
+
+* 约定父应用中在 `src/rootExports.js` 里 export 内容
+* 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
 
 ## 相关
 
