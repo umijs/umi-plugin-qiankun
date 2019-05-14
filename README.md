@@ -16,6 +16,10 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 验证 SingleSPA 在 umi 下的可行性，作为微前端其中一种方式的探索，可能是最佳实践，也可能不是。灵感来源于内部的 OneX 项目和[前端微服务化进阶 1 - 基于 umi 的子模块方案](https://alili.tech/archive/9xuojm75d2a/)。
 
+## RFC
+
+* [RFC: 微前端（umi-plugin-single-spa） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
+
 ## 如何验证这个项目
 
 效果如下，导航是主应用，App1 和 App2 是主应用，
