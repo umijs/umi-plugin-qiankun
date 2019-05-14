@@ -8,6 +8,10 @@ Umi plugin for [single-spa](https://single-spa.js.org/).
 [![Build Status](https://img.shields.io/travis/umijs/umi-plugin-single-spa.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-single-spa)
 [![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-single-spa.svg?style=flat)](https://npmjs.org/package/umi-plugin-single-spa)
 
+## Questions & Suggestions
+
+Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
+
 ## Why
 
 验证 SingleSPA 在 umi 下的可行性，作为微前端其中一种方式的探索，可能是最佳实践，也可能不是。灵感来源于内部的 OneX 项目和[前端微服务化进阶 1 - 基于 umi 的子模块方案](https://alili.tech/archive/9xuojm75d2a/)。
@@ -42,15 +46,15 @@ $ umi dev
 
 - ✔︎ 基于 SingleSPA
 - ✔︎ 支持主应用和子应用都用 umi
+- ✔︎ 按需加载子应用资源
+- ✔︎ Config Entry
+- ✔︎ CSS 隔离
 
 ## TODO
 
 暂没很多时间深入，有需求的同学最好自己上。
 
-- [x] 按需加载（配置不放在 slave 里）
 - [ ] HTML Entry
-- [x] Config Entry
-- [x] CSS 隔离
 - [ ] JS 沙箱
 - [ ] 公共依赖加载策略
 - [ ] 预加载
@@ -67,11 +71,49 @@ $ yarn add umi-plugin-single-spa
 
 ## Usage
 
-暂无。
+### 主应用
 
-## Questions & Suggestions
+配 `umi-plugin-single-spa/master` 插件，
 
-Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
+```js
+export default {
+  plugins: [
+    ['umi-plugin-single-spa/master', {
+      // 注册子应用信息
+      apps: [
+        {
+          name: 'app1',
+          // 支持 config entry
+          entry: {
+            scripts: [],
+            styles: [],
+          },
+        },
+        {
+          name: 'app2',
+          // 支持 html entry（暂不支持）
+          entry: {
+            html: '/path/to/app/index.html',
+          },
+        },
+      ],
+    }],
+  ],
+}
+```
+
+### 子应用
+
+配 `umi-plugin-single-spa/slave` 插件，
+
+```js
+export default {
+  plugins: [
+    ['umi-plugin-single-spa/slave', {
+    }],
+  ],
+}
+```
 
 ## 相关
 
@@ -79,4 +121,4 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 ## LICENSE
 
-MIT © [Chen Cheng](https://sorrycc.com)
+MIT
