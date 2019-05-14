@@ -6,6 +6,7 @@ defer.promise = new Promise(resolve => {
 });
 
 let render = null;
+let hasMountedAtLeastOnce = false;
 
 export default () => defer.promise;
 
@@ -37,7 +38,11 @@ export function genMount() {
       defer.resolve();
       const runtimeSingleSpa = getRuntimeSingleSpa();
       if (runtimeSingleSpa.mount) runtimeSingleSpa.mount();
-      render();
+      // 第一次 mount umi 会自动触发 render，非第一次 mount 则需手动触发
+      if (hasMountedAtLeastOnce) {
+        render();
+      }
+      hasMountedAtLeastOnce = true;
     });
   };
 }
