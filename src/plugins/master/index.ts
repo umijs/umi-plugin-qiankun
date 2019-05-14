@@ -2,13 +2,13 @@ import { IApi, IConfig } from 'umi-types';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-interface ISlave {
+interface IApp {
   scripts?: [],
   styles?: [],
 }
 
 interface IOptions {
-  apps?: ISlave[],
+  apps?: IApp[],
 }
 
 export default function(api: IApi, options: IOptions = {}) {
