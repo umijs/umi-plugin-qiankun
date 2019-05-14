@@ -1,6 +1,9 @@
 
 export default function normalizeEntry(entry) {
   let hasEntry = false;
+  if (!entry.scripts || !entry.scripts.length) {
+    throw new Error('entry.scripts should not be empty.');
+  }
   entry.scripts = (entry.scripts || []).map(asset => {
     if (asset.isEntry) {
       if (hasEntry) {

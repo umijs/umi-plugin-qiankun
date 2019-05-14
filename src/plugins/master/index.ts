@@ -1,5 +1,4 @@
 import { IApi, IConfig } from 'umi-types';
-import { readFileSync } from 'fs';
 
 interface ISlave {
   scripts?: [],
