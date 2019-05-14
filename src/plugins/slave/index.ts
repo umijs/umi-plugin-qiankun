@@ -46,14 +46,14 @@ export function useRootExports() {
     },
   ]);
 
+  api.addRuntimePluginKey('singleSpa');
+
   api.addEntryImport({
     source: lifecyclePath,
     specifier:
       '{ genMount as singleSPA_genMount, genBootstrap as singleSPA_genBootstrap, genUnmount as singleSPA_genUnmount }',
   });
-
   api.addRendererWrapperWithModule(lifecyclePath);
-
   api.addEntryCode(
     `
     export const bootstrap = singleSPA_genBootstrap(Promise.all(moduleBeforeRendererPromises), render);

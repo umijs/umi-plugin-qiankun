@@ -54,6 +54,7 @@ $ umi dev
 - ✔︎ Config Entry
 - ✔︎ CSS 隔离
 - ✔︎ 父子应用通讯
+- ✔︎ 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 
 ## TODO
 
@@ -63,7 +64,6 @@ $ umi dev
 - [ ] JS 沙箱
 - [ ] 公共依赖加载策略
 - [ ] 预加载
-- [ ] 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 - [ ] 支持 browserHistory
 - [ ] 子应用嵌套
 - [ ] 子应用单独调试
@@ -129,6 +129,24 @@ export default {
 
 * 约定父应用中在 `src/rootExports.js` 里 export 内容
 * 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
+
+## 运行时配置
+
+在子应用的 `src/app.js` 里输出 `singleSpa`，
+
+```js
+export const singleSpa = {
+  bootstrap() {
+    console.log('app1 bootstrap');
+  },
+  mount() {
+    console.log('app1 mount');
+  },
+  unmount() {
+    console.log('app1 unmount');
+  },
+}
+```
 
 ## 相关
 
