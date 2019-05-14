@@ -2,6 +2,7 @@ import { noteGlobalProps, getGlobalProp } from 'import-html-entry/esm/utils';
 import normalizeEntry from './normalizeEntry';
 import fetchEntry from './fetchEntry';
 
+// avoid scope problem
 const geval = eval;
 
 export default async function(rawEntry) {
@@ -34,19 +35,17 @@ export default async function(rawEntry) {
       exports.bootstrap,
     ],
     mount: [
+      // load styles
       async () => {
-        if (el) {
-          document.getElementsByTagName('head')[0].appendChild(el);
-        }
+        document.getElementsByTagName('head')[0].appendChild(el);
       },
       exports.mount,
     ],
     unmount: [
       exports.unmount,
+      // unload styles
       async () => {
-        if (el && el.parentNode) {
-          el.parentNode.removeChild(el);
-        }
+        el.parentNode.removeChild(el);
       },
     ],
   };
