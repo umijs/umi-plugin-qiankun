@@ -1,8 +1,7 @@
 import * as singleSpa from 'single-spa';
-import apps from '@tmp/singleSpaApps';
 import loadEntry from './loadEntry';
 
-export function bootstrap() {
+export function bootstrap(apps) {
   apps.forEach(app => {
     const { name, routerPrefix, entry } = app;
     function activityFunction(location) {
