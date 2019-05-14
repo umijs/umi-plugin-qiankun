@@ -67,6 +67,7 @@ $ umi dev
 - [ ] 支持 browserHistory
 - [ ] 子应用嵌套
 - [ ] 子应用单独调试
+- [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
 
 ## Installation
 
