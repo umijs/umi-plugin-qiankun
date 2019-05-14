@@ -2,12 +2,12 @@ import { IApi, IConfig } from 'umi-types';
 import assert from 'assert';
 
 interface IOptions {
-  base?: string;
+  mountElementId?: string;
 }
 
 export default function(api: IApi, options: IOptions = {}) {
   const lifecyclePath = require.resolve('./lifecycles');
-  const mountElementId = 'app-root';
+  const mountElementId = options.mountElementId || 'app-root';
 
   api.modifyDefaultConfig(memo => {
     return {
@@ -19,25 +19,32 @@ export default function(api: IApi, options: IOptions = {}) {
     } as IConfig;
   });
 
-  api.chainWebpackConfig(memo => {
-    memo.output.libraryTarget('umd');
+  api.modifyWebpackConfig(memo => {
+    memo.output.libraryTarget = 'umd';
     assert(
       api.pkg.name,
       `You should have name in package.json`,
     );
-    memo.output.library(api.pkg.name);
-    memo.output.jsonpFunction(`webpackJsonp_${api.pkg.name}`);
+    memo.output.library = api.pkg.name;
+    memo.output.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     return memo;
   });
 
-  api.modifyWebpackConfig(memo => {
-    Object.keys(memo.entry).forEach(key => {
-      memo.entry[key] = memo.entry[key].filter(filePath => {
-        return !filePath.includes('webpackHotDevClient');
-      });
-    });
-    return memo;
-  });
+  api.addRuntimePlugin(require.resolve('./runtimePlugin'));
+  api.writeTmpFile('singleSpaContext.js', `
+import { createContext, useContext } from 'react';
+
+export const Context = createContext(null);
+export function useRootExports() {
+  return useContext(Context);
+};
+  `.trim());
+  api.addUmiExports([
+    {
+      specifiers: ['useRootExports'],
+      source:'@tmp/singleSpaContext',
+    },
+  ]);
 
   api.addEntryImport({
     source: lifecyclePath,

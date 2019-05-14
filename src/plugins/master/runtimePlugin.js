@@ -1,3 +1,4 @@
+import '@tmp/singleSpaRootExports';
 
 export function render(oldRender) {
   oldRender();

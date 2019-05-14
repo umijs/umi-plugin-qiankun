@@ -49,6 +49,7 @@ $ umi dev
 - ✔︎ 按需加载子应用资源
 - ✔︎ Config Entry
 - ✔︎ CSS 隔离
+- ✔︎ 父子应用通讯
 
 ## TODO
 
@@ -60,7 +61,6 @@ $ umi dev
 - [ ] 预加载
 - [ ] 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 - [ ] 支持 browserHistory
-- [ ] 父子应用通讯
 - [ ] 子应用嵌套
 
 ## Installation
