@@ -1,5 +1,5 @@
 {
-  "name": "umi-plugin-single-spa",
+  "name": "umi-plugin-qiankun",
   "version": "0.1.0",
   "description": "",
   "repository": "umijs/umi-plugin-single-spa",
