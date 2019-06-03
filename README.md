@@ -1,12 +1,12 @@
-# umi-plugin-single-spa
+# umi-plugin-qiankun
 
-Umi plugin for [single-spa](https://single-spa.js.org/).
+Umi plugin for [qiankun](https://github.com/umijs/qiankun).
 
 **试验性质的项目，不要用于生产环境。**
 
-[![NPM version](https://img.shields.io/npm/v/umi-plugin-single-spa.svg?style=flat)](https://npmjs.org/package/umi-plugin-single-spa)
-[![Build Status](https://img.shields.io/travis/umijs/umi-plugin-single-spa.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-single-spa)
-[![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-single-spa.svg?style=flat)](https://npmjs.org/package/umi-plugin-single-spa)
+[![NPM version](https://img.shields.io/npm/v/umi-plugin-qiankun.svg?style=flat)](https://npmjs.org/package/umi-plugin-qiankun)
+[![Build Status](https://img.shields.io/travis/umijs/umi-plugin-qiankun.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-qiankun)
+[![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-qiankun.svg?style=flat)](https://npmjs.org/package/umi-plugin-qiankun)
 
 ## Questions & Suggestions
 
@@ -48,7 +48,7 @@ $ umi dev
 
 ## Feature
 
-- ✔︎ 基于 SingleSPA
+- ✔︎ 基于 qiankun
 - ✔︎ 支持主应用和子应用都用 umi
 - ✔︎ 按需加载子应用资源
 - ✔︎ Config Entry
@@ -84,11 +84,11 @@ $ yarn add umi-plugin-single-spa
 ```js
 export default {
   plugins: [
-    ['umi-plugin-single-spa/master', {
+    ['umi-plugin-qiankun/master', {
       // 注册子应用信息
       apps: [
         {
-          // 唯一 id，传给 single-spa
+          // 唯一 id，传给 qiankun
           name: 'app1',
           // 支持 config entry
           entry: {
@@ -113,12 +113,12 @@ export default {
 
 ### 子应用
 
-配 `umi-plugin-single-spa/slave` 插件，
+配 `umi-plugin-qiankun/slave` 插件，
 
 ```js
 export default {
   plugins: [
-    ['umi-plugin-single-spa/slave', {
+    ['umi-plugin-qiankun/slave', {
       mountElementId: 'app-root',
     }],
   ],
