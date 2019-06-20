@@ -1,6 +1,6 @@
-import { IApi, IConfig } from 'umi-types';
-import { join } from 'path';
 import { existsSync } from 'fs';
+import { join } from 'path';
+import { IApi } from 'umi-types';
 
 interface IApp {
   scripts?: [],
@@ -18,7 +18,7 @@ export default function(api: IApi, options: IOptions = {}) {
     return {
       ...config,
       disableGlobalVariables: true,
-    } as IConfig;
+    };
   });
 
   const rootExportsFile = join(api.paths.absSrcPath, 'rootExports.js');
@@ -28,7 +28,7 @@ export default function(api: IApi, options: IOptions = {}) {
     const rootExports = `
 window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')` : `{}`};
     `.trim();
-    api.writeTmpFile('singleSpaRootExports.js', rootExports);
-    api.writeTmpFile('singleSpaApps.json', JSON.stringify(options.apps));
+    api.writeTmpFile('qiankunRootExports.js', rootExports);
+    api.writeTmpFile('microApps.json', JSON.stringify(options.apps));
   });
 };

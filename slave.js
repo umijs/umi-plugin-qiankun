@@ -1,2 +1,1 @@
-
-module.exports = require('./lib/plugins/slave').default;
+module.exports = require('./lib/slave').default;
