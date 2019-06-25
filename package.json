@@ -18,7 +18,7 @@
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "np --no-cleanup --yolo --no-publish",
-    "build": "father build",
+    "build": "father-build",
     "test": "umi-test"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "coveralls": "3",
-    "father": "^2.9.0",
+    "father-build": "^1.2.0",
     "husky": "1",
     "lint-staged": "8",
     "np": "5",
