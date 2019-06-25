@@ -1,5 +1,4 @@
-
-export const singleSpa = {
+export const qiankun = {
   bootstrap() {
     console.log('app1 bootstrap');
   },
