@@ -1,6 +1,8 @@
+import { name } from './package';
 
 export default {
+  base: name,
   plugins: [
-    ['../../../slave.js', { base: '/app1' }],
+    ['../../../slave.js'],
   ],
-}
+};

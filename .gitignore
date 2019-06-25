@@ -6,3 +6,4 @@
 /test/fixtures/**/dist
 /test/fixtures/**/.umi
 /test/fixtures/**/.umi-production
+.idea/

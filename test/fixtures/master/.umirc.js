@@ -5,19 +5,13 @@ export default {
       apps: [
         {
           name: 'app1',
-          routerPrefix: '/app1',
-          entry: {
-            scripts: [{ src: 'http://localhost:8002/umi.js' }],
-            styles: [{ src: 'http://localhost:8002/umi.css' }],
-          },
+          routerBase: '#/app1',
+          entry: 'http://localhost:8002',
         },
         {
           name: 'app2',
-          routerPrefix: '/app2',
-          entry: {
-            scripts: ['http://localhost:8003/umi.js'],
-            styles: ['http://localhost:8003/umi.css'],
-          },
+          routerBase: '#/app2',
+          entry: 'http://localhost:8003',
         },
       ],
     }],

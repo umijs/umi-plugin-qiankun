@@ -1,2 +1,1 @@
-
-module.exports = require('./lib/plugins/master').default;
+module.exports = require('./lib/master').default;
