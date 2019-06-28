@@ -22,7 +22,7 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 ## 如何验证这个项目
 
-效果如下，导航是主应用，App1 和 App2 是主应用，
+效果如下，导航是主应用，App1 和 App2 是子应用，
 
 ![](https://cdn.nlark.com/yuque/0/2019/gif/86025/1556528226619-df48c9c3-a5ec-4796-b23d-78f12b46fb68.gif)
 
