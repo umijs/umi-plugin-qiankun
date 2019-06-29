@@ -18,7 +18,7 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 ## RFC
 
-* [RFC: 微前端（umi-plugin-single-spa） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
+- [RFC: 微前端（umi-plugin-single-spa） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
 
 ## 如何验证这个项目
 
@@ -55,12 +55,12 @@ $ umi dev
 - ✔︎ CSS 隔离
 - ✔︎ 父子应用通讯
 - ✔︎ 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
+- ✔︎ HTML Entry
 
 ## TODO
 
 暂没很多时间深入，有需求的同学最好自己上。
 
-- [ ] HTML Entry
 - [ ] JS 沙箱
 - [ ] 公共依赖加载策略
 - [ ] 预加载
@@ -84,31 +84,34 @@ $ yarn add umi-plugin-single-spa
 ```js
 export default {
   plugins: [
-    ['umi-plugin-qiankun/master', {
-      // 注册子应用信息
-      apps: [
-        {
-          // 唯一 id，传给 qiankun
-          name: 'app1',
-          // 支持 config entry
-          entry: {
-            scripts: [],
-            styles: [],
+    [
+      'umi-plugin-qiankun/master',
+      {
+        // 注册子应用信息
+        apps: [
+          {
+            // 唯一 id，传给 qiankun
+            name: 'app1',
+            // 支持 config entry
+            entry: {
+              scripts: [],
+              styles: [],
+            },
           },
-        },
-        {
-          name: 'app2',
-          // 支持 html entry（暂不支持）
-          entry: {
-            html: '/path/to/app/index.html',
+          {
+            name: 'app2',
+            // 支持 html entry
+            entry: {
+              html: '/path/to/app/index.html',
+            },
           },
-        },
-      ],
-      // JS 沙箱（暂不支持）
-      jsSandBox: false,
-    }],
+        ],
+        // JS 沙箱（暂不支持配置）
+        jsSandBox: false,
+      },
+    ],
   ],
-}
+};
 ```
 
 ### 子应用
@@ -118,17 +121,20 @@ export default {
 ```js
 export default {
   plugins: [
-    ['umi-plugin-qiankun/slave', {
-      mountElementId: 'app-root',
-    }],
+    [
+      'umi-plugin-qiankun/slave',
+      {
+        mountElementId: 'app-root',
+      },
+    ],
   ],
-}
+};
 ```
 
 ## 父子应用通讯
 
-* 约定父应用中在 `src/rootExports.js` 里 export 内容
-* 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
+- 约定父应用中在 `src/rootExports.js` 里 export 内容
+- 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
 
 ## 运行时配置
 
@@ -145,7 +151,7 @@ export const singleSpa = {
   unmount() {
     console.log('app1 unmount');
   },
-}
+};
 ```
 
 ## 相关
