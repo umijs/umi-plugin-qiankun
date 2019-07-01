@@ -4,9 +4,9 @@ Umi plugin for [qiankun](https://github.com/umijs/qiankun).
 
 **试验性质的项目，不要用于生产环境。**
 
-[![NPM version](https://img.shields.io/npm/v/umi-plugin-qiankun.svg?style=flat)](https://npmjs.org/package/umi-plugin-qiankun)
+[![NPM version](https://img.shields.io/npm/v/@umijs/plugin-qiankun.svg?style=flat)](https://npmjs.org/package/@umijs/plugin-qiankun)
 [![Build Status](https://img.shields.io/travis/umijs/umi-plugin-qiankun.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-qiankun)
-[![NPM downloads](http://img.shields.io/npm/dm/umi-plugin-qiankun.svg?style=flat)](https://npmjs.org/package/umi-plugin-qiankun)
+[![NPM downloads](http://img.shields.io/npm/dm/@umijs/plugin-qiankun.svg?style=flat)](https://npmjs.org/package/@umijs/plugin-qiankun)
 
 ## Questions & Suggestions
 
