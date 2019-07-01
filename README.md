@@ -18,7 +18,7 @@ Please open an issue [here](https://github.com/umijs/umi/issues?q=is%3Aissue+is%
 
 ## RFC
 
-- [RFC: 微前端（umi-plugin-single-spa） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
+- [RFC: 微前端（@umijs/plugin-qiankun） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
 
 ## 如何验证这个项目
 
@@ -72,14 +72,14 @@ $ umi dev
 ## Installation
 
 ```bash
-$ yarn add umi-plugin-single-spa
+$ yarn add @umijs/plugin-qiankun
 ```
 
 ## Usage
 
 ### 主应用
 
-配 `umi-plugin-single-spa/master` 插件，
+配 `@umijs/plugin-qiankun/master` 插件，
 
 ```js
 export default {
