@@ -1,4 +1,4 @@
-# umi-plugin-qiankun
+# @umijs/plugin-qiankun
 
 Umi plugin for [qiankun](https://github.com/umijs/qiankun).
 
@@ -85,7 +85,7 @@ $ yarn add umi-plugin-single-spa
 export default {
   plugins: [
     [
-      'umi-plugin-qiankun/master',
+      '@umijs/plugin-qiankun/master',
       {
         // 注册子应用信息
         apps: [
@@ -116,13 +116,13 @@ export default {
 
 ### 子应用
 
-配 `umi-plugin-qiankun/slave` 插件，
+配 `@umijs/plugin-qiankun/slave` 插件，
 
 ```js
 export default {
   plugins: [
     [
-      'umi-plugin-qiankun/slave',
+      '@umijs/plugin-qiankun/slave',
       {
         mountElementId: 'app-root',
       },

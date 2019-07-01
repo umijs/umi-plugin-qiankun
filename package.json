@@ -1,5 +1,5 @@
 {
-  "name": "umi-plugin-qiankun",
+  "name": "@umijs/plugin-qiankun",
   "version": "0.1.0",
   "description": "umi plugin for qiankun",
   "repository": "umijs/umi-plugin-qiankun",
@@ -8,10 +8,12 @@
     "micro frontend",
     "qiankun"
   ],
-  "author": {
-    "name": "chencheng",
-    "email": "sorrycc@gmail.com"
-  },
+  "authors": [
+    {
+      "name": "chencheng",
+      "email": "sorrycc@gmail.com"
+    }
+  ],
   "engines": {
     "node": ">=8.0.0"
   },
@@ -52,5 +54,8 @@
     "master.js",
     "slave.js"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
