@@ -8,4 +8,4 @@ export const qiankun = {
   unmount() {
     console.log('app1 unmount');
   },
-}
+};
