@@ -40,7 +40,7 @@ $ yarn
 $ yarn build
 ```
 
-在 `test/fixtures` 下的 master、app1 和 app2 下同时运行，
+在 `examples` 下的 master、app1 和 app2 下同时运行，
 
 ```bash
 $ umi dev
