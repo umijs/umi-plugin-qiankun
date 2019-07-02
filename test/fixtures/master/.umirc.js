@@ -1,5 +1,6 @@
 
 export default {
+  history: 'hash',
   plugins: [
     ['../../../master', {
       apps: [
