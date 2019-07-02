@@ -30,7 +30,7 @@ export default function({ children }) {
         </ul>
       </header>
       {children}
-      {/* <div id="app-root" style={{ padding: 10, background: '#ccc' }}></div> */}
+      <div id="app-root" style={{ padding: 10, background: '#ccc' }}></div>
     </div>
   );
 }
