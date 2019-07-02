@@ -53,17 +53,17 @@ $ umi dev
 - ✔︎ 按需加载子应用资源
 - ✔︎ Config Entry
 - ✔︎ CSS 隔离
+- ✔ JS 沙箱
 - ✔︎ 父子应用通讯
 - ✔︎ 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 - ✔︎ HTML Entry
+- ✔ 预加载
 
 ## TODO
 
 暂没很多时间深入，有需求的同学最好自己上。
 
-- [ ] JS 沙箱
 - [ ] 公共依赖加载策略
-- [ ] 预加载
 - [ ] 支持 browserHistory
 - [ ] 子应用嵌套
 - [ ] 子应用单独调试
@@ -138,10 +138,10 @@ export default {
 
 ## 运行时配置
 
-在子应用的 `src/app.js` 里输出 `singleSpa`，
+在子应用的 `src/app.js` 里输出 `qiankun`，
 
 ```js
-export const singleSpa = {
+export const qiankun = {
   bootstrap() {
     console.log('app1 bootstrap');
   },
