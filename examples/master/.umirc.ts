@@ -1,5 +1,15 @@
 export default {
+  history: 'hash',
   plugins: [
+    [
+      'umi-plugin-react',
+      {
+        antd: true,
+        dynamicImport: {
+          loadingComponent: './pages/loading.jsx',
+        },
+      },
+    ],
     [
       '../../master',
       {

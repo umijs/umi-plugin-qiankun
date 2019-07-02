@@ -7,3 +7,6 @@
 /test/fixtures/**/.umi
 /test/fixtures/**/.umi-production
 .idea/
+/examples/**/node_modules
+/examples/**/yarn.lock
+/examples/**/.umi

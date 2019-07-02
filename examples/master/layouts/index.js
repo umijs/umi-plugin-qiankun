@@ -1,23 +1,36 @@
 import { Link } from 'umi';
 import styles from './index.css';
 
-export default function() {
+const menu = [
+  {
+    path: '/',
+    name: 'Home',
+  },
+  {
+    path: '/app1',
+    name: 'App1',
+  },
+  {
+    path: '/app2',
+    name: 'App2',
+  },
+];
+
+export default function({ children }) {
   return (
     <div className={styles.normal}>
       <header>
         <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="#/app1">App1</Link>
-          </li>
-          <li>
-            <Link to="#/app2">App2</Link>
-          </li>
+          {menu.map(({ name, path }) => (
+            <li key={path}>
+              {' '}
+              <Link to={path}>{name}</Link>
+            </li>
+          ))}
         </ul>
       </header>
-      <div id="app-root" style={{ padding: 10, background: '#ccc' }}></div>
+      {children}
+      {/* <div id="app-root" style={{ padding: 10, background: '#ccc' }}></div> */}
     </div>
   );
 }

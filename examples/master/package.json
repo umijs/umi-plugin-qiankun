@@ -1,0 +1,9 @@
+{
+  "name": "master",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "umi-plugin-react": "^1.9.7"
+  }
+}
