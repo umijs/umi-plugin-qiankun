@@ -4,5 +4,5 @@ node_js:
   - "8"
   - "10"
 
-after_success:
-  - npm run coveralls
+#after_success:
+#  - npm test
