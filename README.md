@@ -101,9 +101,7 @@ export default {
           {
             name: 'app2',
             // 支持 html entry
-            entry: {
-              html: '/path/to/app/index.html',
-            },
+            entry: '/path/to/app/index.html',
           },
         ],
         // JS 沙箱（暂不支持配置）
