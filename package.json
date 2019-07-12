@@ -21,6 +21,9 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish",
     "build": "father-build",
+    "start:master": "cd examples/master && umi dev",
+    "start:app1": "cd examples/app1 && umi dev",
+    "start:app2": "cd examples/app2 && umi dev",
     "test": "echo \"test\""
   },
   "dependencies": {
