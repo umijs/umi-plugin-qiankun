@@ -17,7 +17,7 @@ export function render(oldRender: typeof noop) {
       entry,
       activeRule: location => isAppActive(location, routerBase),
       render: ({ appContent, loading }) => {
-        if (process.env.NODE === 'development') {
+        if (process.env.NODE_ENV === 'development') {
           console.info(`app ${name} loading ${loading} with html content: ${appContent}`);
         }
       },
