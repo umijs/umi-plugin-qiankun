@@ -29,6 +29,6 @@ export default function(api: IApi, options: IOptions = {}) {
 window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')` : `{}`};
     `.trim();
     api.writeTmpFile('qiankunRootExports.js', rootExports);
-    api.writeTmpFile('microApps.json', JSON.stringify(options.apps));
+    api.writeTmpFile('subAppsConfig.json', JSON.stringify(options));
   });
 }

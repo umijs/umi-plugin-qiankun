@@ -15,6 +15,8 @@ export default {
             entry: 'http://localhost:8003',
           },
         ],
+        jsSandbox: true,
+        prefetch: true,
       },
     ],
   ],
