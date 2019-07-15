@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { join } from 'path';
 import { IApi } from 'umi-types';
 
 interface IOptions {
@@ -10,35 +11,38 @@ export default function(api: IApi, options: IOptions = {}) {
   const mountElementId = options.mountElementId || 'app-root';
 
   api.modifyDefaultConfig(memo => {
+    const { name: pkgName } = require(join(api.cwd, 'package.json'));
+
     return {
       ...memo,
       disableGlobalVariables: true,
       // TODO: 支持 browser history
       history: 'hash',
+      base: `/${pkgName}`,
       mountElementId,
     };
   });
 
   api.modifyWebpackConfig(memo => {
     memo.output!.libraryTarget = 'umd';
-    assert(
-      api.pkg.name,
-      `You should have name in package.json`,
-    );
+    assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     return memo;
   });
 
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
-  api.writeTmpFile('qiankunContext.js', `
+  api.writeTmpFile(
+    'qiankunContext.js',
+    `
 import { createContext, useContext } from 'react';
 
 export const Context = createContext(null);
 export function useRootExports() {
   return useContext(Context);
 };
-  `.trim());
+  `.trim(),
+  );
   api.addUmiExports([
     {
       specifiers: ['useRootExports'],
@@ -61,4 +65,4 @@ export function useRootExports() {
     export const unmount = qiankun_genUnmount('${mountElementId}');
     `,
   );
-};
+}
