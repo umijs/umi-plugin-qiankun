@@ -3,12 +3,12 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 
 interface IApp {
-  scripts?: [],
-  styles?: [],
+  scripts?: [];
+  styles?: [];
 }
 
 interface IOptions {
-  apps?: IApp[],
+  apps?: IApp[];
 }
 
 export default function(api: IApi, options: IOptions = {}) {
@@ -31,4 +31,4 @@ window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')
     api.writeTmpFile('qiankunRootExports.js', rootExports);
     api.writeTmpFile('microApps.json', JSON.stringify(options.apps));
   });
-};
+}

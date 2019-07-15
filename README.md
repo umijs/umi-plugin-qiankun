@@ -57,7 +57,7 @@ $ umi dev
 - ✔︎ 父子应用通讯
 - ✔︎ 运行时配置 `bootstrap()`、`mount()` 和 `unmount()`
 - ✔︎ HTML Entry
-- ✔ 预加载
+- ✔ js/css 预加载
 
 ## TODO
 
@@ -88,7 +88,7 @@ export default {
       '@umijs/plugin-qiankun/master',
       {
         // 注册子应用信息
-        apps: [
+        subAppConfig: [
           {
             // 唯一 id，传给 qiankun
             name: 'app1',
@@ -104,8 +104,8 @@ export default {
             entry: '/path/to/app/index.html',
           },
         ],
-        // JS 沙箱（暂不支持配置）
-        jsSandBox: false,
+        jsSandBox: true, // 是否启用 js 沙箱，默认为 false
+        prefetch: true, // 是否启用 prefetch 特性，默认为 true
       },
     ],
   ],
@@ -118,11 +118,12 @@ export default {
 
 ```js
 export default {
+  base: `/${appName}`, // 应用的 routerBase，默认为 package.json 中的 name 字段
   plugins: [
     [
       '@umijs/plugin-qiankun/slave',
       {
-        mountElementId: 'app-root',
+        mountElementId: 'app-root', // 子应用需挂载到哪个节点，默认为 #app-root
       },
     ],
   ],

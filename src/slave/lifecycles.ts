@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { noop } from '../utils';
 
 type Defer = {
-  promise: Promise<any>,
+  promise: Promise<any>;
   resolve(value?: any): void;
-}
+};
 
 // @ts-ignore
 const defer: Defer = {};
