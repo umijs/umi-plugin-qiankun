@@ -7,3 +7,7 @@
 /test/fixtures/**/.umi
 /test/fixtures/**/.umi-production
 .idea/
+.cache/
+.umi/
+.umi-production/
+yarn.lock
