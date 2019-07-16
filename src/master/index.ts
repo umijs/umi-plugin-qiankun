@@ -1,6 +1,7 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { IApi } from 'umi-types';
+import { defaultMasterContainerId } from '../common';
 
 interface IApp {
   scripts?: [];
@@ -17,6 +18,7 @@ export default function(api: IApi, options: IOptions = {}) {
   api.modifyDefaultConfig(config => {
     return {
       ...config,
+      mountElementId: defaultMasterContainerId,
       disableGlobalVariables: true,
     };
   });
