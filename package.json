@@ -31,6 +31,7 @@
     "qiankun": "^1.1.1"
   },
   "devDependencies": {
+    "@types/react-dom": "^16.8.4",
     "coveralls": "3",
     "father-build": "^1.2.0",
     "husky": "1",
