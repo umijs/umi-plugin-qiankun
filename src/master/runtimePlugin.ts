@@ -25,6 +25,18 @@ export function render(oldRender: typeof noop) {
           if (process.env.NODE_ENV === 'development') {
             console.info(`app ${name} loading ${loading}`);
           }
+
+          if (mountElementId) {
+            const container = document.getElementById(mountElementId);
+            if (container) {
+              const subApp = React.createElement('div', {
+                dangerouslySetInnerHTML: {
+                  __html: appContent,
+                },
+              });
+              ReactDOM.render(subApp, container);
+            }
+          }
         },
         props,
       };
