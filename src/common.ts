@@ -4,7 +4,7 @@
  */
 
 export const defaultMountContainerId = 'root-subapp';
-export const defaultMasterContainerId = 'root-master';
+export const defaultMasterRootId = 'root-master';
 export const defaultSlaveContainerId = 'root-slave';
 
 // @formatter:off
