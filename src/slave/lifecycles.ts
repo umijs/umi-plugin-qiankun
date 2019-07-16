@@ -1,6 +1,6 @@
 // @ts-ignore
 import ReactDOM from 'react-dom';
-import { noop } from '../utils';
+import { noop } from '../common';
 
 type Defer = {
   promise: Promise<any>;
@@ -52,7 +52,10 @@ export function genMount() {
 
 export function genUnmount(mountElementId: string) {
   return async (...args: any[]) => {
-    ReactDOM.unmountComponentAtNode(document.getElementById(mountElementId));
+    const container = document.getElementById(mountElementId);
+    if (container) {
+      ReactDOM.unmountComponentAtNode(container);
+    }
     const slaveRuntime = getSlaveRuntime();
     if (slaveRuntime.unmount) await slaveRuntime.unmount(...args);
   };

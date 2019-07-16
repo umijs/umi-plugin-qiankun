@@ -1,6 +1,7 @@
 import assert from 'assert';
 import { join } from 'path';
 import { IApi } from 'umi-types';
+import { defaultSlaveContainerId } from '../common';
 
 interface IOptions {
   mountElementId?: string;
@@ -8,7 +9,7 @@ interface IOptions {
 
 export default function(api: IApi, options: IOptions = {}) {
   const lifecyclePath = require.resolve('./lifecycles');
-  const mountElementId = options.mountElementId || 'app-root';
+  const mountElementId = api.config.mountElementId || options.mountElementId || defaultSlaveContainerId;
 
   api.modifyDefaultConfig(memo => {
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
