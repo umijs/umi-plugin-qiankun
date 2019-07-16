@@ -8,6 +8,7 @@ declare module '@tmp/subAppsConfig.json' {
     name: string;
     entry: string | { scripts: string[], styles: string[] };
     routerBase: string;
+    mountElementId: string;
   };
 
   const configuration: {
