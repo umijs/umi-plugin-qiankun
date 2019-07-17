@@ -6,6 +6,7 @@
 export const defaultMountContainerId = 'root-subapp';
 export const defaultMasterRootId = 'root-master';
 export const defaultSlaveContainerId = 'root-slave';
+export const defaultHistoryMode = 'hash';
 
 // @formatter:off
 export const noop = () => {};
