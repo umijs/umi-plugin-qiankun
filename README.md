@@ -97,11 +97,13 @@ export default {
               scripts: [],
               styles: [],
             },
+            base: '/app1',
           },
           {
             name: 'app2',
             // 支持 html entry
             entry: '/path/to/app/index.html',
+            base: '/app2',
           },
         ],
         jsSandBox: true, // 是否启用 js 沙箱，默认为 false
@@ -118,7 +120,7 @@ export default {
 
 ```js
 export default {
-  base: `/${appName}`, // 应用的 routerBase，默认为 package.json 中的 name 字段
+  base: `/${appName}`, // 应用的 base，默认为 package.json 中的 name 字段
   plugins: [
     [
       '@umijs/plugin-qiankun/slave',
