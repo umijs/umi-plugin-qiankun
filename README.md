@@ -64,7 +64,7 @@ $ umi dev
 暂没很多时间深入，有需求的同学最好自己上。
 
 - [ ] 公共依赖加载策略
-- [ ] 支持 browserHistory
+- [x] 支持 browserHistory
 - [ ] 子应用嵌套
 - [ ] 子应用单独调试
 - [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
