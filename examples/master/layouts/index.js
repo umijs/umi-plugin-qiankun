@@ -13,7 +13,7 @@ export default function() {
             <Link to="/app1">app1</Link>
           </li>
           <li>
-            <Link to="/app2">Home</Link>
+            <Link to="/app2">app2</Link>
           </li>
         </ul>
       </header>
