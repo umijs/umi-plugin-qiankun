@@ -11,3 +11,7 @@ export const defaultHistoryMode = 'browser';
 // @formatter:off
 export const noop = () => {};
 // @formatter:on
+
+export function toArray<T>(source: T | T[]): T[] {
+  return Array.isArray(source) ? source : [source];
+}

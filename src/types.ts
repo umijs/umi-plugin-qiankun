@@ -8,7 +8,7 @@ import IConfig from 'umi-types/config';
 export type App = {
   name: string;
   entry: string | { scripts: string[], styles: string[] };
-  base: Required<IConfig['base']>;
+  base: string | string[];
 } & Pick<IConfig, 'history' | 'mountElementId'>;
 
 export type Options = {

@@ -4,19 +4,21 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultHistoryMode, defaultMountContainerId, noop } from '../common';
+import { defaultHistoryMode, defaultMountContainerId, noop, toArray } from '../common';
 import { App, Options } from '../types';
 
 export function render(oldRender: typeof noop) {
   oldRender();
 
-  function isAppActive(location: Location, history: IConfig['history'], base: App['base'] = '/') {
+  function isAppActive(location: Location, history: IConfig['history'], base: App['base']) {
+    const baseConfig = toArray(base);
+
     switch (history) {
       case 'hash':
-        return location.hash.startsWith(`#${base}`);
+        return baseConfig.some(pathPrefix => location.hash.startsWith(`#${pathPrefix}`));
 
       case 'browser':
-        return location.pathname.startsWith(base);
+        return baseConfig.some(pathPrefix => location.pathname.startsWith(pathPrefix));
 
       default:
         return false;
