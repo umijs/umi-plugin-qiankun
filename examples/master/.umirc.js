@@ -1,5 +1,4 @@
 export default {
-  history: 'hash',
   plugins: [
     [
       '../../master',
@@ -8,7 +7,6 @@ export default {
           {
             name: 'app1',
             entry: 'http://localhost:8002',
-            history: 'hash',
             base: '/app1',
             mountElementId: 'app-root',
           },

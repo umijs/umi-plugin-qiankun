@@ -18,18 +18,15 @@ export default function(api: IApi, options: Options) {
     };
   });
 
-  const { config: { history } } = api;
+  const { config: { history = defaultHistoryMode } } = api;
   const { apps } = options;
 
-  /**
-   * 当子应用的 history mode 跟主应用一致时，为避免出现 404 手动为主应用创建一个 path 为 子应用 routerBase 的空 div 路由组件
-   * @param historyMode
-   */
-  function modifyAppRoutes(historyMode: IConfig['history']) {
+  function modifyAppRoutes(masterHistory: IConfig['history']) {
     api.modifyRoutes(routes => {
-      let newRoutes = [...routes];
-      apps.forEach(({ history = defaultHistoryMode, base }) => {
-        if (history === historyMode) {
+      const newRoutes = [...routes];
+      apps.forEach(({ history: slaveHistory = defaultHistoryMode, base }) => {
+        // 当子应用的 history mode 跟主应用一致时，为避免出现 404 手动为主应用创建一个 path 为 子应用 rule 的空 div 路由组件
+        if (slaveHistory === masterHistory) {
           newRoutes.push({ path: `${base}/*`, component: `() => React.createElement('div')` });
         }
       });
