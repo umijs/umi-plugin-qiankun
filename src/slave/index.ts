@@ -17,8 +17,6 @@ export default function(api: IApi, options: IOptions = {}) {
     return {
       ...memo,
       disableGlobalVariables: true,
-      // TODO: 支持 browser history
-      history: 'hash',
       base: `/${pkgName}`,
       mountElementId,
     };
