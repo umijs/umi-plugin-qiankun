@@ -10,10 +10,10 @@ export default function() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/#/app1">App1</a>
+            <Link to="/app1">app1</Link>
           </li>
           <li>
-            <a href="/#/app2">App2</a>
+            <Link to="/app2">Home</Link>
           </li>
         </ul>
       </header>

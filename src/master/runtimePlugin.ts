@@ -5,12 +5,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMountContainerId, noop } from '../common';
-import { Options } from '../types';
+import { App, Options } from '../types';
 
 export function render(oldRender: typeof noop) {
   oldRender();
 
-  function isAppActive(location: Location, history: IConfig['history'], base: IConfig['base'] = '/') {
+  function isAppActive(location: Location, history: IConfig['history'], base: App['base'] = '/') {
     switch (history) {
       case 'hash':
         return location.hash.startsWith(`#${base}`);
