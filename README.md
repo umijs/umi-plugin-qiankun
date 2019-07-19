@@ -34,6 +34,7 @@ $ yarn start:master & yarn start:app1 & yarn start:app2
 
 - ✔︎ 基于 qiankun
 - ✔︎ 支持主应用和子应用都用 umi
+- ✔︎ 支持主子应用 browser、hash 等多种 history 模式
 - ✔︎ 父子应用通讯
 - ✔︎ 子应用运行时配置自定义 `bootstrap()`、`mount()` 和 `unmount()`
 
