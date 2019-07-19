@@ -4,8 +4,11 @@
  */
 
 export const defaultMountContainerId = 'root-subapp';
+
+// 主应用跟子应用的默认 root id 区分开，避免冲突
 export const defaultMasterRootId = 'root-master';
-export const defaultSlaveContainerId = 'root-slave';
+export const defaultSlaveRootId = 'root-slave';
+
 export const defaultHistoryMode = 'browser';
 
 // @formatter:off
