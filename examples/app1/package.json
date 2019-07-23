@@ -1,3 +1,6 @@
 {
-  "name": "app1"
+  "name": "app1",
+  "devDependencies": {
+    "source-map-loader": "^0.2.4"
+  }
 }
