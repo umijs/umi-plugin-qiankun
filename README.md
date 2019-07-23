@@ -27,7 +27,7 @@ $ yarn add @umijs/plugin-qiankun
 ```bash
 $ yarn
 $ yarn build
-$ yarn start:master & yarn start:app1 & yarn start:app2
+$ yarn start
 ```
 
 ## Features

@@ -12,7 +12,8 @@ export default function(api: IApi) {
 
     return {
       ...memo,
-      disableGlobalVariables: true,
+      // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
+      // disableGlobalVariables: true,
       base: `/${pkgName}`,
       mountElementId,
     };
