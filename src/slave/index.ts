@@ -3,9 +3,9 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import { defaultSlaveRootId } from '../common';
 
-export default function (api: IApi, opts:any) {
+export default function (api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
-  const mountElementId = opts.mountElementId || defaultSlaveRootId;
+  const mountElementId = api.config.mountElementId || defaultSlaveRootId;
 
   api.modifyDefaultConfig(memo => {
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
@@ -13,7 +13,7 @@ export default function (api: IApi, opts:any) {
     return {
       ...memo,
       // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
-      disableGlobalVariables: true,
+      // disableGlobalVariables: true,
       base: `/${pkgName}`,
       mountElementId,
     };

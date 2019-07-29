@@ -5,13 +5,9 @@ export default {
   history: 'browser',
   publicPath: '/app1/',
   outputPath: './dist/app1',
+  mountElementId: 'app1',
   plugins: [
-    [
-      '../../slave.js',
-      {
-        mountElementId: 'app1',
-      },
-    ],
+    ['../../slave.js'],
     [
       'umi-plugin-react',
       {
