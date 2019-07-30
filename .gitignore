@@ -1,5 +1,6 @@
 /yarn.lock
 /package-lock.json
+node_modules
 /lib
 /test/fixtures/**/node_modules
 /test/fixtures/**/dist
@@ -11,7 +12,6 @@
 .umi-production/
 yarn.lock
 .history
-node_modules
 .vscode/
 *.log
 dist
