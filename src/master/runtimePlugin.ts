@@ -42,7 +42,6 @@ export function render(oldRender: typeof noop) {
             const container = document.getElementById(mountElementId);
             if (container) {
               const subApp = React.createElement('div', {
-                id: 'slave-wrapper',
                 dangerouslySetInnerHTML: {
                   __html: appContent,
                 },
