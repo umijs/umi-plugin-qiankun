@@ -132,6 +132,10 @@ export const qiankun = {
 - [ ] 子应用单独调试
 - [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
 
+## Community
+
+https://github.com/umijs/umi#community
+
 ## 相关
 
 - [RFC: 微前端（@umijs/plugin-qiankun） by sorrycc · Pull Request #3 · umijs/rfcs · GitHub](https://github.com/umijs/rfcs/pull/3)
