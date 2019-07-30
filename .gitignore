@@ -11,3 +11,7 @@ node_modules
 .umi/
 .umi-production/
 yarn.lock
+.history
+.vscode/
+*.log
+dist

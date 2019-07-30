@@ -1,5 +1,10 @@
 {
   "name": "app1",
+  "scripts": {
+    "start": "umi dev",
+    "build": "COMPRESS=none umi build",
+    "test": "umi test"
+  },
   "devDependencies": {
     "source-map-loader": "^0.2.4"
   }

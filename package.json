@@ -37,11 +37,14 @@
     "father-build": "^1.2.0",
     "husky": "1",
     "lint-staged": "8",
+    "mockjs": "^1.0.1-beta3",
     "np": "5",
     "prettier": "1",
     "umi": "^2.8.3",
+    "umi-plugin-react": "^1.9.13",
     "umi-test": "1",
-    "umi-types": "^0.3.3"
+    "umi-types": "^0.3.3",
+    "umi-request": "^1.1.0"
   },
   "husky": {
     "hooks": {

@@ -1,9 +1,11 @@
-import styles from './index.css';
+import { useRootExports } from 'umi';
+import Link from 'umi/link';
 
 export default function() {
+  const rootExports = useRootExports();
   return (
-    <div className={styles.normal}>
-      <h1>App 2</h1>
+    <div>
+      <h1>Dashboard</h1>
     </div>
   );
 }
