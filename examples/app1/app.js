@@ -1,11 +1,9 @@
-export const qiankun = {
-  bootstrap() {
-    console.log('app1 bootstrap');
-  },
-  mount() {
-    console.log('app1 mount');
-  },
-  unmount() {
-    console.log('app1 unmount');
-  },
-};
+import * as app from '@tmp/umi';
+
+if (!window.isMain) {
+  setTimeout(() => {
+    app.bootstrap().then(() => {
+      app.mount();
+    });
+  }, 0);
+}

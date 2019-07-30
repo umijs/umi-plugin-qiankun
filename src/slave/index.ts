@@ -3,7 +3,7 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import { defaultSlaveRootId } from '../common';
 
-export default function(api: IApi) {
+export default function (api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
 
