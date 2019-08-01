@@ -2,6 +2,7 @@
   "name": "master",
   "scripts": {
     "start": "umi dev",
+    "dev": "node proxy",
     "build": "COMPRESS=none umi build",
     "test": "umi test"
   }

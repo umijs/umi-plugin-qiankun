@@ -27,7 +27,7 @@ $ yarn add @umijs/plugin-qiankun
 ```bash
 $ yarn
 $ yarn build
-$ yarn start
+$ yarn start，访问http://localhost:3000
 ```
 
 ## Features
@@ -37,6 +37,7 @@ $ yarn start
 - ✔︎ 支持主子应用 browser、hash 等多种 history 模式
 - ✔︎ 父子应用通讯
 - ✔︎ 子应用运行时配置自定义 `bootstrap()`、`mount()` 和 `unmount()`
+- ✔︎ 子应用单独调试，通过 master/proxy.js 代理主应用和子应用，这样任何应用代码变更都会通知到代理服务器
 
 ## Usage
 
@@ -129,7 +130,7 @@ export const qiankun = {
 - [x] 支持 browserHistory
 - [ ] 公共依赖加载策略
 - [ ] 子应用嵌套
-- [ ] 子应用单独调试
+- [x] 子应用单独调试
 - [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
 
 ## Questions & Suggestions

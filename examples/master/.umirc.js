@@ -1,7 +1,7 @@
 export default {
-  devServer: {
-    historyApiFallback: true,
-  },
+  // devServer: {
+  //   historyApiFallback: true,
+  // },
   proxy: {
     '/api/app1': {
       target: 'http://localhost:8001',

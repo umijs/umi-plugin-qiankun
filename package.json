@@ -18,13 +18,14 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "npm run start:master & npm run start:app1 & npm run start:app2",
+    "start": "npm run start:master & npm run start:app1 & npm run start:app2 & npm run proxy",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish",
     "build": "father-build",
     "start:master": "cd examples/master && umi dev",
     "start:app1": "cd examples/app1 && umi dev",
     "start:app2": "cd examples/app2 && umi dev",
+    "proxy": "cd examples/master && node proxy",
     "test": "echo \"test\""
   },
   "dependencies": {
