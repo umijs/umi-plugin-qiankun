@@ -3,6 +3,8 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import { defaultSlaveRootId } from '../common';
 
+const webpack = require('webpack')
+
 export default function (api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
@@ -24,8 +26,23 @@ export default function (api: IApi) {
     assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
+    // 禁用devtool，启用SourceMapDevToolPlugin
+    memo.devtool = false
     return memo;
   });
+
+  // source-map跨域设置
+  api.chainWebpackConfig((memo) => {
+    if (process.env.NODE_ENV === 'development') {
+      const app = api.config.mountElementId
+      const port = process.env.PORT
+      memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
+        namespace: app,
+        append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
+        filename: '[name].js.map'
+      }]);
+    }
+  })
 
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.writeTmpFile(
