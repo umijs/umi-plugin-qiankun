@@ -84,7 +84,7 @@ export default {
 | entry          | 子应用 html 地址                                                                                                              | string \| { script: string[], styles: [] } | 是       |             |
 | base           | 子应用路由前缀，通常跟子应用的 [base 配置](https://umijs.org/config/#base) 一致，框架会以这个配置作为前缀判断是否激活当前应用 | string \| string[]                         | 是       |             |
 | history        | [umi history mode](https://umijs.org/config/#history)                                                                         | string                                     | 否       | browser     |
-| mountElementId | 子应用挂载到主应用的哪个 id 节点上                                                                                            | string                                     | 否       | root-subapp |
+| mountElementId | 子应用挂载到主应用的哪个 id 节点上（注意不要使用跟子应用配置相同的 mountElementId）                                           | string                                     | 否       | root-subapp |
 
 ### 子应用
 
