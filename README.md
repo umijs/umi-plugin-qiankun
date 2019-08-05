@@ -37,6 +37,7 @@ $ yarn start
 - ✔︎ 支持主子应用 browser、hash 等多种 history 模式
 - ✔︎ 父子应用通讯
 - ✔︎ 子应用运行时配置自定义 `bootstrap()`、`mount()` 和 `unmount()`
+- ✔︎ 主应用、子应用联调，.env 配置 SOCKET_SERVER，子应用 websocket 跨域访问
 
 ## Usage
 
