@@ -1,6 +1,6 @@
 {
   "name": "@umijs/plugin-qiankun",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "umi plugin for qiankun",
   "repository": "umijs/umi-plugin-qiankun",
   "keywords": [
@@ -42,9 +42,9 @@
     "prettier": "1",
     "umi": "^2.8.3",
     "umi-plugin-react": "^1.9.13",
+    "umi-request": "^1.1.0",
     "umi-test": "1",
-    "umi-types": "^0.3.3",
-    "umi-request": "^1.1.0"
+    "umi-types": "^0.3.3"
   },
   "husky": {
     "hooks": {
