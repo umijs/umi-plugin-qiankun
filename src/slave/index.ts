@@ -26,12 +26,14 @@ export default function (api: IApi) {
     assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
-    // 禁用devtool，启用SourceMapDevToolPlugin
-    memo.devtool = false
+    // 禁用 devtool，启用 SourceMapDevToolPlugin
+    if (process.env.NODE_ENV === 'development') {
+      memo.devtool = false;
+    }
     return memo;
   });
 
-  // source-map跨域设置
+  // source-map 跨域设置
   api.chainWebpackConfig((memo) => {
     if (process.env.NODE_ENV === 'development') {
       const app = api.config.mountElementId
