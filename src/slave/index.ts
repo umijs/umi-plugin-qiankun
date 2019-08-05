@@ -22,14 +22,13 @@ export default function(api: IApi) {
   });
 
   api.modifyWebpackConfig(memo => {
+    const port = process.env.PORT;
     memo.output!.libraryTarget = 'umd';
     assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
-    // 禁用 devtool，启用 SourceMapDevToolPlugin
-    if (process.env.NODE_ENV === 'development') {
-      memo.devtool = false;
-    }
+    // 配置 publicPath，支持 hot update
+    memo.output!.publicPath = `http://localhost:${port}/`;
     return memo;
   });
 
@@ -38,6 +37,8 @@ export default function(api: IApi) {
     if (process.env.NODE_ENV === 'development') {
       const app = api.config.mountElementId;
       const port = process.env.PORT;
+      // 禁用 devtool，启用 SourceMapDevToolPlugin
+      memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
         namespace: app,
         append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
