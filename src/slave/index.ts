@@ -3,9 +3,9 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import { defaultSlaveRootId } from '../common';
 
-const webpack = require('webpack')
+const webpack = require('webpack');
 
-export default function (api: IApi) {
+export default function(api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
 
@@ -36,15 +36,15 @@ export default function (api: IApi) {
   // source-map 跨域设置
   api.chainWebpackConfig((memo) => {
     if (process.env.NODE_ENV === 'development') {
-      const app = api.config.mountElementId
-      const port = process.env.PORT
+      const app = api.config.mountElementId;
+      const port = process.env.PORT;
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
         namespace: app,
         append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
-        filename: '[name].js.map'
+        filename: '[name].js.map',
       }]);
     }
-  })
+  });
 
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.writeTmpFile(
