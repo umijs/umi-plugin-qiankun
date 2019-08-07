@@ -8,6 +8,8 @@ const webpack = require('webpack');
 export default function(api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
+  const app = api.config.mountElementId;
+  const port = process.env.PORT;
 
   api.modifyDefaultConfig(memo => {
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
@@ -22,7 +24,6 @@ export default function(api: IApi) {
   });
 
   api.modifyWebpackConfig(memo => {
-    const port = process.env.PORT;
     memo.output!.libraryTarget = 'umd';
     assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
@@ -36,9 +37,9 @@ export default function(api: IApi) {
 
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development') {
+    // 变更 webpack-dev-server websocket 默认监听地址
+    process.env.SOCKET_SERVER = `http://localhost:${port}/`;
     api.chainWebpackConfig((memo) => {
-        const app = api.config.mountElementId;
-        const port = process.env.PORT;
         // 禁用 devtool，启用 SourceMapDevToolPlugin
         memo.devtool(false);
         memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
