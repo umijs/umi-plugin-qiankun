@@ -28,24 +28,26 @@ export default function(api: IApi) {
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
-    memo.output!.publicPath = `http://localhost:${port}/`;
+    if (process.env.NODE_ENV === 'development') {
+      memo.output!.publicPath = `http://localhost:${port}/`;
+    }
     return memo;
   });
 
   // source-map 跨域设置
-  api.chainWebpackConfig((memo) => {
-    if (process.env.NODE_ENV === 'development') {
-      const app = api.config.mountElementId;
-      const port = process.env.PORT;
-      // 禁用 devtool，启用 SourceMapDevToolPlugin
-      memo.devtool(false);
-      memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
-        namespace: app,
-        append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
-        filename: '[name].js.map',
-      }]);
-    }
-  });
+  if (process.env.NODE_ENV === 'development') {
+    api.chainWebpackConfig((memo) => {
+        const app = api.config.mountElementId;
+        const port = process.env.PORT;
+        // 禁用 devtool，启用 SourceMapDevToolPlugin
+        memo.devtool(false);
+        memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
+          namespace: app,
+          append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
+          filename: '[name].js.map',
+        }]);
+    });
+  }
 
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.writeTmpFile(
