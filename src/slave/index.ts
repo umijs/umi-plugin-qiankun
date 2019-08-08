@@ -8,6 +8,8 @@ const webpack = require('webpack');
 export default function(api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
+  const app = api.config.mountElementId;
+  const port = process.env.PORT;
 
   api.modifyDefaultConfig(memo => {
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
@@ -26,25 +28,27 @@ export default function(api: IApi) {
     assert(api.pkg.name, `You should have name in package.json`);
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
-    // 禁用 devtool，启用 SourceMapDevToolPlugin
+    // 配置 publicPath，支持 hot update
     if (process.env.NODE_ENV === 'development') {
-      memo.devtool = false;
+      memo.output!.publicPath = `http://localhost:${port}/`;
     }
     return memo;
   });
 
   // source-map 跨域设置
-  api.chainWebpackConfig((memo) => {
-    if (process.env.NODE_ENV === 'development') {
-      const app = api.config.mountElementId;
-      const port = process.env.PORT;
-      memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
-        namespace: app,
-        append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
-        filename: '[name].js.map',
-      }]);
-    }
-  });
+  if (process.env.NODE_ENV === 'development') {
+    // 变更 webpack-dev-server websocket 默认监听地址
+    process.env.SOCKET_SERVER = `http://localhost:${port}/`;
+    api.chainWebpackConfig((memo) => {
+        // 禁用 devtool，启用 SourceMapDevToolPlugin
+        memo.devtool(false);
+        memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
+          namespace: app,
+          append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
+          filename: '[name].js.map',
+        }]);
+    });
+  }
 
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.writeTmpFile(
