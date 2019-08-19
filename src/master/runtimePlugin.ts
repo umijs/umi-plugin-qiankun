@@ -1,11 +1,17 @@
 import '@tmp/qiankunRootExports.js';
 import subAppConfig from '@tmp/subAppsConfig.json';
+import assert from 'assert';
 import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMountContainerId, noop, toArray } from '../common';
 import { App, Options } from '../types';
+
+function getMasterRuntime() {
+  const plugins = require('umi/_runtimePlugin');
+  return plugins.mergeConfig('qiankun');
+}
 
 export function render(oldRender: typeof noop) {
   oldRender();
@@ -25,7 +31,10 @@ export function render(oldRender: typeof noop) {
     }
   }
 
-  const { apps, jsSandbox = false, prefetch = true } = subAppConfig as Options;
+  const runtimeConfig = getMasterRuntime();
+  const { apps, jsSandbox = false, prefetch = true } = { ...subAppConfig as Options, ...runtimeConfig as Options };
+  assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
+
   registerMicroApps(
     apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, ...props }) => {
 
