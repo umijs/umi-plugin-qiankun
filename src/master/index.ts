@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { IApi } from 'umi-types';
@@ -7,8 +6,8 @@ import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';
 
 export default function(api: IApi, options: Options) {
-  assert(options && options.apps && options.apps.length, 'sub apps must be config when using umi-plugin-qiankun');
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
+  api.addRuntimePluginKey('qiankun');
 
   api.modifyDefaultConfig(config => {
     return {
@@ -19,7 +18,8 @@ export default function(api: IApi, options: Options) {
   });
 
   const { config: { history = defaultHistoryMode } } = api;
-  const { apps } = options;
+  // apps 可能在构建期为空
+  const { apps = [] } = options;
 
   function modifyAppRoutes(masterHistory: IConfig['history']) {
     api.modifyRoutes(routes => {
