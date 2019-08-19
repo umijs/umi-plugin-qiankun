@@ -77,6 +77,42 @@ export default {
 };
 ```
 
+or 运行时配置
+
+```js
+export default {
+  plugins: [
+    ['@umijs/plugin-qiankun/master']
+};
+```
+
+src/app.js
+
+```js
+export const qiankun = {
+  // 注册子应用信息
+  apps: [
+    {
+      name: 'app1', // 唯一 id
+      entry: '//localhost:7001', // html entry
+      base: '/app1', // app1 的路由前缀，通过这个前缀判断是否要启动该应用，通常跟子应用的 base 保持一致
+      history: 'browser', // 子应用的 history 配置，默认为 'browser'
+    },
+    {
+      name: 'app2',
+      entry: {
+        // TODO 支持 config entry
+        scripts: [],
+        styles: [],
+      },
+      base: '/app2',
+    },
+  ],
+  jsSandBox: true, // 是否启用 js 沙箱，默认为 false
+  prefetch: true, // 是否启用 prefetch 特性，默认为 true
+};
+```
+
 #### app 配置
 
 | 配置           | 说明                                                                                                                          | 类型                                       | 是否必填 | 默认值      |
@@ -129,7 +165,7 @@ export const qiankun = {
 
 - [x] 支持 browserHistory
 - [x] 子应用嵌套
-- [ ] master 运行时配置
+- [x] master 运行时配置
 - [ ] 公共依赖加载策略
 - [ ] 子应用单独调试
 - [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
