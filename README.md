@@ -22,7 +22,7 @@ $ yarn add @umijs/plugin-qiankun
 
 导航是主应用，App1 和 App2 是子应用，
 
-![](readme/app.jpg)
+![](readme/demo.gif)
 
 ```bash
 $ yarn
