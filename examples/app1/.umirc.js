@@ -17,7 +17,7 @@ export default {
           immer: true,
           hmr: true,
         },
-        dynamicImport: false, //开发模式下，qiankun加载子应用会和dynamicImport冲突
+        dynamicImport: true,
         routes: {
           exclude: [/models\//, /services\//, /model\.(t|j)sx?$/, /service\.(t|j)sx?$/],
         },
