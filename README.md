@@ -43,7 +43,7 @@ $ yarn start
 
 ### 主应用
 
-配 `@umijs/plugin-qiankun/master` 插件，
+#### 构建期配置
 
 ```js
 export default {
@@ -77,7 +77,7 @@ export default {
 };
 ```
 
-or 运行时配置
+#### 运行时配置
 
 ```js
 export default {
@@ -86,10 +86,11 @@ export default {
 };
 ```
 
-src/app.js
+src/app.js 里配置
 
 ```js
-export const qiankun = {
+// 值是一个 promise
+export const qiankun = fetch('/config').then(() => ({
   // 注册子应用信息
   apps: [
     {
@@ -110,7 +111,7 @@ export const qiankun = {
   ],
   jsSandBox: true, // 是否启用 js 沙箱，默认为 false
   prefetch: true, // 是否启用 prefetch 特性，默认为 true
-};
+}));
 ```
 
 #### app 配置
