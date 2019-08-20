@@ -8,12 +8,12 @@ import { IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMountContainerId, noop, toArray } from '../common';
 import { App, Options } from '../types';
 
-function getMasterRuntime() {
+async function getMasterRuntime() {
   const plugins = require('umi/_runtimePlugin');
   return plugins.mergeConfig('qiankun');
 }
 
-export function render(oldRender: typeof noop) {
+export async function render(oldRender: typeof noop) {
   oldRender();
 
   function isAppActive(location: Location, history: IConfig['history'], base: App['base']) {
@@ -31,7 +31,7 @@ export function render(oldRender: typeof noop) {
     }
   }
 
-  const runtimeConfig = getMasterRuntime();
+  const runtimeConfig = await getMasterRuntime();
   const { apps, jsSandbox = false, prefetch = true } = { ...subAppConfig as Options, ...runtimeConfig as Options };
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
