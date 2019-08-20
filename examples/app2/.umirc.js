@@ -17,7 +17,7 @@ export default {
           immer: true,
           hmr: true,
         },
-        dynamicImport: false,
+        dynamicImport: true,
         routes: {
           exclude: [/models\//, /services\//, /model\.(t|j)sx?$/, /service\.(t|j)sx?$/],
         },
