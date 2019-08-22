@@ -1,10 +1,16 @@
-import styles from './index.css';
+import style from './index.css';
 
 export default function() {
   return (
-    <div className={styles.normal}>
-      <h1>Master</h1>
-      {/*<div id="app-root" style={{ padding: 10, background: '#ccc' }}></div>*/}
+    <div className={style.container}>
+      <h2>Welcome to use QianKun ~</h2>
+      <p>
+        如果在使用中遇到任何问题，请在
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/umijs/qiankun">
+          此处
+        </a>
+        提Issue
+      </p>
     </div>
   );
 }

@@ -1,33 +1,60 @@
 import { Link } from 'umi';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import { connect } from 'dva';
+import { qiankun } from '@/app';
 import style from './style.less';
 
 const { Header, Content, Footer } = Layout;
 
-export default function() {
+const renderBreadCrumb = pathname => {
+  let arr = pathname.split('/').slice(1);
+  if (arr[0] === '') {
+    arr[0] = 'Home';
+  }
+  return (
+    <Breadcrumb className={style.breadcrumb}>
+      {arr.map(name => {
+        return <Breadcrumb.Item key={name}>{name}</Breadcrumb.Item>;
+      })}
+    </Breadcrumb>
+  );
+};
+
+const layout = function({ base, location, children }) {
+  const selectKey = '/' + location.pathname.split('/')[1];
+  const { apps } = qiankun;
+
   return (
     <Layout className={style.layout}>
       <Header>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['home']} style={{ lineHeight: '64px' }}>
-          <Menu.Item key="home">
+        <div className={style.logo}>{base.name}</div>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['home']}
+          selectedKeys={[selectKey]}
+          style={{ lineHeight: '64px' }}
+        >
+          <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
-          <Menu.Item key="app1">
-            <Link to="/app1">App1</Link>
-          </Menu.Item>
-          <Menu.Item key="app2">
-            <Link to="/app2">App2</Link>
-          </Menu.Item>
+          {apps.map(app => {
+            return (
+              <Menu.Item key={app.base}>
+                <Link to={app.base}>{app.name}</Link>
+              </Menu.Item>
+            );
+          })}
         </Menu>
       </Header>
       <Content className={style.content}>
-        <Breadcrumb className={style.breadcrumb}>
-          <Breadcrumb.Item>App1</Breadcrumb.Item>
-          <Breadcrumb.Item>User</Breadcrumb.Item>
-        </Breadcrumb>
-        <div id="root-slave">Content</div>
+        {renderBreadCrumb(location.pathname)}
+        {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
+        selectKey === '/' ? children : <div id="root-slave"></div>}
       </Content>
       <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
     </Layout>
   );
-}
+};
+
+export default connect(({ base }) => ({ base }))(layout);

@@ -1,3 +1,5 @@
-.normal {
-  background: #799bf2;
+.container {
+  height: 100%;
+  padding: 50px;
+  background: white;
 }
