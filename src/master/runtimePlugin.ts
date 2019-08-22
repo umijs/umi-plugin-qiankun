@@ -10,7 +10,7 @@ import { App, Options } from '../types';
 
 async function getMasterRuntime() {
   const plugins = require('umi/_runtimePlugin');
-  return plugins.mergeConfig('qiankun');
+  return plugins.mergeConfigAsync('qiankun');
 }
 
 export async function render(oldRender: typeof noop) {
