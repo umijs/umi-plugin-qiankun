@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true
+  },
+  "paths": {
+    "@": ["src/*"]
+  },
+  "include": ["src/**/*"]
+}

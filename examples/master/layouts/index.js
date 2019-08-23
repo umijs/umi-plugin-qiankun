@@ -1,7 +1,7 @@
+import React from 'React';
 import { Link } from 'umi';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { connect } from 'dva';
-import { qiankun } from '@/app';
 import style from './style.less';
 
 const { Header, Content, Footer } = Layout;
@@ -20,41 +20,50 @@ const renderBreadCrumb = pathname => {
   );
 };
 
-const layout = function({ base, location, children }) {
-  const selectKey = '/' + location.pathname.split('/')[1];
-  const { apps } = qiankun;
+@connect(({ base }) => ({ base }))
+export default class extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    const { dispatch } = props;
+    dispatch({
+      type: 'base/getApps',
+    });
+  }
 
-  return (
-    <Layout className={style.layout}>
-      <Header>
-        <div className={style.logo}>{base.name}</div>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['home']}
-          selectedKeys={[selectKey]}
-          style={{ lineHeight: '64px' }}
-        >
-          <Menu.Item key="/">
-            <Link to="/">Home</Link>
-          </Menu.Item>
-          {apps.map(app => {
-            return (
-              <Menu.Item key={app.base}>
-                <Link to={app.base}>{app.name}</Link>
-              </Menu.Item>
-            );
-          })}
-        </Menu>
-      </Header>
-      <Content className={style.content}>
-        {renderBreadCrumb(location.pathname)}
-        {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
-        selectKey === '/' ? children : <div id="root-slave"></div>}
-      </Content>
-      <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
-    </Layout>
-  );
-};
-
-export default connect(({ base }) => ({ base }))(layout);
+  render() {
+    const { location, children, base } = this.props;
+    const { name, apps } = base;
+    const selectKey = '/' + location.pathname.split('/')[1];
+    return (
+      <Layout className={style.layout}>
+        <Header>
+          <div className={style.logo}>{name}</div>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['home']}
+            selectedKeys={[selectKey]}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="/">
+              <Link to="/">Home</Link>
+            </Menu.Item>
+            {apps.map(app => {
+              return (
+                <Menu.Item key={app.base}>
+                  <Link to={app.base}>{app.name}</Link>
+                </Menu.Item>
+              );
+            })}
+          </Menu>
+        </Header>
+        <Content className={style.content}>
+          {renderBreadCrumb(location.pathname)}
+          {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
+          selectKey === '/' ? children : <div id="root-slave"></div>}
+        </Content>
+        <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
+      </Layout>
+    );
+  }
+}
