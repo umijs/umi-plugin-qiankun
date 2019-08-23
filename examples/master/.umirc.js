@@ -1,8 +1,9 @@
 export default {
-  devServer: {
-    historyApiFallback: true,
-  },
   proxy: {
+    '/api': {
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    },
     '/api/app1': {
       target: 'http://localhost:8001',
       changeOrigin: true,
@@ -25,7 +26,7 @@ export default {
           immer: true,
           hmr: true,
         },
-        dynamicImport: false,
+        dynamicImport: true,
         routes: {
           exclude: [/models\//, /services\//, /model\.(t|j)sx?$/, /service\.(t|j)sx?$/],
         },
