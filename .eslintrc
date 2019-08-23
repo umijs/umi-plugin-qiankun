@@ -1,3 +1,9 @@
 {
-  "extends": "eslint-config-umi"
+  "extends": "eslint-config-umi",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  }
 }
