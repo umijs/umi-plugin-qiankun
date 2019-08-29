@@ -10,6 +10,7 @@ export default function(api: IApi) {
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   const app = api.config.mountElementId;
   const port = process.env.PORT;
+  const protocol = process.env.HTTPS ? 'https' : 'http';
 
   api.modifyDefaultConfig(memo => {
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
@@ -30,7 +31,7 @@ export default function(api: IApi) {
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
     if (process.env.NODE_ENV === 'development') {
-      memo.output!.publicPath = `http://localhost:${port}/`;
+      memo.output!.publicPath = `${protocol}://localhost:${port}/`;
     }
     return memo;
   });
@@ -38,13 +39,13 @@ export default function(api: IApi) {
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development') {
     // 变更 webpack-dev-server websocket 默认监听地址
-    process.env.SOCKET_SERVER = `http://localhost:${port}/`;
+    process.env.SOCKET_SERVER = `${protocol}://localhost:${port}/`;
     api.chainWebpackConfig((memo) => {
         // 禁用 devtool，启用 SourceMapDevToolPlugin
         memo.devtool(false);
         memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
           namespace: app,
-          append: `\n//# sourceMappingURL=http://localhost:${port}/[url]`,
+          append: `\n//# sourceMappingURL=${protocol}://localhost:${port}/[url]`,
           filename: '[name].js.map',
         }]);
     });
