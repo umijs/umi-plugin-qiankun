@@ -1,7 +1,7 @@
-import React from 'React';
-import { Link } from 'umi';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
 import { connect } from 'dva';
+import React from 'react';
+import { Link } from 'umi';
 import style from './style.less';
 
 const { Header, Content, Footer } = Layout;
