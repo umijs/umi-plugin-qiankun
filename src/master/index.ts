@@ -5,7 +5,7 @@ import IConfig from 'umi-types/config';
 import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';
 
-export default function(api: IApi, options?: Options = {}) {
+export default function(api: IApi, options: Options = {}) {
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.addRuntimePluginKey('qiankun');
 
