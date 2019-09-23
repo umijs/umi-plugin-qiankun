@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "qiankun": "^1.1.1"
+    "qiankun": "^1.1.11"
   },
   "devDependencies": {
     "@types/react-dom": "^16.8.4",
