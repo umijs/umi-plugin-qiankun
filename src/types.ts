@@ -4,7 +4,7 @@
  */
 
 import IConfig from 'umi-types/config';
-import { LifeCycles } from 'qiankun'
+import { LifeCycles } from 'qiankun';
 
 export type App = {
   name: string;
@@ -16,5 +16,5 @@ export type Options = {
   apps: App[];
   jsSandbox: boolean;
   prefetch: boolean;
-  lifeCycles?: LifeCycles<object>,
+  lifeCycles?: LifeCycles<object>;
 };
