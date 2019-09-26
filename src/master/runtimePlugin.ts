@@ -33,7 +33,7 @@ export async function render(oldRender: typeof noop) {
   }
 
   const runtimeConfig = await getMasterRuntime();
-  const { apps, jsSandbox = false, prefetch = true, defer = false, lifeCycles } = { ...subAppConfig as Options, ...runtimeConfig as Options } as Options;
+  const { apps, jsSandbox = false, prefetch = true, defer = false, lifeCycles, ...props } = { ...subAppConfig as Options, ...runtimeConfig as Options } as Options;
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(
@@ -70,5 +70,5 @@ export async function render(oldRender: typeof noop) {
     await deferred.promise;
   }
 
-  start({ jsSandbox, prefetch });
+  start({ jsSandbox, prefetch, ...props });
 }
