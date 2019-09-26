@@ -5,6 +5,7 @@ import IConfig from 'umi-types/config';
 import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';
 
+// @ts-ignore
 export default function(api: IApi, options: Options = {}) {
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.addRuntimePluginKey('qiankun');
@@ -64,4 +65,21 @@ window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')
     api.writeTmpFile('qiankunRootExports.js', rootExports);
     api.writeTmpFile('subAppsConfig.json', JSON.stringify(options));
   });
+
+  api.writeTmpFile('qiankunDefer.js', `
+      class Deferred { 
+        constructor() {
+          this.promise = new Promise(resolve => this.resolve = resolve);
+        }
+      }
+      export const deferred = new Deferred();
+      export const qiankunStart = deferred.resolve;
+    `.trim());
+
+  api.addUmiExports([
+    {
+      specifiers: ['qiankunStart'],
+      source: '@tmp/qiankunDefer',
+    },
+  ]);
 }

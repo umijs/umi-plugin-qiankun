@@ -1,7 +1,7 @@
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { connect } from 'dva';
 import React from 'react';
-import { Link } from 'umi';
+import { Link, qiankunStart } from 'umi';
 import style from './style.less';
 
 const { Header, Content, Footer } = Layout;
@@ -28,6 +28,10 @@ export default class extends React.PureComponent {
     dispatch({
       type: 'base/getApps',
     });
+  }
+
+  componentDidMount() {
+    qiankunStart();
   }
 
   render() {
@@ -59,8 +63,9 @@ export default class extends React.PureComponent {
         </Header>
         <Content className={style.content}>
           {renderBreadCrumb(location.pathname)}
-          {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
-          selectKey === '/' ? children : <div id="root-slave"></div>}
+          {// 加载master pages，此处判断较为简单，实际需排除所有子应用base打头的路径
+          selectKey === '/' ? children : null}
+          <div id="root-slave" />
         </Content>
         <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
       </Layout>
