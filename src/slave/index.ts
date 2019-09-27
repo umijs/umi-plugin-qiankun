@@ -83,6 +83,10 @@ export function useRootExports() {
     export const bootstrap = qiankun_genBootstrap(Promise.all(moduleBeforeRendererPromises), render);
     export const mount = qiankun_genMount();
     export const unmount = qiankun_genUnmount('${mountElementId}');
+    
+    if (!window.__POWERED_BY_QIANKUN__) {
+      bootstrap().then(mount);
+    }
     `,
   );
 }
