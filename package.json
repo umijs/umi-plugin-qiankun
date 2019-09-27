@@ -18,7 +18,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "npm run start:master & npm run start:app1 & npm run start:app2",
+    "start": "concurrently \"npm run start:master\" \"npm run start:app1\" \"npm run start:app2\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "npm run build",
     "build": "father-build",
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/react-dom": "^16.8.4",
+    "concurrently": "^4.1.2",
     "coveralls": "3",
     "father-build": "^1.2.0",
     "husky": "1",

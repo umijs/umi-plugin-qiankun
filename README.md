@@ -43,7 +43,7 @@ $ yarn start
 
 ### 主应用
 
-#### 构建期配置
+#### 构建期
 
 ```js
 export default {
@@ -69,7 +69,7 @@ export default {
             base: '/app2',
           },
         ],
-        jsSandBox: true, // 是否启用 js 沙箱，默认为 false
+        jsSandbox: true, // 是否启用 js 沙箱，默认为 false
         prefetch: true, // 是否启用 prefetch 特性，默认为 true
       },
     ],
@@ -77,7 +77,7 @@ export default {
 };
 ```
 
-#### 运行时配置
+#### 运行时
 
 ```js
 export default {
@@ -109,12 +109,23 @@ export const qiankun = fetch('/config').then(() => ({
       base: '/app2',
     },
   ],
-  jsSandBox: true, // 是否启用 js 沙箱，默认为 false
+  jsSandbox: true, // 是否启用 js 沙箱，默认为 false
   prefetch: true, // 是否启用 prefetch 特性，默认为 true
 }));
 ```
 
-#### app 配置
+### 配置列表
+
+| 配置      | 说明                                                                                                                                                                                                                                                                                                          | 类型    | 是否必填 | 默认值 |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------- | ------ |
+| apps      | 子应用配置                                                                                                                                                                                                                                                                                                    | App[]   | 是       |        |
+| jsSandbox | 是否启用 js 沙箱                                                                                                                                                                                                                                                                                              | boolean | 否       | false  |
+| prefetch  | 是否启用 prefetch 特性                                                                                                                                                                                                                                                                                        | boolean | 否       | true   |
+| defer     | 是否异步渲染，比如子应用的 mountElementId 依赖主应用生成的节点，而主应用生成该节点的过程是异步的。<br />当该配置开启的时候，可以使用 `import { qiankunStart } from 'umi'` api 通知 qiankun 启动。参考 [example](https://github.com/umijs/umi-plugin-qiankun/blob/master/examples/master/layouts/index.js#L34) | boolean | 否       | false  |
+
+[qiankun start](https://github.com/umijs/qiankun#start) 方法其他可接收的参数在这里也都可以配置
+
+#### App
 
 | 配置           | 说明                                                                                                                          | 类型                                       | 是否必填 | 默认值      |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | -------- | ----------- |

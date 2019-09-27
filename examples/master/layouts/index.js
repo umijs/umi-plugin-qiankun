@@ -59,8 +59,9 @@ export default class extends React.PureComponent {
         </Header>
         <Content className={style.content}>
           {renderBreadCrumb(location.pathname)}
-          {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
-          selectKey === '/' ? children : <div id="root-slave"></div>}
+          {// 加载master pages，此处判断较为简单，实际需排除所有子应用base打头的路径
+          selectKey === '/' ? children : null}
+          {apps.length ? <div id="root-slave" /> : null}
         </Content>
         <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
       </Layout>
