@@ -13,6 +13,7 @@ export default {
     [
       '../../master',
       {
+        defer: true,
         jsSandbox: true,
         prefetch: true,
       },
