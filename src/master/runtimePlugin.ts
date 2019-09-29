@@ -33,11 +33,14 @@ export async function render(oldRender: typeof noop) {
   }
 
   const runtimeConfig = await getMasterRuntime();
-  const { apps, jsSandbox = false, prefetch = true, defer = false, lifeCycles, ...props } = { ...subAppConfig as Options, ...runtimeConfig as Options } as Options;
+  const {
+    apps, jsSandbox = false, prefetch = true,
+    defer = false, lifeCycles, ...props,
+  } = { ...subAppConfig as Options, ...runtimeConfig as Options } as Options;
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(
-    apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, props }) => {
+    apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, props: contextProps }) => {
 
       return {
         name,
@@ -60,7 +63,7 @@ export async function render(oldRender: typeof noop) {
             }
           }
         },
-        props,
+        props: contextProps,
       };
     }),
     lifeCycles,

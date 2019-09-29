@@ -3,9 +3,10 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import { defaultSlaveRootId } from '../common';
 
+// tslint:disable-next-line: no-var-requires
 const webpack = require('webpack');
 
-export default function(api: IApi) {
+export default function (api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   const app = api.config.mountElementId;
@@ -83,7 +84,7 @@ export function useRootExports() {
     export const bootstrap = qiankun_genBootstrap(Promise.all(moduleBeforeRendererPromises), render);
     export const mount = qiankun_genMount();
     export const unmount = qiankun_genUnmount('${mountElementId}');
-    
+
     if (!window.__POWERED_BY_QIANKUN__) {
       bootstrap().then(mount);
     }

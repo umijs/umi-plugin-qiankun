@@ -12,6 +12,7 @@ export const defaultSlaveRootId = 'root-slave';
 export const defaultHistoryMode = 'browser';
 
 // @formatter:off
+// tslint:disable-next-line: no-empty
 export const noop = () => {};
 // @formatter:on
 

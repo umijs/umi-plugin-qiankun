@@ -26,7 +26,7 @@ function getSlaveRuntime() {
 export function genBootstrap(promises: Promise<any>, oldRender: typeof noop) {
   return async (...args: any[]) => {
     const slaveRuntime = getSlaveRuntime();
-    if (slaveRuntime.bootstrap) await slaveRuntime.bootstrap(...args);
+    if (slaveRuntime.bootstrap) { await slaveRuntime.bootstrap(...args); }
     render = () => {
       return promises.then(oldRender).catch(e => {
         if (process.env.NODE_ENV === 'development') {
@@ -41,7 +41,7 @@ export function genMount() {
   return async (...args: any[]) => {
     defer.resolve();
     const slaveRuntime = getSlaveRuntime();
-    if (slaveRuntime.mount) await slaveRuntime.mount(...args);
+    if (slaveRuntime.mount) { await slaveRuntime.mount(...args); }
     // 第一次 mount umi 会自动触发 render，非第一次 mount 则需手动触发
     if (hasMountedAtLeastOnce) {
       render();
@@ -57,6 +57,6 @@ export function genUnmount(mountElementId: string) {
       ReactDOM.unmountComponentAtNode(container);
     }
     const slaveRuntime = getSlaveRuntime();
-    if (slaveRuntime.unmount) await slaveRuntime.unmount(...args);
+    if (slaveRuntime.unmount) { await slaveRuntime.unmount(...args); }
   };
 }

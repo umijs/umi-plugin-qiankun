@@ -6,7 +6,7 @@ import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';
 
 // @ts-ignore
-export default function(api: IApi, options: Options = {}) {
+export default function (api: IApi, options: Options = {}) {
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.addRuntimePluginKey('qiankun');
 
@@ -37,7 +37,7 @@ export default function(api: IApi, options: Options = {}) {
               if (process.env.NODE_ENV === 'development') {
                 console.log('${basePath} 404 mock rendered');
               }
-              
+
               return React.createElement('div');
             }`,
                 }));
@@ -67,7 +67,7 @@ window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')
   });
 
   api.writeTmpFile('qiankunDefer.js', `
-      class Deferred { 
+      class Deferred {
         constructor() {
           this.promise = new Promise(resolve => this.resolve = resolve);
         }
