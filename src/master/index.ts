@@ -4,10 +4,10 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import IConfig from 'umi-types/config';
 import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
-import { IOptions } from '../types';
+import { Options } from '../types';
 
 // @ts-ignore
-export default function (api: IApi, options: IOptions = {}) {
+export default function (api: IApi, options: Options = {}) {
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.addRuntimePluginKey('qiankun');
 

@@ -10,7 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMountContainerId, noop, toArray } from '../common';
-import { App, IOptions } from '../types';
+import { App, Options } from '../types';
 
 async function getMasterRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
@@ -40,7 +40,7 @@ export async function render(oldRender: typeof noop) {
   const {
     apps, jsSandbox = false, prefetch = true,
     defer = false, lifeCycles, ...props
-  } = { ...subAppConfig as IOptions, ...runtimeConfig as IOptions };
+  } = { ...subAppConfig as Options, ...runtimeConfig as Options };
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(

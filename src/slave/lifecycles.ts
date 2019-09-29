@@ -2,13 +2,13 @@
 import ReactDOM from 'react-dom';
 import { noop } from '../common';
 
-interface IDefer {
+type Defer = {
   promise: Promise<any>;
   resolve(value?: any): void;
 }
 
 // @ts-ignore
-const defer: IDefer = {};
+const defer: Defer = {};
 defer.promise = new Promise(resolve => {
   defer.resolve = resolve;
 });
