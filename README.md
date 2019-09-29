@@ -111,6 +111,10 @@ export const qiankun = fetch('/config').then(() => ({
   ],
   jsSandbox: true, // 是否启用 js 沙箱，默认为 false
   prefetch: true, // 是否启用 prefetch 特性，默认为 true
+  lifeCycles: { // see https://github.com/umijs/qiankun#registermicroapps
+    afterMount: (props) => { console.log(props) }
+  },
+  // ...even more options qiankun start() supported, see https://github.com/umijs/qiankun#start
 }));
 ```
 
