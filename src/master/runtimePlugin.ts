@@ -39,7 +39,7 @@ export async function render(oldRender: typeof noop) {
   const runtimeConfig = await getMasterRuntime();
   const {
     apps, jsSandbox = false, prefetch = true,
-    defer = false, lifeCycles, ...props
+    defer = false, lifeCycles, ...otherConfigs
   } = { ...subAppConfig as Options, ...runtimeConfig as Options };
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
@@ -47,7 +47,7 @@ export async function render(oldRender: typeof noop) {
     apps.map(({
       name, entry, base,
       history = defaultHistoryMode, mountElementId = defaultMountContainerId,
-      props: contextProps,
+      props,
     }) => {
       return {
         name,
@@ -70,7 +70,7 @@ export async function render(oldRender: typeof noop) {
             }
           }
         },
-        props: contextProps,
+        props,
       };
     }),
     lifeCycles,
@@ -80,5 +80,5 @@ export async function render(oldRender: typeof noop) {
     await deferred.promise;
   }
 
-  start({ jsSandbox, prefetch, ...props });
+  start({ jsSandbox, prefetch, ...otherConfigs });
 }
