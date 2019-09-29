@@ -11,6 +11,9 @@ export default {
       entry: 'http://localhost:8002/app2',
       base: '/app2',
       mountElementId: 'root-slave',
+      props: {
+        testProp: 'test',
+      },
     },
   ],
 };

@@ -37,7 +37,7 @@ export async function render(oldRender: typeof noop) {
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(
-    apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, ...props }) => {
+    apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, props }) => {
 
       return {
         name,
