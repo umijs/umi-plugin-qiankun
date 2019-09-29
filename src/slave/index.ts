@@ -1,3 +1,4 @@
+/*  eslint-disable no-param-reassign */
 import assert from 'assert';
 import { join } from 'path';
 import { IApi } from 'umi-types';
@@ -5,7 +6,7 @@ import { defaultSlaveRootId } from '../common';
 
 const webpack = require('webpack');
 
-export default function(api: IApi) {
+export default function (api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   const app = api.config.mountElementId;
@@ -13,6 +14,7 @@ export default function(api: IApi) {
   const protocol = process.env.HTTPS ? 'https' : 'http';
 
   api.modifyDefaultConfig(memo => {
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     const { name: pkgName } = require(join(api.cwd, 'package.json'));
 
     return {
@@ -26,7 +28,7 @@ export default function(api: IApi) {
 
   api.modifyWebpackConfig(memo => {
     memo.output!.libraryTarget = 'umd';
-    assert(api.pkg.name, `You should have name in package.json`);
+    assert(api.pkg.name, 'You should have name in package.json');
     memo.output!.library = api.pkg.name;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
@@ -40,7 +42,7 @@ export default function(api: IApi) {
   if (process.env.NODE_ENV === 'development') {
     // 变更 webpack-dev-server websocket 默认监听地址
     process.env.SOCKET_SERVER = `${protocol}://localhost:${port}/`;
-    api.chainWebpackConfig((memo) => {
+    api.chainWebpackConfig(memo => {
         // 禁用 devtool，启用 SourceMapDevToolPlugin
         memo.devtool(false);
         memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{

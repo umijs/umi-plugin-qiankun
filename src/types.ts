@@ -13,10 +13,10 @@ export type App = {
   props?: object;
 } & Pick<IConfig, 'history' | 'mountElementId'>;
 
-export type Options = {
+export interface IOptions {
   apps: App[];
   jsSandbox: boolean;
   prefetch: boolean;
   defer?: boolean;
   lifeCycles?: LifeCycles<object>;
-};
+}
