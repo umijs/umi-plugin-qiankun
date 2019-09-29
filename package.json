@@ -20,7 +20,9 @@
   "scripts": {
     "start": "concurrently \"npm run start:master\" \"npm run start:app1\" \"npm run start:app2\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:prettier",
+    "lint:prettier": "check-prettier lint",
+    "prettier": "prettier -c --write **/*",
     "prepublishOnly": "npm run build",
     "build": "father-build",
     "release": "np --no-cleanup --yolo --no-publish",
@@ -36,6 +38,7 @@
   "devDependencies": {
     "@types/react-dom": "^16.8.4",
     "@umijs/fabric": "^1.1.10",
+    "check-prettier": "^1.0.3",
     "concurrently": "^4.1.2",
     "coveralls": "3",
     "father-build": "^1.2.0",
