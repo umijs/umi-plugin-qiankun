@@ -111,8 +111,11 @@ export const qiankun = fetch('/config').then(() => ({
   ],
   jsSandbox: true, // 是否启用 js 沙箱，默认为 false
   prefetch: true, // 是否启用 prefetch 特性，默认为 true
-  lifeCycles: { // see https://github.com/umijs/qiankun#registermicroapps
-    afterMount: (props) => { console.log(props) }
+  lifeCycles: {
+    // see https://github.com/umijs/qiankun#registermicroapps
+    afterMount: props => {
+      console.log(props);
+    },
   },
   // ...even more options qiankun start() supported, see https://github.com/umijs/qiankun#start
 }));
@@ -138,6 +141,7 @@ export const qiankun = fetch('/config').then(() => ({
 | base           | 子应用路由前缀，通常跟子应用的 [base 配置](https://umijs.org/config/#base) 一致，框架会以这个配置作为前缀判断是否激活当前应用 | string \| string[]                         | 是       |             |
 | history        | [umi history mode](https://umijs.org/config/#history)                                                                         | string                                     | 否       | browser     |
 | mountElementId | 子应用挂载到主应用的哪个 id 节点上（注意不要跟子应用的 mountElementId 一致）                                                  | string                                     | 否       | root-subapp |
+| props          | 主应用传递给子应用的数据                                                                                                      | object                                     | 否       | {}          |
 
 ### 子应用
 
@@ -158,21 +162,21 @@ export default {
 
 ## 子应用运行时配置
 
-在子应用的 `src/app.js` 里输出 `qiankun`，
+在子应用的 `src/app.js` 里输出 `qiankun`，`props` 由主应用注册子应用时提供
 
 ```js
 export const qiankun = {
   // 应用加载之前
-  async bootstrap() {
-    console.log('app1 bootstrap');
+  async bootstrap(props) {
+    console.log('app1 bootstrap', props);
   },
   // 应用 render 之前触发
-  async mount() {
-    console.log('app1 mount');
+  async mount(props) {
+    console.log('app1 mount', props);
   },
   // 应用卸载之后触发
-  async unmount() {
-    console.log('app1 unmount');
+  async unmount(props) {
+    console.log('app1 unmount', props);
   },
 };
 ```
@@ -183,7 +187,7 @@ export const qiankun = {
 - [x] 子应用嵌套
 - [x] master 运行时配置
 - [ ] 公共依赖加载策略
-- [ ] 子应用单独调试
+- [x] 子应用单独调试
 - [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
 
 ## Questions & Suggestions
