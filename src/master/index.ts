@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { IApi } from 'umi-types';
@@ -6,7 +7,7 @@ import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';
 
 // @ts-ignore
-export default function(api: IApi, options: Options = {}) {
+export default function (api: IApi, options: Options = {}) {
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.addRuntimePluginKey('qiankun');
 
