@@ -5,7 +5,7 @@ import { noop } from '../common';
 type Defer = {
   promise: Promise<any>;
   resolve(value?: any): void;
-};
+}
 
 // @ts-ignore
 const defer: Defer = {};
@@ -19,6 +19,7 @@ let hasMountedAtLeastOnce = false;
 export default () => defer.promise;
 
 function getSlaveRuntime() {
+  // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
   return plugins.mergeConfig('qiankun');
 }
