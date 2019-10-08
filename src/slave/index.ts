@@ -2,11 +2,10 @@
 import assert from 'assert';
 import { join } from 'path';
 import { IApi } from 'umi-types';
+import webpack from 'webpack';
 import { defaultSlaveRootId } from '../common';
 
-const webpack = require('webpack');
-
-export default function (api: IApi) {
+export default function(api: IApi) {
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   const app = api.config.mountElementId;
@@ -43,13 +42,15 @@ export default function (api: IApi) {
     // 变更 webpack-dev-server websocket 默认监听地址
     process.env.SOCKET_SERVER = `${protocol}://localhost:${port}/`;
     api.chainWebpackConfig(memo => {
-        // 禁用 devtool，启用 SourceMapDevToolPlugin
-        memo.devtool(false);
-        memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [{
+      // 禁用 devtool，启用 SourceMapDevToolPlugin
+      memo.devtool(false);
+      memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
+        {
           namespace: app,
           append: `\n//# sourceMappingURL=${protocol}://localhost:${port}/[url]`,
           filename: '[name].js.map',
-        }]);
+        },
+      ]);
     });
   }
 

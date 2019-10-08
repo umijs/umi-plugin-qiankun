@@ -4,13 +4,13 @@
  */
 
 import { LifeCycles } from 'qiankun';
-import IConfig from 'umi-types/config';
+import { IConfig } from 'umi-types';
 
 export type App = {
   name: string;
   entry: string | { scripts: string[]; styles: string[] };
   base: string | string[];
-  props?: object;
+  props?: any;
 } & Pick<IConfig, 'history' | 'mountElementId'>;
 
 export type Options = {

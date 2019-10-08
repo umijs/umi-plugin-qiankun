@@ -1,1 +1,3 @@
 /test/fixtures
+**/*.gif
+/lib
