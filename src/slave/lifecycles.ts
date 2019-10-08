@@ -5,7 +5,7 @@ import { noop } from '../common';
 type Defer = {
   promise: Promise<any>;
   resolve(value?: any): void;
-}
+};
 
 // @ts-ignore
 const defer: Defer = {};
@@ -28,13 +28,12 @@ export function genBootstrap(promises: Promise<any>, oldRender: typeof noop) {
   return async (...args: any[]) => {
     const slaveRuntime = getSlaveRuntime();
     if (slaveRuntime.bootstrap) await slaveRuntime.bootstrap(...args);
-    render = () => {
-      return promises.then(oldRender).catch(e => {
+    render = () =>
+      promises.then(oldRender).catch(e => {
         if (process.env.NODE_ENV === 'development') {
           console.error('Render failed', e);
         }
       });
-    };
   };
 }
 
