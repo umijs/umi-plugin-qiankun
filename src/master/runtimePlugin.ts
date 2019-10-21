@@ -23,13 +23,16 @@ export async function render(oldRender: typeof noop) {
 
   function isAppActive(location: Location, history: IConfig['history'], base: App['base']) {
     const baseConfig = toArray(base);
+    // 可以匹配 /${pathPrefix} 或 /${pathPrefix}/ 或 /${pathPrefix}?xx=xx 或 /${pathPrefix}/?xx=xx
+    // 但不能匹配 /${pathPrefix}ABC 之类的场景
+    const genMatchRegex = (pathPrefix: string) => new RegExp(`^${pathPrefix}\\/?(\\?.*)*$`, 'g');
 
     switch (history) {
       case 'hash':
-        return baseConfig.some(pathPrefix => location.hash.startsWith(`#${pathPrefix}`));
+        return baseConfig.some(pathPrefix => genMatchRegex(`#${pathPrefix}`).test(location.hash));
 
       case 'browser':
-        return baseConfig.some(pathPrefix => location.pathname.startsWith(pathPrefix));
+        return baseConfig.some(pathPrefix => genMatchRegex(pathPrefix).test(location.pathname));
 
       default:
         return false;
