@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import { existsSync } from 'fs';
 import { join } from 'path';
+// eslint-disable-next-line import/no-unresolved
 import { IApi, IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
 import { Options } from '../types';

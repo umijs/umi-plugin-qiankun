@@ -1,6 +1,7 @@
 /*  eslint-disable no-param-reassign */
 import assert from 'assert';
 import { join } from 'path';
+// eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 import { defaultSlaveRootId } from '../common';
