@@ -5,8 +5,14 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 import { defaultSlaveRootId } from '../common';
+import { MOptions } from '../types';
 
-export default function(api: IApi) {
+export default function(api: IApi, opts: MOptions) {
+  const { needRegisterRuntimeKey = true } = opts;
+  api.addRuntimePlugin(require.resolve('./runtimePlugin'));
+  if (needRegisterRuntimeKey) {
+    api.addRuntimePluginKey('qiankun');
+  }
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   const app = api.config.mountElementId;
@@ -73,8 +79,6 @@ export function useRootExports() {
       source: '@tmp/qiankunContext',
     },
   ]);
-
-  api.addRuntimePluginKey('qiankun');
 
   api.addEntryImport({
     source: lifecyclePath,

@@ -48,6 +48,7 @@
     "check-prettier": "^1.0.3",
     "concurrently": "^4.1.2",
     "coveralls": "3",
+    "eslint": "^6.5.1",
     "father-build": "^1.2.0",
     "husky": "1",
     "lint-staged": "8",

@@ -11,11 +11,13 @@ export default {
   },
   plugins: [
     [
-      '../../master',
+      '../../index.js',
       {
-        defer: true,
-        jsSandbox: true,
-        prefetch: true,
+        master: {
+          defer: true,
+          jsSandbox: true,
+          prefetch: true,
+        }
       },
     ],
     [
