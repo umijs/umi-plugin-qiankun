@@ -26,7 +26,7 @@ export default function(api: IApi, options: Options) {
       const newRoutes = routes.map(route => {
         if (route.path === '/') {
           if (route.routes && route.routes.length) {
-            apps.forEach(({ history: slaveHistory = defaultHistoryMode, base }) => {
+            apps.forEach(({ history: slaveHistory = history, base }) => {
               // 当子应用的 history mode 跟主应用一致时，为避免出现 404 手动为主应用创建一个 path 为 子应用 rule 的空 div 路由组件
               if (slaveHistory === masterHistory) {
                 const baseConfig = toArray(base);
@@ -67,7 +67,7 @@ window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')
     api.writeTmpFile(
       'subAppsConfig.json',
       JSON.stringify({
-        masterHistory: api.config.history || defaultHistoryMode,
+        masterHistory: history,
         ...options,
       }),
     );
