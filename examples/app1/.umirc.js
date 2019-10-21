@@ -1,8 +1,5 @@
-import { name } from './package';
-
 export default {
   base: '/app1',
-  history: 'browser',
   publicPath: '/app1/',
   outputPath: './dist/app1',
   mountElementId: 'app1',

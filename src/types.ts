@@ -19,4 +19,5 @@ export type Options = {
   prefetch: boolean;
   defer?: boolean;
   lifeCycles?: LifeCycles<object>;
+  masterHistory: IConfig['history'];
 };

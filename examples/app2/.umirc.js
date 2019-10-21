@@ -2,7 +2,6 @@ import { name } from './package';
 
 export default {
   base: name,
-  history: 'browser',
   publicPath: '/app2/',
   outputPath: './dist/app2',
   mountElementId: 'app2',
