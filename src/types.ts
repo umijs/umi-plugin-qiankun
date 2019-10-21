@@ -4,6 +4,7 @@
  */
 
 import { LifeCycles } from 'qiankun';
+// eslint-disable-next-line import/no-unresolved
 import { IConfig } from 'umi-types';
 
 export type App = {
