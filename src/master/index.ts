@@ -64,7 +64,13 @@ export default function(api: IApi, options: Options) {
 window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')` : `{}`};
     `.trim();
     api.writeTmpFile('qiankunRootExports.js', rootExports);
-    api.writeTmpFile('subAppsConfig.json', JSON.stringify(options));
+    api.writeTmpFile(
+      'subAppsConfig.json',
+      JSON.stringify({
+        masterHistory: api.config.history || defaultHistoryMode,
+        ...options,
+      }),
+    );
   });
 
   api.writeTmpFile(
