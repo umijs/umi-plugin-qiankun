@@ -18,3 +18,9 @@ export const noop = () => {};
 export function toArray<T>(source: T | T[]): T[] {
   return Array.isArray(source) ? source : [source];
 }
+
+export function testPathWithPrefix(pathPrefix: string, realPath: string) {
+  const pathRegex = new RegExp(`^${pathPrefix}(\\/|\\?)+.*$`, 'g');
+  const normalizedPath = `${realPath}/`;
+  return pathRegex.test(normalizedPath);
+}
