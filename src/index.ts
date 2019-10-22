@@ -14,7 +14,7 @@ export default function(api: IApi, options: GlobalOptions) {
     }
     if (masterOpts) {
       api.changePluginOption('qiankun-master', { opts: masterOpts, needRegisterRuntimeKey: false });
-    } else {
+    } else if (slaveOpts) {
       api.changePluginOption('qiankun-slave', { opts: slaveOpts, needRegisterRuntimeKey: false });
     }
   });
@@ -31,7 +31,7 @@ export default function(api: IApi, options: GlobalOptions) {
       apply: master,
       opts: { opts: masterOpts, needRegisterRuntimeKey: false },
     });
-  } else {
+  } else if (slaveOpts) {
     api.registerPlugin({
       id: 'qiankun-slave',
       apply: slave,
