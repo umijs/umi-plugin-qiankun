@@ -81,8 +81,6 @@ export function useRootExports() {
     },
   ]);
 
-  api.addRuntimePluginKey('qiankun');
-
   api.addEntryImport({
     source: lifecyclePath,
     specifier:
