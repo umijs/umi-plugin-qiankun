@@ -20,7 +20,7 @@
   "scripts": {
     "start": "concurrently \"npm run start:master\" \"npm run start:app1\" \"npm run start:app2\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "lint": "npm run lint:js && npm run lint:prettier",
+    "lint": "npm run lint:js && npm run lint:prettier && npm test",
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
     "lint:fix": "npm run lint:js -- --fix",
     "lint:prettier": "check-prettier lint",
@@ -31,7 +31,7 @@
     "start:master": "cd examples/master && umi dev",
     "start:app1": "cd examples/app1 && umi dev",
     "start:app2": "cd examples/app2 && umi dev",
-    "test": "echo \"test\""
+    "test": "umi-test"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
@@ -43,6 +43,7 @@
     "webpack": "^4.41.0"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.19",
     "@types/react-dom": "^16.8.4",
     "@umijs/fabric": "^1.1.10",
     "check-prettier": "^1.0.3",
@@ -57,12 +58,13 @@
     "umi": "^2.8.20",
     "umi-plugin-react": "^1.9.13",
     "umi-request": "^1.1.0",
-    "umi-test": "1",
+    "umi-test": "^1.8.2",
     "umi-types": "^0.5.0"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
     }
   },
   "lint-staged": {

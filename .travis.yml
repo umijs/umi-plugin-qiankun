@@ -8,9 +8,6 @@ cache:
 script:
   - npm run lint
 
-#after_success:
-#  - npm test
-
 deploy:
   provider: npm
   email: kuitos.lau@gmail.com
