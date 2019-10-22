@@ -21,7 +21,8 @@ export default () => defer.promise;
 function getSlaveRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
-  return plugins.mergeConfig('qiankun');
+  const config = plugins.mergeConfigAsync('qiankun');
+  return config.slave ? config.slave : config;
 }
 
 export function genBootstrap(promises: Promise<any>, oldRender: typeof noop) {
