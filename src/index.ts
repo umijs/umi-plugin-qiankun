@@ -1,8 +1,9 @@
-import { IApi } from 'umi-types';
 import assert from 'assert';
-import { GlobalOptions } from './types';
+// eslint-disable-next-line import/no-unresolved
+import { IApi } from 'umi-types';
 import master from './master';
 import slave from './slave';
+import { GlobalOptions } from './types';
 
 export default function(api: IApi, options: GlobalOptions) {
   api.addRuntimePluginKey('qiankun');
