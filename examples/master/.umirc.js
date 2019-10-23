@@ -17,8 +17,7 @@ export default {
           defer: true,
           jsSandbox: true,
           prefetch: true,
-        },
-        slave: {}
+        }
       },
     ],
     [

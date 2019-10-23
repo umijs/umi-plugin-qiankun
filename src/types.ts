@@ -29,6 +29,6 @@ export type MOptions = {
 };
 
 export type GlobalOptions = {
-  master: Options;
-  slave: Options;
+  master?: Options;
+  slave?: Options;
 };

@@ -82,7 +82,7 @@ export default {
 ```js
 export default {
   plugins: [
-    ['@umijs/plugin-qiankun', master: {}]
+    ['@umijs/plugin-qiankun', { master: {} }]
 };
 ```
 
@@ -148,7 +148,7 @@ export const qiankun = fetch('/config').then(() => ({
 ```js
 export default {
   base: `/${appName}`, // 子应用的 base，默认为 package.json 中的 name 字段
-  plugins: ['@umijs/plugin-qiankun', slave: {}],
+  plugins: ['@umijs/plugin-qiankun', { slave: {} }],
 };
 ```
 
