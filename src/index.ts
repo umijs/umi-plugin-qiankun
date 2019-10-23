@@ -10,7 +10,7 @@ export default function(api: IApi, options: GlobalOptions) {
   // 监听插件配置变化
   api.onOptionChange((newOpts: GlobalOptions) => {
     const { master: masterOpts, slave: slaveOpts } = newOpts || {};
-    assert(masterOpts && slaveOpts, '请勿同时配置 master 和 slave 配置项');
+    assert(!(masterOpts && slaveOpts), '请勿同时配置 master 和 slave 配置项');
     if (masterOpts) {
       api.changePluginOption('qiankun-master', { opts: masterOpts, needRegisterRuntimeKey: false });
     } else if (slaveOpts) {
@@ -20,7 +20,7 @@ export default function(api: IApi, options: GlobalOptions) {
 
   const { master: masterOpts, slave: slaveOpts } = options || {};
 
-  assert(masterOpts && slaveOpts, '请勿同时配置 master 和 slave 配置项');
+  assert(!(masterOpts && slaveOpts), '请勿同时配置 master 和 slave 配置项');
 
   if (masterOpts) {
     api.registerPlugin({
