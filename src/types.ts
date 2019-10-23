@@ -22,3 +22,13 @@ export type Options = {
   lifeCycles?: LifeCycles<object>;
   masterHistory: IConfig['history'];
 };
+
+export type MOptions = {
+  opts: Options;
+  needRegisterRuntimeKey: boolean;
+};
+
+export type GlobalOptions = {
+  master?: Options;
+  slave?: Options;
+};

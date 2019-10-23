@@ -4,7 +4,7 @@ export default {
   outputPath: './dist/app1',
   mountElementId: 'app1',
   plugins: [
-    ['../../slave.js'],
+    ['../../index.js'],
     [
       'umi-plugin-react',
       {
