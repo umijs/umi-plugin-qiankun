@@ -3,6 +3,7 @@
   "version": "1.3.0-0",
   "description": "umi plugin for qiankun",
   "repository": "umijs/umi-plugin-qiankun",
+  "main": "index.js",
   "keywords": [
     "umi-plugin",
     "micro frontend",
@@ -80,7 +81,8 @@
   "files": [
     "lib",
     "master.js",
-    "slave.js"
+    "slave.js",
+    "index.js"
   ],
   "license": "MIT",
   "publishConfig": {
