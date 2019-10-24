@@ -8,14 +8,15 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
+import { defaultMountContainerId, noop, toArray } from '../common';
 import { App, Options } from '../types';
 
 async function getMasterRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
-  const config = plugins.mergeConfigAsync('qiankun') || {};
-  return config.master ? config.master : config;
+  const config = await plugins.mergeConfigAsync('qiankun');
+  const { master } = config || {};
+  return master || config;
 }
 
 export async function render(oldRender: typeof noop) {
@@ -23,13 +24,16 @@ export async function render(oldRender: typeof noop) {
 
   function isAppActive(location: Location, history: IConfig['history'], base: App['base']) {
     const baseConfig = toArray(base);
+    // 可以匹配 /${pathPrefix} 或 /${pathPrefix}/ 或 /${pathPrefix}?xx=xx 或 /${pathPrefix}/?xx=xx
+    // 但不能匹配 /${pathPrefix}ABC 之类的场景
+    const genMatchRegex = (pathPrefix: string) => new RegExp(`^${pathPrefix}\\/?(\\?.*)*$`, 'g');
 
     switch (history) {
       case 'hash':
-        return baseConfig.some(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
+        return baseConfig.some(pathPrefix => genMatchRegex(`#${pathPrefix}`).test(location.hash));
 
       case 'browser':
-        return baseConfig.some(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
+        return baseConfig.some(pathPrefix => genMatchRegex(pathPrefix).test(location.pathname));
 
       default:
         return false;

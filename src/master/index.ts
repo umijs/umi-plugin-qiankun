@@ -4,12 +4,12 @@ import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi, IConfig } from 'umi-types';
 import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
-import { MOptions } from '../types';
+import { Options } from '../types';
 
-export default function(api: IApi, opts: MOptions) {
-  const { opts: options, needRegisterRuntimeKey = true } = opts;
+export default function(api: IApi, options: Options) {
+  const { registerRuntimeKeyInIndex = false } = options;
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
-  if (needRegisterRuntimeKey) {
+  if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
   }
 
