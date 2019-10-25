@@ -152,6 +152,15 @@ export default {
 };
 ```
 
+如果子应用配置项为空，即 slave: {}，则可以省略配置：
+
+```js
+export default {
+  base: `/${appName}`, // 子应用的 base，默认为 package.json 中的 name 字段
+  plugins: ['@umijs/plugin-qiankun'],
+};
+```
+
 ## 父子应用通讯
 
 1. 约定父应用中在 `src/rootExports.js` 里 export 内容

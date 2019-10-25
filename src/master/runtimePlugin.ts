@@ -14,8 +14,9 @@ import { App, Options } from '../types';
 async function getMasterRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
-  const config = plugins.mergeConfigAsync('qiankun') || {};
-  return config.master ? config.master : config;
+  const config = await plugins.mergeConfigAsync('qiankun');
+  const { master } = config || {};
+  return master || config;
 }
 
 export async function render(oldRender: typeof noop) {

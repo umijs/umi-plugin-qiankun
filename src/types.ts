@@ -21,11 +21,7 @@ export type Options = {
   defer?: boolean;
   lifeCycles?: LifeCycles<object>;
   masterHistory: IConfig['history'];
-};
-
-export type MOptions = {
-  opts: Options;
-  needRegisterRuntimeKey: boolean;
+  registerRuntimeKeyInIndex?: boolean; // 仅做插件本身透传用，开发者无需关心
 };
 
 export type GlobalOptions = {

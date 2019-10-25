@@ -1,9 +1,8 @@
-import assert from 'assert';
-// eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
+import assert from 'assert';
+import { GlobalOptions } from './types';
 import master from './master';
 import slave from './slave';
-import { GlobalOptions } from './types';
 
 export default function(api: IApi, options: GlobalOptions) {
   api.addRuntimePluginKey('qiankun');
@@ -13,9 +12,9 @@ export default function(api: IApi, options: GlobalOptions) {
     const { master: masterOpts, slave: slaveOpts } = newOpts || {};
     assert(!(masterOpts && slaveOpts), '请勿同时配置 master 和 slave 配置项');
     if (masterOpts) {
-      api.changePluginOption('qiankun-master', { opts: masterOpts, needRegisterRuntimeKey: false });
-    } else if (slaveOpts) {
-      api.changePluginOption('qiankun-slave', { opts: slaveOpts, needRegisterRuntimeKey: false });
+      api.changePluginOption('qiankun-master', { ...masterOpts, registerRuntimeKeyInIndex: true });
+    } else {
+      api.changePluginOption('qiankun-slave', { ...slaveOpts, registerRuntimeKeyInIndex: true });
     }
   });
 
@@ -27,13 +26,13 @@ export default function(api: IApi, options: GlobalOptions) {
     api.registerPlugin({
       id: 'qiankun-master',
       apply: master,
-      opts: { opts: masterOpts, needRegisterRuntimeKey: false },
+      opts: { ...masterOpts, registerRuntimeKeyInIndex: true },
     });
-  } else if (slaveOpts) {
+  } else {
     api.registerPlugin({
       id: 'qiankun-slave',
       apply: slave,
-      opts: { opts: slaveOpts, needRegisterRuntimeKey: false },
+      opts: { ...slaveOpts, registerRuntimeKeyInIndex: true },
     });
   }
 }

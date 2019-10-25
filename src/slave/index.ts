@@ -5,12 +5,12 @@ import { join } from 'path';
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 import { defaultSlaveRootId } from '../common';
-import { MOptions } from '../types';
+import { Options } from '../types';
 
-export default function(api: IApi, opts: MOptions) {
-  const { needRegisterRuntimeKey = true } = opts;
+export default function(api: IApi, options: Options) {
+  const { registerRuntimeKeyInIndex = false } = options;
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
-  if (needRegisterRuntimeKey) {
+  if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
   }
 
@@ -62,7 +62,6 @@ export default function(api: IApi, opts: MOptions) {
     });
   }
 
-  api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   api.writeTmpFile(
     'qiankunContext.js',
     `
