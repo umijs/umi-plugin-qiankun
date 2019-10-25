@@ -13,7 +13,7 @@ export default function(api: IApi, options: GlobalOptions) {
     assert(!(masterOpts && slaveOpts), '请勿同时配置 master 和 slave 配置项');
     if (masterOpts) {
       api.changePluginOption('qiankun-master', { ...masterOpts, registerRuntimeKeyInIndex: true });
-    } else if (slaveOpts) {
+    } else {
       api.changePluginOption('qiankun-slave', { ...slaveOpts, registerRuntimeKeyInIndex: true });
     }
   });
