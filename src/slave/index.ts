@@ -8,7 +8,7 @@ import { defaultSlaveRootId } from '../common';
 import { Options } from '../types';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false } = options;
+  const { registerRuntimeKeyInIndex = false } = options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
