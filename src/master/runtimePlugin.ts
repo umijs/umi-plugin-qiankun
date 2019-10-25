@@ -9,13 +9,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
 import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
-import { App, Options } from '../types';
+import { App, GlobalOptions, Options } from '../types';
 
 async function getMasterRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
-  const config = await plugins.mergeConfigAsync('qiankun');
-  const { master } = config || {};
+  const config: GlobalOptions = (await plugins.mergeConfigAsync('qiankun')) || {};
+  const { master } = config;
   return master || config;
 }
 
