@@ -163,8 +163,41 @@ export default {
 
 ## 父子应用通讯
 
-1. 约定父应用中在 `src/rootExports.js` 里 export 内容
+有两种方式可以实现
 
+### 基于 props 传递
+
+类似 react 中组件间通信的方案
+
+1. 主应用中配置 apps 时以 props 将数据传递下去（参考主应用运行时配置一节）
+
+   ```js
+   // src/app.js
+
+   export const qiankun = fetch('/config').then(config => {
+     return {
+       apps: [
+         {
+           name: 'app1',
+           entry: '//localhost:2222',
+           base: '/app1',
+           props: {
+             onClick: event => console.log(event),
+             ...config,
+           },
+         },
+       ],
+     };
+   });
+   ```
+
+2. 子应用在生命周期钩子中获取 props 消费数据（参考子应用运行时配置一节）
+
+### 基于 Hooks 共享数据
+
+由于方案基于 react hook，所以只能在 functional component 中使用相关 api，无法在 class component 中使用。
+
+1. 约定父应用中在 `src/rootExports.js` 里 export 内容
 2. 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
 
 ## 子应用运行时配置
@@ -195,7 +228,7 @@ export const qiankun = {
 - [x] master 运行时配置
 - [ ] 公共依赖加载策略
 - [x] 子应用单独调试
-- [ ] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
+- [x] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
 
 ## Questions & Suggestions
 
