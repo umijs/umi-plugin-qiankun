@@ -36,7 +36,7 @@ export default function(api: IApi, options: Options) {
   api.modifyWebpackConfig(memo => {
     memo.output!.libraryTarget = 'umd';
     assert(api.pkg.name, 'You should have name in package.json');
-    memo.output!.library = api.pkg.name;
+    memo.output!.library = `${api.pkg.name}-[name]`;
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
     if (process.env.NODE_ENV === 'development') {
