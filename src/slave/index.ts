@@ -16,23 +16,18 @@ export default function(api: IApi, options: Options) {
 
   const lifecyclePath = require.resolve('./lifecycles');
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
-  const app = api.config.mountElementId;
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  const { name: pkgName } = require(join(api.cwd, 'package.json'));
+  api.modifyDefaultConfig(memo => ({
+    ...memo,
+    // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
+    // disableGlobalVariables: true,
+    base: `/${pkgName}`,
+    mountElementId,
+  }));
+
   const port = process.env.PORT;
   const protocol = process.env.HTTPS ? 'https' : 'http';
-
-  api.modifyDefaultConfig(memo => {
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-    const { name: pkgName } = require(join(api.cwd, 'package.json'));
-
-    return {
-      ...memo,
-      // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
-      // disableGlobalVariables: true,
-      base: `/${pkgName}`,
-      mountElementId,
-    };
-  });
-
   api.modifyWebpackConfig(memo => {
     memo.output!.libraryTarget = 'umd';
     assert(api.pkg.name, 'You should have name in package.json');
@@ -54,9 +49,9 @@ export default function(api: IApi, options: Options) {
       memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
         {
-          namespace: app,
+          namespace: pkgName,
           append: `\n//# sourceMappingURL=${protocol}://localhost:${port}/[url]`,
-          filename: '[name].js.map',
+          filename: '[file].map',
         },
       ]);
     });
