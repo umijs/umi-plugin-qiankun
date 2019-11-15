@@ -26,6 +26,11 @@ export default function(api: IApi, options: Options) {
     mountElementId,
   }));
 
+  // 如果开启了 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
+  if (api.config.runtimePublicPath) {
+    api.modifyPublicPathStr('window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__');
+  }
+
   const port = process.env.PORT;
   const protocol = process.env.HTTPS ? 'https' : 'http';
   api.modifyWebpackConfig(memo => {
