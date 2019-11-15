@@ -26,7 +26,6 @@ export default function(api: IApi, options: Options) {
     mountElementId,
   }));
 
-  const port = process.env.PORT;
   const protocol = process.env.HTTPS ? 'https' : 'http';
   api.modifyWebpackConfig(memo => {
     memo.output!.libraryTarget = 'umd';
@@ -35,7 +34,7 @@ export default function(api: IApi, options: Options) {
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
     if (process.env.NODE_ENV === 'development') {
-      memo.output!.publicPath = `${protocol}://localhost:${port}/`;
+      memo.output!.publicPath = `${protocol}://localhost:${api.service.port}/`;
     }
     return memo;
   });
@@ -43,14 +42,14 @@ export default function(api: IApi, options: Options) {
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development') {
     // 变更 webpack-dev-server websocket 默认监听地址
-    process.env.SOCKET_SERVER = `${protocol}://localhost:${port}/`;
+    process.env.SOCKET_SERVER = `${protocol}://localhost:${api.service.port}/`;
     api.chainWebpackConfig(memo => {
       // 禁用 devtool，启用 SourceMapDevToolPlugin
       memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
         {
           namespace: pkgName,
-          append: `\n//# sourceMappingURL=${protocol}://localhost:${port}/[url]`,
+          append: `\n//# sourceMappingURL=${protocol}://localhost:${api.service.port}/[url]`,
           filename: '[file].map',
         },
       ]);
