@@ -20,6 +20,10 @@ export function toArray<T>(source: T | T[]): T[] {
 }
 
 export function testPathWithPrefix(pathPrefix: string, realPath: string) {
+  if (pathPrefix.endsWith('/')) {
+    return realPath.startsWith(pathPrefix);
+  }
+
   const pathRegex = new RegExp(`^${pathPrefix}(\\/|\\?)+.*$`, 'g');
   const normalizedPath = `${realPath}/`;
   return pathRegex.test(normalizedPath);
