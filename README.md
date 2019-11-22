@@ -161,6 +161,16 @@ export default {
 };
 ```
 
+#### 环境变量配置
+
+为了获得更好地本地开发及调试体验，我们建议您提前在子应用中指定应用启动的具体端口号，如通过`.env`指定
+
+```yml
+PORT=8081
+```
+
+详细配置参考：https://umijs.org/zh/guide/env-variables.html#port
+
 ## 父子应用通讯
 
 有两种方式可以实现
