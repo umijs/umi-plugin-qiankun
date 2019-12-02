@@ -45,6 +45,17 @@ export default function(api: IApi, options: Options) {
     return memo;
   });
 
+  // umi bundle 添加 entry 标记
+  api.modifyHTMLWithAST($ => {
+    $('script').each((_, el) => {
+      const scriptEl = $(el);
+      const umiEntryJs = /\/?umi(\.\w+)?\.js$/g;
+      if (umiEntryJs.test(scriptEl.attr('src'))) {
+        scriptEl.attr('entry', '');
+      }
+    });
+  });
+
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development' && port) {
     // 变更 webpack-dev-server websocket 默认监听地址
@@ -91,7 +102,7 @@ export function useRootExports() {
     export const bootstrap = qiankun_genBootstrap(Promise.all(moduleBeforeRendererPromises), render);
     export const mount = qiankun_genMount();
     export const unmount = qiankun_genUnmount('${mountElementId}');
-    
+
     if (!window.__POWERED_BY_QIANKUN__) {
       bootstrap().then(mount);
     }
