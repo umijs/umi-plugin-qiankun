@@ -125,12 +125,24 @@ export const qiankun = fetch('/config').then(() => ({
 
 由于 umi 不支持在应用 render 之后修改路由，故运行时配置方式插件无法自动生成子应用相关路由，（见[代码](https://github.com/umijs/umi-plugin-qiankun/blob/master/src/master/index.ts#L34)）。所以这里需要用户手动添加子应用相关路由配置避免 404 情况：
 
+###### 2.1 主应用新建 pages/subAppContainer.js
+
+```js
+import React from 'react';
+
+export default function() {
+  return <div />;
+}
+```
+
+###### 2.2 新建 pages/subAppContainer.js
+
 ```js
 // 主应用 config.js 中添加子应用相关路由配置
 export default {
   routes: [
-    { path: '/app1', exact: true, component: () => React.createElement('div') },
-    { path: '/app2', exact: true, component: () => React.createElement('div') },
+    { path: '/app1', exact: true, component: 'subAppContainer' },
+    { path: '/app2', exact: true, component: 'subAppContainer' },
   ],
 };
 ```
