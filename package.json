@@ -48,6 +48,7 @@
     "@types/jest": "^24.0.19",
     "@types/react-dom": "^16.8.4",
     "@umijs/fabric": "^1.1.10",
+    "address": "^1.1.2",
     "check-prettier": "^1.0.3",
     "concurrently": "^4.1.2",
     "coveralls": "3",

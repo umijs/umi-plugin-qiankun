@@ -1,11 +1,14 @@
 /*  eslint-disable no-param-reassign */
 import assert from 'assert';
 import { join } from 'path';
+import address from 'address';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 import { defaultSlaveRootId } from '../common';
 import { Options } from '../types';
+
+const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
   const { registerRuntimeKeyInIndex = false } = options || {};
@@ -40,7 +43,7 @@ export default function(api: IApi, options: Options) {
     memo.output!.jsonpFunction = `webpackJsonp_${api.pkg.name}`;
     // 配置 publicPath，支持 hot update
     if (process.env.NODE_ENV === 'development' && port) {
-      memo.output!.publicPath = `${protocol}://localhost:${port}/`;
+      memo.output!.publicPath = `${protocol}://${localIpAddress}:${port}/`;
     }
     return memo;
   });
@@ -59,14 +62,14 @@ export default function(api: IApi, options: Options) {
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development' && port) {
     // 变更 webpack-dev-server websocket 默认监听地址
-    process.env.SOCKET_SERVER = `${protocol}://localhost:${port}/`;
+    process.env.SOCKET_SERVER = `${protocol}://${localIpAddress}:${port}/`;
     api.chainWebpackConfig(memo => {
       // 禁用 devtool，启用 SourceMapDevToolPlugin
       memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
         {
           namespace: pkgName,
-          append: `\n//# sourceMappingURL=${protocol}://localhost:${port}/[url]`,
+          append: `\n//# sourceMappingURL=${protocol}://${localIpAddress}:${port}/[url]`,
           filename: '[file].map',
         },
       ]);
