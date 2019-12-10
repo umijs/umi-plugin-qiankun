@@ -1,6 +1,6 @@
 {
   "name": "@umijs/plugin-qiankun",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "umi plugin for qiankun",
   "repository": "umijs/umi-plugin-qiankun",
   "main": "index.js",
