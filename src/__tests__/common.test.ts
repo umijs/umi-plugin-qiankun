@@ -7,6 +7,8 @@ import { testPathWithPrefix } from '../common';
 
 it('testPathPrefix', () => {
   // browser history
+  expect(testPathWithPrefix('/js', '/')).toBeFalsy();
+
   expect(testPathWithPrefix('/js', '/js')).toBeTruthy();
   expect(testPathWithPrefix('/js', '/jss')).toBeFalsy();
   expect(testPathWithPrefix('/js', '/js/')).toBeTruthy();

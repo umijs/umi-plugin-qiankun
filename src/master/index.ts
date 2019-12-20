@@ -2,8 +2,8 @@
 import { existsSync } from 'fs';
 import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
-import { IApi, IConfig } from 'umi-types';
-import { defaultHistoryMode, defaultMasterRootId, toArray } from '../common';
+import { IApi, IConfig, IRoute } from 'umi-types';
+import { defaultHistoryMode, defaultMasterRootId, testPathWithPrefix, toArray } from '../common';
 import { Options } from '../types';
 
 export default function(api: IApi, options: Options) {
@@ -25,6 +25,18 @@ export default function(api: IApi, options: Options) {
   // apps 可能在构建期为空
   const { apps = [] } = options || {};
   if (apps.length) {
+    // 检查路由中是否已存在跟 basePath 一致的路由
+    const isBasePathExist = (routes: IRoute[], basePath: string): boolean =>
+      routes.some(route => {
+        if (route.path && testPathWithPrefix(basePath, route.path)) return true;
+
+        if (route.routes && route.routes.length) {
+          return isBasePathExist(route.routes, basePath);
+        }
+
+        return false;
+      });
+
     const modifyAppRoutes = (masterHistory: IConfig['history']) => {
       api.modifyRoutes(routes => {
         const newRoutes = routes.map(route => {
@@ -34,18 +46,22 @@ export default function(api: IApi, options: Options) {
                 // 当子应用的 history mode 跟主应用一致时，为避免出现 404 手动为主应用创建一个 path 为 子应用 rule 的空 div 路由组件
                 if (slaveHistory === masterHistory) {
                   const baseConfig = toArray(base);
-                  baseConfig.forEach(basePath =>
-                    route.routes!.unshift({
-                      path: `${basePath}/(.*)`,
-                      component: `() => {
+                  baseConfig.forEach(basePath => {
+                    // 应用没有自己配置过 basePath 相关路由，则自动加入 mock 的路由
+                    if (!isBasePathExist(routes, basePath)) {
+                      route.routes!.unshift({
+                        path: basePath,
+                        exact: false,
+                        component: `() => {
                         if (process.env.NODE_ENV === 'development') {
                           console.log('${basePath} 404 mock rendered');
                         }
 
                         return React.createElement('div');
                       }`,
-                    }),
-                  );
+                      });
+                    }
+                  });
                 }
               });
             }
