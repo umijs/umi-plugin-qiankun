@@ -32,7 +32,7 @@ export default {
       });
 
       // 模拟手动控制 qiankun 启动时机的场景, 需要 defer 配置为 true
-      setTimeout(qiankunStart, 1000);
+      setTimeout(qiankunStart, 200);
     },
   },
 
