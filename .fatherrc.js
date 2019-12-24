@@ -1,5 +1,5 @@
 export default {
-  target: 'node',
+  target: 'browser',
   cjs: { type: 'babel' },
   disableTypeCheck: true,
   runtimeHelpers: true,

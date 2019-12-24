@@ -5,6 +5,9 @@ export default {
   publicPath: '/app2/',
   outputPath: './dist/app2',
   mountElementId: 'app2',
+  targets: {
+    ie: 11
+  },
   plugins: [
     ['../../slave'],
     [
