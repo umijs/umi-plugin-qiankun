@@ -1,7 +1,7 @@
 /*  eslint-disable no-param-reassign */
+import address from 'address';
 import assert from 'assert';
 import { join } from 'path';
-import address from 'address';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
@@ -27,10 +27,12 @@ export default function(api: IApi, options: Options) {
     // disableGlobalVariables: true,
     base: `/${pkgName}`,
     mountElementId,
+    // 默认开启 runtimePublicPath，避免出现 dynamic import 场景子应用资源地址出问题
+    runtimePublicPath: true,
   }));
 
-  // 如果开启了 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
-  if (api.config.runtimePublicPath) {
+  // 如果没有手动关闭 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
+  if (api.config.runtimePublicPath !== false) {
     api.modifyPublicPathStr('window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__');
   }
 
