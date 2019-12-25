@@ -1,13 +1,11 @@
 import { Layout, Menu } from 'antd';
 import Link from 'umi/link';
 import style from './style.less';
-import { isIE } from '../../helpers';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 export default ({ children }) => {
-  const ContentElement = isIE() ? 'div' : Content
   return (
     <Layout className={style.layout}>
       <Sider width={200} className={style.sider}>
@@ -20,17 +18,16 @@ export default ({ children }) => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <ContentElement
+      <Content
         style={{
           background: '#fff',
           padding: 24,
           margin: 0,
-          minHeight: 280,
-          width: '100%'
+          minHeight: 280
         }}
       >
         {children}
-      </ContentElement>
+      </Content>
     </Layout>
   )
 };

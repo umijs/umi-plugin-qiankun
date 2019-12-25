@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import React from 'react';
 import { Link } from 'umi';
 import style from './style.less';
-import { isIE } from '../../helpers'
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,7 +34,6 @@ export default class extends React.PureComponent {
     const { location, children, base } = this.props;
     const { name, apps } = base;
     const selectKey = '/' + location.pathname.split('/')[1];
-    const ContentElemnt = isIE() ? 'div' : Content
     return (
       <Layout className={style.layout}>
         <Header>
@@ -59,12 +57,12 @@ export default class extends React.PureComponent {
             })}
           </Menu>
         </Header>
-        <ContentElemnt className={style.content}>
+        <Content className={style.content}>
           {renderBreadCrumb(location.pathname)}
           {// 加载master pages，此处判断较为简单，实际需排除所有子应用base打头的路径
             selectKey === '/' ? children : null}
           {apps.length ? <div id="root-subapp-container" /> : null}
-        </ContentElemnt>
+        </Content>
         <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
       </Layout>
     );
