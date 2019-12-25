@@ -12,7 +12,7 @@ export default {
       changeOrigin: true,
     },
   },
-
+  runtimePublicPath: '',
   plugins: [
     [
       '../../index',
