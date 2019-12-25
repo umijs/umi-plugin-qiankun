@@ -6,6 +6,7 @@ export default {
   targets: {
     ie: 11
   },
+  runtimePublicPath: false,
   plugins: [
     ['../../index.js'],
     [

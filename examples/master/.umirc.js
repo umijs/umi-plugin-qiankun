@@ -12,14 +12,14 @@ export default {
       changeOrigin: true,
     },
   },
-  runtimePublicPath: '',
+  runtimePublicPath: false,
   plugins: [
     [
       '../../index',
       {
         master: {
           defer: true,
-          // jsSandbox: true,
+          jsSandbox: false,
           prefetch: true,
         }
       },

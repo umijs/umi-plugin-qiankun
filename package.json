@@ -36,8 +36,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "qiankun": "^1.3.6",
-    "whatwg-fetch": "^3.0.0"
+    "qiankun": "^1.3.6"
   },
   "peerDependencies": {
     "react": "16",
@@ -48,7 +47,6 @@
   "devDependencies": {
     "@types/jest": "^24.0.19",
     "@types/react-dom": "^16.8.4",
-    "@types/whatwg-fetch": "^0.0.33",
     "@umijs/fabric": "^1.1.10",
     "address": "^1.1.2",
     "check-prettier": "^1.0.3",
