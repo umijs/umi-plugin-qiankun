@@ -3,10 +3,6 @@ export default {
   publicPath: '/app1/',
   outputPath: './dist/app1',
   mountElementId: 'app1',
-  targets: {
-    ie: 11
-  },
-  runtimePublicPath: false,
   plugins: [
     ['../../index.js'],
     [

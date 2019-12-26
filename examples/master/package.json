@@ -4,8 +4,5 @@
     "start": "umi dev",
     "build": "COMPRESS=none umi build",
     "test": "umi test"
-  },
-  "dependencies": {
-    "whatwg-fetch": "^3.0.0"
   }
 }

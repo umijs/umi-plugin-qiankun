@@ -1,7 +1,4 @@
 export default {
-  targets: {
-    ie: 11,
-  },
   proxy: {
     '/api': {
       target: 'http://localhost:8000',
@@ -12,14 +9,13 @@ export default {
       changeOrigin: true,
     },
   },
-  runtimePublicPath: false,
   plugins: [
     [
       '../../index',
       {
         master: {
           defer: true,
-          jsSandbox: false,
+          jsSandbox: true,
           prefetch: true,
         }
       },
