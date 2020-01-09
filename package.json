@@ -19,7 +19,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run start:master\" \"npm run start:app1\" \"npm run start:app2\"",
+    "start": "concurrently \"npm run start:master\" \"npm run start:app1\" \"npm run start:app2\" \"npm run start:app3\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "npm run lint:js && npm run lint:prettier && npm test",
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
@@ -32,6 +32,7 @@
     "start:master": "cd examples/master && umi dev",
     "start:app1": "cd examples/app1 && umi dev",
     "start:app2": "cd examples/app2 && umi dev",
+    "start:app3": "cd examples/app3 && umi dev",
     "test": "umi-test"
   },
   "dependencies": {

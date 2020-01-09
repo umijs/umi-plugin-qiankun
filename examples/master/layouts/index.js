@@ -48,7 +48,14 @@ export default class extends React.PureComponent {
             <Menu.Item key="/">
               <Link to="/">Home</Link>
             </Menu.Item>
-            {apps.map(app => {
+            {apps.map((app, index) => {
+              if (index === 2) {
+                return (
+                  <Menu.Item key={app.base}>
+                    <Link to="/app3/123">{app.name}</Link>
+                  </Menu.Item>
+                );
+              }
               return (
                 <Menu.Item key={app.base}>
                   <Link to={app.base}>{app.name}</Link>
