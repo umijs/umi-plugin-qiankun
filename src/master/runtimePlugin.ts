@@ -8,7 +8,7 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultMountContainerId, noop, testPath, toArray } from '../common';
+import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
 import { App, GlobalOptions, Options } from '../types';
 
 async function getMasterRuntime() {
@@ -27,10 +27,10 @@ export async function render(oldRender: typeof noop) {
 
     switch (history) {
       case 'hash':
-        return baseConfig.some(pathPrefix => testPath(`#${pathPrefix}`, location.hash));
+        return baseConfig.some(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
 
       case 'browser':
-        return baseConfig.some(pathPrefix => testPath(`${pathPrefix}`, location.pathname));
+        return baseConfig.some(pathPrefix => testPathWithPrefix(`${pathPrefix}`, location.pathname));
 
       default:
         return false;

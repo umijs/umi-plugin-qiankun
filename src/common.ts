@@ -3,7 +3,7 @@
  * @since 2019-06-20
  */
 
-import { match } from './vendor/path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 
 export const defaultMountContainerId = 'root-subapp';
 
@@ -21,7 +21,7 @@ export function toArray<T>(source: T | T[]): T[] {
   return Array.isArray(source) ? source : [source];
 }
 
-export function testPathWithPrefix(pathPrefix: string, realPath: string) {
+export function testPathWithStaticPrefix(pathPrefix: string, realPath: string) {
   if (pathPrefix.endsWith('/')) {
     return realPath.startsWith(pathPrefix);
   }
@@ -32,9 +32,9 @@ export function testPathWithPrefix(pathPrefix: string, realPath: string) {
 }
 
 function testPathWithDynamicRoute(dynamicRoute: string, realPath: string) {
-  return match(dynamicRoute, { decode: decodeURIComponent })(realPath);
+  return pathToRegexp(dynamicRoute).exec(realPath);
 }
 
-export function testPath(pathPrefix: string, realPath: string) {
-  return testPathWithPrefix(pathPrefix, realPath) || testPathWithDynamicRoute(pathPrefix, realPath);
+export function testPathWithPrefix(pathPrefix: string, realPath: string) {
+  return testPathWithStaticPrefix(pathPrefix, realPath) || testPathWithDynamicRoute(pathPrefix, realPath);
 }
