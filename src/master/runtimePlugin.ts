@@ -8,9 +8,8 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultMountContainerId, noop, toArray } from '../common';
+import { defaultMountContainerId, noop, testPath, toArray } from '../common';
 import { App, GlobalOptions, Options } from '../types';
-import { match } from '../vendor/path-to-regexp';
 
 async function getMasterRuntime() {
   // eslint-disable-next-line import/no-extraneous-dependencies, global-require
@@ -28,10 +27,10 @@ export async function render(oldRender: typeof noop) {
 
     switch (history) {
       case 'hash':
-        return baseConfig.some(route => match(`#${route}`, { decode: decodeURIComponent })(location.hash));
+        return baseConfig.some(pathPrefix => testPath(`#${pathPrefix}`, location.hash));
 
       case 'browser':
-        return baseConfig.some(route => match(route, { decode: decodeURIComponent })(location.pathname));
+        return baseConfig.some(pathPrefix => testPath(`${pathPrefix}`, location.pathname));
 
       default:
         return false;
