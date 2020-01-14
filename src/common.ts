@@ -3,7 +3,7 @@
  * @since 2019-06-20
  */
 
-import { pathToRegexp } from 'path-to-regexp';
+import pathToRegexp from 'path-to-regexp';
 
 export const defaultMountContainerId = 'root-subapp';
 
