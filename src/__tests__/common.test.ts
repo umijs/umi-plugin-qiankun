@@ -33,7 +33,7 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('#/js', '#/js/?a=b')).toBeTruthy();
 
   // browser history with slash ending
-  // expect(testPathWithPrefix('/js/', '/js')).toBeFalsy();
+  expect(testPathWithPrefix('/js/', '/js')).toBeFalsy();
   expect(testPathWithPrefix('/js/', '/jss')).toBeFalsy();
   expect(testPathWithPrefix('/js/', '/js/')).toBeTruthy();
   expect(testPathWithPrefix('/js/', '/js/s')).toBeTruthy();
@@ -45,7 +45,7 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('/js/', '/js/?a=b')).toBeTruthy();
 
   // hash history with slash ending
-  // expect(testPathWithPrefix('#/js/', '#/js')).toBeFalsy();
+  expect(testPathWithPrefix('#/js/', '#/js')).toBeFalsy();
   expect(testPathWithPrefix('#/js/', '#/jss')).toBeFalsy();
   expect(testPathWithPrefix('#/js/', '#/js/')).toBeTruthy();
   expect(testPathWithPrefix('#/js/', '#/js/s')).toBeTruthy();
@@ -55,4 +55,20 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('#/js/', '#/js?')).toBeFalsy();
   expect(testPathWithPrefix('#/js/', '#/js/?')).toBeTruthy();
   expect(testPathWithPrefix('#/js/', '#/js/?a=b')).toBeTruthy();
+
+  // browser history with dynamic route
+  expect(testPathWithPrefix('/:abc', '/js')).toBeTruthy();
+  expect(testPathWithPrefix('/:abc', '/123')).toBeTruthy();
+  expect(testPathWithPrefix('/:abc/', '/js/')).toBeTruthy();
+  expect(testPathWithPrefix('/:abc/js', '/js/js')).toBeTruthy();
+  expect(testPathWithPrefix('/:abc/js', '/js/123')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc', '/js/123')).toBeTruthy();
+  expect(testPathWithPrefix('/js/:abc/', '/js/123')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc/jsx', '/js/123/jsx')).toBeTruthy();
+  expect(testPathWithPrefix('/js/:abc/jsx', '/js/123')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc/jsx', '/js/123/css')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc/jsx/:cde', '/js/123/jsx/kkk')).toBeTruthy();
+  expect(testPathWithPrefix('/js/:abc/jsx/:cde', '/js/123/jsk')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc?', '/js')).toBeTruthy();
+  expect(testPathWithPrefix('/js/*', '/js/245')).toBeTruthy();
 });
