@@ -77,6 +77,8 @@ export default {
 };
 ```
 
+Note: 当主应用跟子应用的 history 模式一致时（比如都是 browser 或 hash），插件会自动创建一些空路由来避免 404，所以建议主应用跟子应用使用相同的 history mode，否则需要自己处理这些情况。
+
 #### 运行时
 
 ```js
