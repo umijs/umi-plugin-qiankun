@@ -30,7 +30,7 @@ export async function render(oldRender: typeof noop) {
         return baseConfig.some(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
 
       case 'browser':
-        return baseConfig.some(pathPrefix => testPathWithPrefix(`${pathPrefix}`, location.pathname));
+        return baseConfig.some(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
 
       default:
         return false;

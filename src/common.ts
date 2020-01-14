@@ -21,7 +21,7 @@ export function toArray<T>(source: T | T[]): T[] {
   return Array.isArray(source) ? source : [source];
 }
 
-export function testPathWithStaticPrefix(pathPrefix: string, realPath: string) {
+function testPathWithStaticPrefix(pathPrefix: string, realPath: string) {
   if (pathPrefix.endsWith('/')) {
     return realPath.startsWith(pathPrefix);
   }
