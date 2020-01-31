@@ -1,12 +1,14 @@
 language: node_js
-
+version: 1.0
 node_js:
-  - '8'
+  - lts/*
+install:
+  - yarn install
 cache:
   directories:
     - node_modules
 script:
-  - npm run lint
+  - yarn lint
 
 before_deploy: |
   function npm_dist_tag() {
