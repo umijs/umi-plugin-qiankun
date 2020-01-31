@@ -33,7 +33,7 @@ export default function(api: IApi, options: Options) {
 
   // 如果没有手动关闭 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
   if (api.config.runtimePublicPath !== false) {
-    api.modifyPublicPathStr('window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__');
+    api.modifyPublicPathStr('window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || "/"');
   }
 
   const port = process.env.PORT;
