@@ -37,6 +37,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
+    "address": "^1.1.2",
+    "path-to-regexp": "^1.7.0",
     "qiankun": "^1.3.6"
   },
   "peerDependencies": {
@@ -49,7 +51,6 @@
     "@types/jest": "^24.0.19",
     "@types/react-dom": "^16.8.4",
     "@umijs/fabric": "^1.1.10",
-    "address": "^1.1.2",
     "check-prettier": "^1.0.3",
     "concurrently": "^4.1.2",
     "coveralls": "3",
