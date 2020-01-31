@@ -1,5 +1,4 @@
 language: node_js
-version: 1.0
 node_js:
   - lts/*
 install:
@@ -20,6 +19,7 @@ before_deploy: |
   }
 
 deploy:
+  edge: true
   provider: npm
   email: kuitos.lau@gmail.com
   api_key: $NPM_AUTH_TOKEN
