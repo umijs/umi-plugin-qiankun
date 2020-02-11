@@ -10,7 +10,7 @@ export default ({ children }) => (
     <Sider width={200} className={style.sider}>
       <Menu mode="inline" defaultSelectedKeys={['dashboard']} style={{ height: '100%', borderRight: 0 }}>
         <Menu.Item key="dashboard">
-          <Link to="/">App2 Dashboard</Link>
+          <Link to="/123">App3 Dashboard</Link>
         </Menu.Item>
         <Menu.Item key="user">
           <Link to="/user">User</Link>

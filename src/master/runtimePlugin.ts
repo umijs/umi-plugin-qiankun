@@ -1,3 +1,6 @@
+/* eslint-disable import/no-unresolved, import/extensions */
+
+import { deferred } from '@tmp/qiankunDefer.js';
 import '@tmp/qiankunRootExports.js';
 import subAppConfig from '@tmp/subAppsConfig.json';
 import assert from 'assert';
@@ -5,12 +8,15 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultHistoryMode, defaultMountContainerId, noop, toArray } from '../common';
-import { App, Options } from '../types';
+import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
+import { App, GlobalOptions, Options } from '../types';
 
 async function getMasterRuntime() {
+  // eslint-disable-next-line import/no-extraneous-dependencies, global-require
   const plugins = require('umi/_runtimePlugin');
-  return plugins.mergeConfigAsync('qiankun');
+  const config: GlobalOptions = (await plugins.mergeConfigAsync('qiankun')) || {};
+  const { master } = config;
+  return master || config;
 }
 
 export async function render(oldRender: typeof noop) {
@@ -21,10 +27,10 @@ export async function render(oldRender: typeof noop) {
 
     switch (history) {
       case 'hash':
-        return baseConfig.some(pathPrefix => location.hash.startsWith(`#${pathPrefix}`));
+        return baseConfig.some(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
 
       case 'browser':
-        return baseConfig.some(pathPrefix => location.pathname.startsWith(pathPrefix));
+        return baseConfig.some(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
 
       default:
         return false;
@@ -32,37 +38,46 @@ export async function render(oldRender: typeof noop) {
   }
 
   const runtimeConfig = await getMasterRuntime();
-  const { apps, jsSandbox = false, prefetch = true } = { ...subAppConfig as Options, ...runtimeConfig as Options };
+  const { apps, jsSandbox = false, prefetch = true, defer = false, lifeCycles, masterHistory, ...otherConfigs } = {
+    ...(subAppConfig as Options),
+    ...(runtimeConfig as Options),
+  };
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(
-    apps.map(({ name, entry, base, history = defaultHistoryMode, mountElementId = defaultMountContainerId, ...props }) => {
+    apps.map(({ name, entry, base, history = masterHistory, mountElementId = defaultMountContainerId, props }) => ({
+      name,
+      entry,
+      activeRule: location => isAppActive(location, history, base),
+      render: ({ appContent, loading }) => {
+        if (process.env.NODE_ENV === 'development') {
+          console.info(`app ${name} loading ${loading}`);
+        }
 
-      return {
-        name,
-        entry,
-        activeRule: location => isAppActive(location, history, base),
-        render: ({ appContent, loading }) => {
-          if (process.env.NODE_ENV === 'development') {
-            console.info(`app ${name} loading ${loading}`);
+        if (mountElementId) {
+          const container = document.getElementById(mountElementId);
+          if (container) {
+            const subApp = React.createElement('div', {
+              dangerouslySetInnerHTML: {
+                __html: appContent,
+              },
+            });
+            ReactDOM.render(subApp, container);
           }
-
-          if (mountElementId) {
-            const container = document.getElementById(mountElementId);
-            if (container) {
-              const subApp = React.createElement('div', {
-                dangerouslySetInnerHTML: {
-                  __html: appContent,
-                },
-              });
-              ReactDOM.render(subApp, container);
-            }
-          }
-        },
-        props,
-      };
-    }),
+        }
+      },
+      props: {
+        base,
+        history,
+        ...props,
+      },
+    })),
+    lifeCycles,
   );
 
-  start({ jsSandbox, prefetch });
+  if (defer) {
+    await deferred.promise;
+  }
+
+  start({ jsSandbox, prefetch, ...otherConfigs });
 }

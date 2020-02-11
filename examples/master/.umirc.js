@@ -8,13 +8,20 @@ export default {
       target: 'http://localhost:8001',
       changeOrigin: true,
     },
+    '/api/app3': {
+      target: 'http://localhost:8002',
+      changeOrigin: true,
+    },
   },
   plugins: [
     [
-      '../../master',
+      '../../index',
       {
-        jsSandbox: true,
-        prefetch: true,
+        master: {
+          defer: true,
+          jsSandbox: true,
+          prefetch: true,
+        }
       },
     ],
     [

@@ -1,7 +1,7 @@
-import React from 'React';
-import { Link } from 'umi';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
 import { connect } from 'dva';
+import React from 'react';
+import { Link } from 'umi';
 import style from './style.less';
 
 const { Header, Content, Footer } = Layout;
@@ -48,7 +48,14 @@ export default class extends React.PureComponent {
             <Menu.Item key="/">
               <Link to="/">Home</Link>
             </Menu.Item>
-            {apps.map(app => {
+            {apps.map((app, index) => {
+              if (index === 2) {
+                return (
+                  <Menu.Item key={app.base}>
+                    <Link to="/app3/123">{app.name}</Link>
+                  </Menu.Item>
+                );
+              }
               return (
                 <Menu.Item key={app.base}>
                   <Link to={app.base}>{app.name}</Link>
@@ -59,8 +66,9 @@ export default class extends React.PureComponent {
         </Header>
         <Content className={style.content}>
           {renderBreadCrumb(location.pathname)}
-          {// 加载master pages，此处判断较为简单，实际需排除所有子应用bas打头的路径
-          selectKey === '/' ? children : <div id="root-slave"></div>}
+          {// 加载master pages，此处判断较为简单，实际需排除所有子应用base打头的路径
+            selectKey === '/' ? children : null}
+          {apps.length ? <div id="root-subapp-container"/> : null}
         </Content>
         <Footer className={style.footer}>Ant Design ©2019 Created by Ant UED</Footer>
       </Layout>
