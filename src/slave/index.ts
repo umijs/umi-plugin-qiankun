@@ -5,13 +5,15 @@ import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
+import { cloneDeep } from 'lodash';
+
 import { defaultSlaveRootId } from '../common';
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false } = options || {};
+  const { registerRuntimeKeyInIndex = false, nameSpace = 'default' } = options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
@@ -118,4 +120,30 @@ export function useRootExports() {
     }
     `,
   );
+
+  const recursiveCoverRouter = (_source: Array<any>, _nameSpacePath: string) =>
+    _source.map((router: any) => {
+      if (router.routes) {
+        recursiveCoverRouter(router.routes, _nameSpacePath);
+      }
+      if (router.path !== '/' && router.path) {
+        router.path = `${_nameSpacePath}${router.path}`;
+      }
+      return router;
+    });
+
+  api.modifyRoutes(routes => {
+    const copyBase = routes.filter(_ => _.path === '/');
+
+    if (copyBase[0]) {
+      const nameSpaceRouter: any = cloneDeep(copyBase[0]);
+      nameSpaceRouter.path = `/${nameSpace}`;
+
+      nameSpaceRouter.routes = recursiveCoverRouter(nameSpaceRouter.routes, `/${nameSpace}`);
+
+      routes.unshift(nameSpaceRouter);
+    }
+
+    return routes;
+  });
 }
