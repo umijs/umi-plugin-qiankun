@@ -3,7 +3,8 @@
  * @since 2019-10-22
  */
 
-import { testPathWithPrefix } from '../common';
+import { testPathWithPrefix, recursiveCoverRouter } from '../common';
+import { originRoute, expectRoute } from './mock';
 
 it('testPathPrefix', () => {
   // browser history
@@ -87,4 +88,9 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('#/js/:abc/jsx/:cde', '#/js/123/jsk')).toBeFalsy();
   expect(testPathWithPrefix('#/js/:abc?', '#/js')).toBeTruthy();
   expect(testPathWithPrefix('#/js/*', '#/js/245')).toBeTruthy();
+});
+
+it('testRecursiveCoverRouter', () => {
+  // 路由覆盖单测
+  expect(String(recursiveCoverRouter(originRoute, 'test'))).toEqual(String(expectRoute));
 });

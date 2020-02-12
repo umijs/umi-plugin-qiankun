@@ -7,7 +7,7 @@ export default {
   mountElementId: 'app2',
   plugins: [
     ['../../slave', {
-      nameSpace: 'app2'
+      keepOriginalRoutes: true
     }],
     [
       'umi-plugin-react',

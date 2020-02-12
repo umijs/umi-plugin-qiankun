@@ -1,4 +1,3 @@
-// tslint:disable-next-line:ban-ts-ignore
 // @ts-ignore
 import ReactDOM from 'react-dom';
 import { noop } from '../common';
@@ -8,7 +7,6 @@ type Defer = {
   resolve(value?: any): void;
 };
 
-// tslint:disable-next-line:ban-ts-ignore
 // @ts-ignore
 const defer: Defer = {};
 defer.promise = new Promise(resolve => {

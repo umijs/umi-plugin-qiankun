@@ -22,7 +22,7 @@ export type Options = {
   lifeCycles?: LifeCycles<object>;
   masterHistory: IConfig['history'];
   registerRuntimeKeyInIndex?: boolean; // 仅做插件本身透传用，开发者无需关心
-  nameSpace?: string;
+  keepOriginalRoutes?: boolean | string;
 };
 
 export type GlobalOptions = {

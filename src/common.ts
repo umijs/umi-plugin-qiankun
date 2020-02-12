@@ -4,6 +4,7 @@
  */
 
 import pathToRegexp from 'path-to-regexp';
+import { IRoute } from 'umi-types';
 
 export const defaultMountContainerId = 'root-subapp';
 
@@ -38,3 +39,17 @@ function testPathWithDynamicRoute(dynamicRoute: string, realPath: string) {
 export function testPathWithPrefix(pathPrefix: string, realPath: string) {
   return testPathWithStaticPrefix(pathPrefix, realPath) || testPathWithDynamicRoute(pathPrefix, realPath);
 }
+
+export const recursiveCoverRouter = (_source: Array<IRoute>, _nameSpacePath: string) =>
+  _source.map((router: IRoute) => {
+    if (router.routes) {
+      recursiveCoverRouter(router.routes, _nameSpacePath);
+    }
+    if (router.path !== '/' && router.path) {
+      return {
+        ...router,
+        path: `${_nameSpacePath}${router.path}`,
+      };
+    }
+    return router;
+  });
