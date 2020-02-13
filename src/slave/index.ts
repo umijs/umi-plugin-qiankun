@@ -5,13 +5,15 @@ import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
-import { defaultSlaveRootId } from '../common';
+import { isString } from 'lodash';
+
+import { defaultSlaveRootId, addSpecifyPrefixedRoute } from '../common';
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false } = options || {};
+  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false } = options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
@@ -60,10 +62,12 @@ export default function(api: IApi, options: Options) {
     $('script').each((_, el) => {
       const scriptEl = $(el);
       const umiEntryJs = /\/?umi(\.\w+)?\.js$/g;
-      if (umiEntryJs.test(scriptEl.attr('src'))) {
+      if (umiEntryJs.test(scriptEl.attr('src') ?? '')) {
         scriptEl.attr('entry', '');
       }
     });
+
+    return $;
   });
 
   // source-map 跨域设置
@@ -118,4 +122,13 @@ export function useRootExports() {
     }
     `,
   );
+
+  api.modifyRoutes(routes => {
+    // 开启keepOriginalRoutes配置
+    if (keepOriginalRoutes === true || isString(keepOriginalRoutes)) {
+      return addSpecifyPrefixedRoute(routes, keepOriginalRoutes, pkgName);
+    }
+
+    return routes;
+  });
 }

@@ -1,6 +1,6 @@
 {
   "name": "@umijs/plugin-qiankun",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "umi plugin for qiankun",
   "repository": "umijs/umi-plugin-qiankun",
   "main": "index.js",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.5",
     "address": "^1.1.2",
+    "loadash": "^1.0.0",
     "path-to-regexp": "^1.7.0",
     "qiankun": "^1.3.6"
   },
