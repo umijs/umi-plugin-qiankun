@@ -5,9 +5,9 @@ import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
-import { cloneDeep, isString } from 'lodash';
+import { isString } from 'lodash';
 
-import { defaultSlaveRootId, recursiveCoverRouter, addSpecifyPrefixedRoute } from '../common';
+import { defaultSlaveRootId, addSpecifyPrefixedRoute } from '../common';
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
