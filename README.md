@@ -45,7 +45,7 @@ $ yarn start
 
 安装 `@umijs/plugin-qiankun` ，并在 `.umirc.js/config` 的 plugin 中配置 `@umijs/plugin-qiankun`
 
-[masterOptions 配置列表](#配置列表)
+[masterOptions 配置列表](#masterOptions)
 
 ```js
 export default {
@@ -237,7 +237,7 @@ PORT=8081
 
 ## API
 
-### <a name="#配置列表">MasterOptions</a>
+### <a name="masterOptions">MasterOptions</a>
 
 [qiankun start](https://github.com/umijs/qiankun/blob/master/src/interfaces.ts#L31) 方法其他可接收的参数在这里也都可以配置
 
