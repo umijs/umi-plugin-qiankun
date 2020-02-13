@@ -25,6 +25,8 @@ export type Options = {
   keepOriginalRoutes?: boolean | string;
 };
 
+export type keepOriginalRoutesOption = boolean | string;
+
 export type GlobalOptions = {
   master?: Options;
   slave?: Options;

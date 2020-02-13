@@ -5,6 +5,9 @@
 
 import pathToRegexp from 'path-to-regexp';
 import { IRoute } from 'umi-types';
+import { cloneDeep } from 'lodash';
+
+import { keepOriginalRoutesOption } from './types';
 
 export const defaultMountContainerId = 'root-subapp';
 
@@ -53,3 +56,22 @@ export const recursiveCoverRouter = (_source: Array<IRoute>, _nameSpacePath: str
     }
     return router;
   });
+
+export const addSpecifyPrefixedRoute = (
+  originRoute: Array<IRoute>,
+  keepOriginalRoutes: keepOriginalRoutesOption,
+  pkgName?: string,
+) => {
+  const copyBase = originRoute.filter(_ => _.path === '/');
+  if (!copyBase[0]) {
+    return originRoute;
+  }
+
+  const nameSpaceRouter: any = cloneDeep(copyBase[0]);
+  const nameSpace = keepOriginalRoutes === true ? pkgName : keepOriginalRoutes;
+
+  nameSpaceRouter.path = `/${nameSpace}`;
+  nameSpaceRouter.routes = recursiveCoverRouter(nameSpaceRouter.routes, `/${nameSpace}`);
+
+  return [nameSpaceRouter, ...originRoute];
+};

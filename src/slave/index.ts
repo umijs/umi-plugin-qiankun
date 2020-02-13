@@ -7,7 +7,7 @@ import { IApi } from 'umi-types';
 import webpack from 'webpack';
 import { cloneDeep, isString } from 'lodash';
 
-import { defaultSlaveRootId, recursiveCoverRouter } from '../common';
+import { defaultSlaveRootId, recursiveCoverRouter, addSpecifyPrefixedRoute } from '../common';
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
@@ -122,16 +122,9 @@ export function useRootExports() {
   );
 
   api.modifyRoutes(routes => {
-    const copyBase = routes.filter(_ => _.path === '/');
-
-    if ((keepOriginalRoutes === true || isString(keepOriginalRoutes)) && copyBase[0]) {
-      const nameSpaceRouter: any = cloneDeep(copyBase[0]);
-      const nameSpace = keepOriginalRoutes === true ? pkgName : keepOriginalRoutes;
-
-      nameSpaceRouter.path = `/${nameSpace}`;
-      nameSpaceRouter.routes = recursiveCoverRouter(nameSpaceRouter.routes, `/${nameSpace}`);
-
-      routes.unshift(nameSpaceRouter);
+    // 开启keepOriginalRoutes配置
+    if (keepOriginalRoutes === true || isString(keepOriginalRoutes)) {
+      return addSpecifyPrefixedRoute(routes, keepOriginalRoutes, pkgName);
     }
 
     return routes;
