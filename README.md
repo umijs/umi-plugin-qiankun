@@ -41,9 +41,7 @@ $ yarn start
 
 ### 主应用
 
-#### 第一步：构建层配置
-
-安装 `@umijs/plugin-qiankun` ，并在 `.umirc.js/config` 的 plugin 中配置 `@umijs/plugin-qiankun`。
+#### 第一步：配置插件
 
 ```js
 export default {
@@ -60,9 +58,11 @@ export default {
 
 [masterOptions 配置列表](#masterOptions)
 
-子应用配置方式有以下两种(选取一种配置即可)：
+#### 第二步：配置子应用
 
-- 配置写在 plugin 的 master 配置项中
+子应用的配置方式（二选一）：
+
+##### 构建期配置子应用
 
 ```js
 export default {
@@ -98,9 +98,9 @@ export default {
 };
 ```
 
-Note: **当主应用跟子应用的 history 模式一致时（比如都是 browser 或 hash），插件会自动创建一些空路由来避免 404，所以建议主应用跟子应用使用相同的 history mode，否则需要自己处理这些情况。**
+_注意: 当主应用跟子应用的 history 模式一致时（比如都是 browser 或 hash），插件会自动创建一些空路由来避免 404，所以建议主应用跟子应用使用相同的 history mode，否则需要自己处理这些情况。_
 
-- 运行时 src/app.js 里配置
+##### 运行时动态配置子应用（src/app.js 里开启）
 
 ```js
 // 从接口中获取子应用配置，export 出的 qiankun 变量是一个 promise
@@ -119,11 +119,9 @@ export const qiankun = fetch('/config').then(({ apps }}) => ({
 }));
 ```
 
-##### 第二步：添加子应用路由
-
 由于 umi 不支持在应用 render 之后修改路由，故运行时配置方式插件无法自动生成子应用相关路由，（见[代码](https://github.com/umijs/umi-plugin-qiankun/blob/master/src/master/index.ts#L34)）。所以这里需要用户手动添加子应用相关路由配置避免 404 情况：
 
-###### 2.1 主应用新建 pages/subAppContainer.js
+###### 1. 主应用新建 pages/subAppContainer.js
 
 ```js
 import React from 'react';
@@ -133,7 +131,7 @@ export default function() {
 }
 ```
 
-###### 2.2 新建 pages/subAppContainer.js
+###### 2. 新建 pages/subAppContainer.js
 
 ```js
 // 主应用 config.js 中添加子应用相关路由配置
@@ -171,7 +169,7 @@ export default {
 };
 ```
 
-#### 第二步：运行时配置
+#### 第二步：运行时配置（可选）
 
 在子应用的 `src/app.js` 里输出 `qiankun`，`props` 由主应用注册子应用时提供
 
@@ -274,8 +272,8 @@ PORT=8081
 ## Roadmap
 
 - [x] 支持 browserHistory
-- [x] 子应用嵌套
 - [x] master 运行时配置
+- [ ] 子应用嵌套
 - [ ] 公共依赖加载策略
 - [x] 子应用单独调试
 - [x] 基于 Hooks 的父子应用通讯（需强制 external React 保证一个 React 实例）
