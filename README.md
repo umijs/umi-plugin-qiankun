@@ -43,9 +43,26 @@ $ yarn start
 
 #### 第一步：构建层配置
 
-安装 `@umijs/plugin-qiankun` ，并在 `.umirc.js/config` 的 plugin 中配置 `@umijs/plugin-qiankun`
+安装 `@umijs/plugin-qiankun` ，并在 `.umirc.js/config` 的 plugin 中配置 `@umijs/plugin-qiankun`。
+
+```js
+export default {
+  plugins: [
+    [
+      '@umijs/plugin-qiankun',
+      {
+        master: { ...masterOptions },
+      },
+    ],
+  ],
+};
+```
 
 [masterOptions 配置列表](#masterOptions)
+
+子应用配置方式有以下两种(选取一种配置即可)：
+
+- 配置写在 plugin 的 master 配置项中
 
 ```js
 export default {
@@ -83,9 +100,7 @@ export default {
 
 Note: **当主应用跟子应用的 history 模式一致时（比如都是 browser 或 hash），插件会自动创建一些空路由来避免 404，所以建议主应用跟子应用使用相同的 history mode，否则需要自己处理这些情况。**
 
-#### 第二步：运行时配置
-
-##### 1. src/app.js 里配置
+- 运行时 src/app.js 里配置
 
 ```js
 // 从接口中获取子应用配置，export 出的 qiankun 变量是一个 promise
@@ -104,7 +119,7 @@ export const qiankun = fetch('/config').then(({ apps }}) => ({
 }));
 ```
 
-##### 2. 添加子应用路由
+##### 第二步：添加子应用路由
 
 由于 umi 不支持在应用 render 之后修改路由，故运行时配置方式插件无法自动生成子应用相关路由，（见[代码](https://github.com/umijs/umi-plugin-qiankun/blob/master/src/master/index.ts#L34)）。所以这里需要用户手动添加子应用相关路由配置避免 404 情况：
 
@@ -136,18 +151,9 @@ export default {
 
 #### 第一步：构建层配置
 
-`@umijs/plugin-qiankun` 子应用配置方式有以下三种(选取一种配置即可)： [slaveOptions 配置列表](#slaveOptions)
+`@umijs/plugin-qiankun` 子应用配置方式有以下两种(选取一种配置即可)： [slaveOptions 配置列表](#slaveOptions)
 
-- 绝对路径引用
-
-```js
-export default {
-  base: `/${appName}`, // 子应用的 base，默认为 package.json 中的 name 字段
-  plugins: ['@umijs/plugin-qiankun/slave', { ...slaveOptions }],
-};
-```
-
-- 配置
+- 子应用配置
 
 ```js
 export default {
