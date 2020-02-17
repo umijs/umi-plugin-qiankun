@@ -62,6 +62,7 @@ export default function(api: IApi, options: Options) {
     $('script').each((_, el) => {
       const scriptEl = $(el);
       const umiEntryJs = /\/?umi(\.\w+)?\.js$/g;
+
       if (umiEntryJs.test(scriptEl.attr('src') ?? '')) {
         scriptEl.attr('entry', '');
       }
