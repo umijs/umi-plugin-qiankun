@@ -1,13 +1,13 @@
 /*  eslint-disable no-param-reassign */
 import address from 'address';
 import assert from 'assert';
+import { isString } from 'lodash';
 import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
-import { isString } from 'lodash';
 
-import { defaultSlaveRootId, addSpecifyPrefixedRoute } from '../common';
+import { addSpecifyPrefixedRoute, defaultSlaveRootId } from '../common';
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
