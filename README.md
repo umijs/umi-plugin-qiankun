@@ -251,6 +251,7 @@ PORT=8081
 | jsSandbox | 是否启用 js 沙箱 | boolean | 否 | false |
 | prefetch | 是否启用 prefetch 特性 | boolean | 否 | true |
 | defer | 是否异步渲染，比如子应用的渲染容器依赖主应用生成的节点，而主应用生成该节点的过程是异步的。<br />当该配置开启的时候，需要使用 `import { qiankunStart } from 'umi'` api 通知 qiankun 启动。参考 [example](https://github.com/umijs/umi-plugin-qiankun/blob/master/examples/master/models/base.js#L35) | boolean | 否 | false |
+| fetch | 用于拦截 htmlEntry 静态资源 fetch 时的请求 | function | 否 | fetch |
 
 #### <a name="app">App</a>
 
@@ -267,7 +268,7 @@ PORT=8081
 
 | 配置 | 说明 | 类型 | 是否必填 | 默认值 |
 | --- | --- | --- | --- | --- |
-| keepOriginalRoutes | 子应用通过设置此配置，在编译时会按照 keepOriginalRoutes 的值添加一份 route 的快照(如果值为 true 将默认取 packageName)，并将快照路由前缀改为/\${keepOriginalRoutes}添加到 routes | boolean | string | 否 | false |
+| keepOriginalRoutes | 子应用通过设置此配置，在编译时会按照 keepOriginalRoutes 的值添加一份 route 的快照(如果值为 true 将默认取 packageName)，并将快照路由前缀改为/\${keepOriginalRoutes}添加到 routes | boolean \| string | 否 | false |
 
 ## Roadmap
 
