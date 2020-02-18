@@ -3,8 +3,8 @@
  * @since 2019-10-22
  */
 
-import { testPathWithPrefix, recursiveCoverRouter, addSpecifyPrefixedRoute } from '../common';
-import { originSingleRoute, expectCoverRoute, originRoutes, expectRoutes } from './mock';
+import { addSpecifyPrefixedRoute, testPathWithPrefix } from '../common';
+import { expectRoutes, originRoutes } from './mock';
 
 it('testPathPrefix', () => {
   // browser history
@@ -91,9 +91,6 @@ it('testPathPrefix', () => {
 });
 
 it('testRecursiveCoverRouter', () => {
-  // 路由覆盖单测
-  expect(String(recursiveCoverRouter(originSingleRoute, 'test'))).toEqual(String(expectCoverRoute));
-
   // 在原route的基础上添加指定路由单测
   expect(String(addSpecifyPrefixedRoute(originRoutes, 'test'))).toEqual(String(expectRoutes));
   expect(String(addSpecifyPrefixedRoute(originRoutes, 'test', 'app2'))).toEqual(String(expectRoutes));
