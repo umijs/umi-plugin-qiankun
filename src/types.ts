@@ -3,7 +3,7 @@
  * @since 2019-06-20
  */
 
-import { LifeCycles } from 'qiankun';
+import { LifeCycles, Fetch } from 'qiankun';
 // eslint-disable-next-line import/no-unresolved
 import { IConfig } from 'umi-types';
 
@@ -23,6 +23,7 @@ export type Options = {
   masterHistory: IConfig['history'];
   registerRuntimeKeyInIndex?: boolean; // 仅做插件本身透传用，开发者无需关心
   keepOriginalRoutes?: boolean | string;
+  fetch?: Fetch;
 };
 
 export type keepOriginalRoutesOption = boolean | string;
