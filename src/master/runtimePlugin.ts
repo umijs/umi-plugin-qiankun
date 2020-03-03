@@ -22,15 +22,32 @@ async function getMasterRuntime() {
 export async function render(oldRender: typeof noop) {
   oldRender();
 
-  function isAppActive(location: Location, history: IConfig['history'], base: App['base']) {
+  function isAppActive(
+    location: Location,
+    history: IConfig['history'],
+    opts: { base: App['base']; setMatchedBase: (v: string) => void },
+  ) {
+    const { base, setMatchedBase } = opts;
     const baseConfig = toArray(base);
 
     switch (history) {
-      case 'hash':
-        return baseConfig.some(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
+      case 'hash': {
+        const matchedBase = baseConfig.find(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
+        if (matchedBase) {
+          setMatchedBase(matchedBase);
+        }
 
-      case 'browser':
-        return baseConfig.some(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
+        return !!matchedBase;
+      }
+
+      case 'browser': {
+        const matchedBase = baseConfig.find(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
+        if (matchedBase) {
+          setMatchedBase(matchedBase);
+        }
+
+        return !!matchedBase;
+      }
 
       default:
         return false;
@@ -45,33 +62,41 @@ export async function render(oldRender: typeof noop) {
   assert(apps && apps.length, 'sub apps must be config when using umi-plugin-qiankun');
 
   registerMicroApps(
-    apps.map(({ name, entry, base, history = masterHistory, mountElementId = defaultMountContainerId, props }) => ({
-      name,
-      entry,
-      activeRule: location => isAppActive(location, history, base),
-      render: ({ appContent, loading }) => {
-        if (process.env.NODE_ENV === 'development') {
-          console.info(`app ${name} loading ${loading}`);
-        }
+    apps.map(({ name, entry, base, history = masterHistory, mountElementId = defaultMountContainerId, props }) => {
+      let matchedBase = base;
 
-        if (mountElementId) {
-          const container = document.getElementById(mountElementId);
-          if (container) {
-            const subApp = React.createElement('div', {
-              dangerouslySetInnerHTML: {
-                __html: appContent,
-              },
-            });
-            ReactDOM.render(subApp, container);
+      return {
+        name,
+        entry,
+        activeRule: location =>
+          isAppActive(location, history, { base, setMatchedBase: (v: string) => (matchedBase = v) }),
+        render: ({ appContent, loading }) => {
+          if (process.env.NODE_ENV === 'development') {
+            console.info(`app ${name} loading ${loading}`);
           }
-        }
-      },
-      props: {
-        base,
-        history,
-        ...props,
-      },
-    })),
+
+          if (mountElementId) {
+            const container = document.getElementById(mountElementId);
+            if (container) {
+              const subApp = React.createElement('div', {
+                dangerouslySetInnerHTML: {
+                  __html: appContent,
+                },
+              });
+              ReactDOM.render(subApp, container);
+            }
+          }
+        },
+        props: {
+          base,
+          history,
+          getMatchedBase() {
+            return matchedBase;
+          },
+          ...props,
+        },
+      };
+    }),
     lifeCycles,
     { ...otherConfigs },
   );
