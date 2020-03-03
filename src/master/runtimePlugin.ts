@@ -72,7 +72,7 @@ export async function render(oldRender: typeof noop) {
           isAppActive(location, history, { base, setMatchedBase: (v: string) => (matchedBase = v) }),
         render: ({ appContent, loading }) => {
           if (process.env.NODE_ENV === 'development') {
-            console.info(`app ${name} loading ${loading}`);
+            console.info(`[@umijs/plugin-qiankun]: app ${name} loading ${loading}`);
           }
 
           if (mountElementId) {
@@ -84,6 +84,9 @@ export async function render(oldRender: typeof noop) {
                 },
               });
               ReactDOM.render(subApp, container);
+            } else if (process.env.NODE_ENV === 'development') {
+              console.warn(`[@umijs/plugin-qiankun]: Your ${name} app container with id ${mountElementId} is not
+               ready, that may cause an unexpected behavior!`);
             }
           }
         },
