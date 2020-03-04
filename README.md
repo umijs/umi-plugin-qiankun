@@ -236,8 +236,8 @@ PORT=8081
 
 由于方案基于 react hook，所以只能在 functional component 中使用相关 api，无法在 class component 中使用。
 
-1. 约定父应用中在 `src/rootExports.js` 里 export 内容
-2. 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到
+1. 约定父应用中在 `src/rootExports.js` 里 export 内容。参考 [rootExports](https://github.com/umijs/umi-plugin-qiankun/blob/master/examples/master/rootExports.js)
+2. 子应用中通过 `import { useRootExports } from 'umi'; const rootExports = useRootExports();` 取到。参考 [useRootExports](https ://github.com/umijs/umi-plugin-qiankun/blob/master/examples/app1/pages/index.js#L1)
 
 ## API
 
