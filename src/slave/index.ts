@@ -36,7 +36,7 @@ export default function(api: IApi, options: Options) {
   // 如果没有手动关闭 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
   if (api.config.runtimePublicPath !== false) {
     api.modifyPublicPathStr(
-      `window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || "${
+      `window.publicPath || window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || "${
         // 开发阶段 publicPath 配置无效，默认为 /
         process.env.NODE_ENV !== 'development' ? api.config.publicPath || '/' : '/'
       }"`,
