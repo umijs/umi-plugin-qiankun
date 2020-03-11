@@ -66,10 +66,12 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('/js/:abc', '/js/123')).toBeTruthy();
   expect(testPathWithPrefix('/js/:abc/', '/js/123')).toBeFalsy();
   expect(testPathWithPrefix('/js/:abc/jsx', '/js/123/jsx')).toBeTruthy();
+  expect(testPathWithPrefix('/js/:abc/jsx', '/js/123/jsx/hello')).toBeTruthy();
   expect(testPathWithPrefix('/js/:abc/jsx', '/js/123')).toBeFalsy();
   expect(testPathWithPrefix('/js/:abc/jsx', '/js/123/css')).toBeFalsy();
   expect(testPathWithPrefix('/js/:abc/jsx/:cde', '/js/123/jsx/kkk')).toBeTruthy();
   expect(testPathWithPrefix('/js/:abc/jsx/:cde', '/js/123/jsk')).toBeFalsy();
+  expect(testPathWithPrefix('/js/:abc/jsx/:cde', '/js/123/jsx/kkk/hello')).toBeTruthy();
   expect(testPathWithPrefix('/js/:abc?', '/js')).toBeTruthy();
   expect(testPathWithPrefix('/js/*', '/js/245')).toBeTruthy();
 
@@ -81,10 +83,14 @@ it('testPathPrefix', () => {
   expect(testPathWithPrefix('#/:abc/js', '#/js/123')).toBeFalsy();
   expect(testPathWithPrefix('#/js/:abc', '#/js/123')).toBeTruthy();
   expect(testPathWithPrefix('#/js/:abc/', '#/js/123')).toBeFalsy();
+  expect(testPathWithPrefix('#/js/:abc/', '#/js/123/jsx')).toBeTruthy();
   expect(testPathWithPrefix('#/js/:abc/jsx', '#/js/123/jsx')).toBeTruthy();
+  expect(testPathWithPrefix('#/js/:abc/jsx', '#/js/123/jsx/hello')).toBeTruthy();
+  expect(testPathWithPrefix('#/js/:abc/jsx', '#/js/123/jsx/hello?test=1')).toBeTruthy();
   expect(testPathWithPrefix('#/js/:abc/jsx', '#/js/123')).toBeFalsy();
   expect(testPathWithPrefix('#/js/:abc/jsx', '#/js/123/css')).toBeFalsy();
   expect(testPathWithPrefix('#/js/:abc/jsx/:cde', '#/js/123/jsx/kkk')).toBeTruthy();
+  expect(testPathWithPrefix('#/js/:abc/jsx/:cde', '#/js/123/jsx/kkk/hello')).toBeTruthy();
   expect(testPathWithPrefix('#/js/:abc/jsx/:cde', '#/js/123/jsk')).toBeFalsy();
   expect(testPathWithPrefix('#/js/:abc?', '#/js')).toBeTruthy();
   expect(testPathWithPrefix('#/js/*', '#/js/245')).toBeTruthy();

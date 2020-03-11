@@ -36,7 +36,7 @@ function testPathWithStaticPrefix(pathPrefix: string, realPath: string) {
 }
 
 function testPathWithDynamicRoute(dynamicRoute: string, realPath: string) {
-  return !!pathToRegexp(dynamicRoute, { strict: true }).exec(realPath);
+  return !!pathToRegexp(dynamicRoute, { strict: true, end: false }).exec(realPath);
 }
 
 export function testPathWithPrefix(pathPrefix: string, realPath: string) {
