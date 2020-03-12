@@ -25,22 +25,31 @@ export function toArray<T>(source: T | T[]): T[] {
   return Array.isArray(source) ? source : [source];
 }
 
-function testPathWithStaticPrefix(pathPrefix: string, realPath: string) {
+function addTailSlash(str: string) {
+  return str.endsWith('/') ? str : `${str}/`;
+}
+
+function escapeRegExp(text: string) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+function getMatchedPathWithStaticPrefix(pathPrefix: string, realPath: string): string | null {
   if (pathPrefix.endsWith('/')) {
-    return realPath.startsWith(pathPrefix);
+    return realPath.startsWith(pathPrefix) ? pathPrefix : null;
   }
 
-  const pathRegex = new RegExp(`^${pathPrefix}(\\/|\\?)+.*$`, 'g');
-  const normalizedPath = `${realPath}/`;
-  return pathRegex.test(normalizedPath);
+  const pathRegex = new RegExp(`^${escapeRegExp(pathPrefix)}(\\/|\\?)+.*$`, 'g');
+  const normalizedPath = addTailSlash(realPath);
+  return pathRegex.test(normalizedPath) ? pathPrefix : null;
 }
 
-function testPathWithDynamicRoute(dynamicRoute: string, realPath: string) {
-  return !!pathToRegexp(dynamicRoute, { strict: true, end: false }).exec(realPath);
+function getMatchedPathWithDynamicRoute(dynamicRoute: string, realPath: string): string | null {
+  const matched = realPath.match(pathToRegexp(dynamicRoute, { strict: true, end: false }));
+  return matched && matched[0];
 }
 
-export function testPathWithPrefix(pathPrefix: string, realPath: string) {
-  return testPathWithStaticPrefix(pathPrefix, realPath) || testPathWithDynamicRoute(pathPrefix, realPath);
+export function getMatchedPathWithPrefix(pathPrefix: string, realPath: string) {
+  return getMatchedPathWithStaticPrefix(pathPrefix, realPath) || getMatchedPathWithDynamicRoute(pathPrefix, realPath);
 }
 
 const recursiveCoverRouter = (source: Array<IRoute>, nameSpacePath: string) =>

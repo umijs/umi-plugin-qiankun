@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 // eslint-disable-next-line import/no-unresolved
 import { IApi, IConfig, IRoute } from 'umi-types';
-import { defaultHistoryMode, defaultMasterRootId, testPathWithPrefix, toArray } from '../common';
+import { defaultHistoryMode, defaultMasterRootId, getMatchedPathWithPrefix, toArray } from '../common';
 import { Options } from '../types';
 
 export default function(api: IApi, options: Options) {
@@ -29,7 +29,7 @@ export default function(api: IApi, options: Options) {
     const findRouteWithPrefix = (routes: IRoute[], basePath: string): IRoute | null => {
       // eslint-disable-next-line no-restricted-syntax
       for (const route of routes) {
-        if (route.path && testPathWithPrefix(basePath, route.path)) return route;
+        if (route.path && getMatchedPathWithPrefix(basePath, route.path)) return route;
 
         if (route.routes && route.routes.length) {
           return findRouteWithPrefix(route.routes, basePath);

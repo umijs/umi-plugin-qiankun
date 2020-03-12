@@ -1,4 +1,5 @@
 // @ts-ignore
+import { setBase } from '@tmp/history';
 import ReactDOM from 'react-dom';
 import { noop } from '../common';
 
@@ -40,10 +41,12 @@ export function genBootstrap(promises: Promise<any>, oldRender: typeof noop) {
 }
 
 export function genMount() {
-  return async (...args: any[]) => {
+  return async (props: any, ...args: any[]) => {
     defer.resolve();
     const slaveRuntime = getSlaveRuntime();
-    if (slaveRuntime.mount) await slaveRuntime.mount(...args);
+    // 更新子应用 base
+    if (setBase) setBase(props.getMatchedBase());
+    if (slaveRuntime.mount) await slaveRuntime.mount(props, ...args);
     // 第一次 mount umi 会自动触发 render，非第一次 mount 则需手动触发
     if (hasMountedAtLeastOnce) {
       render();

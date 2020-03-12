@@ -8,7 +8,7 @@ import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IConfig } from 'umi-types';
-import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
+import { defaultMountContainerId, getMatchedPathWithPrefix, noop, toArray } from '../common';
 import { App, GlobalOptions, Options } from '../types';
 
 async function getMasterRuntime() {
@@ -32,21 +32,31 @@ export async function render(oldRender: typeof noop) {
 
     switch (history) {
       case 'hash': {
-        const matchedBase = baseConfig.find(pathPrefix => testPathWithPrefix(`#${pathPrefix}`, location.hash));
-        if (matchedBase) {
-          setMatchedBase(matchedBase);
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < baseConfig.length; i++) {
+          const pathPrefix = baseConfig[i];
+          const matchedBase = getMatchedPathWithPrefix(`#${pathPrefix}`, location.hash);
+          if (matchedBase) {
+            setMatchedBase(matchedBase);
+            return true;
+          }
         }
 
-        return !!matchedBase;
+        return false;
       }
 
       case 'browser': {
-        const matchedBase = baseConfig.find(pathPrefix => testPathWithPrefix(pathPrefix, location.pathname));
-        if (matchedBase) {
-          setMatchedBase(matchedBase);
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < baseConfig.length; i++) {
+          const pathPrefix = baseConfig[i];
+          const matchedBase = getMatchedPathWithPrefix(pathPrefix, location.pathname);
+          if (matchedBase) {
+            setMatchedBase(matchedBase);
+            return true;
+          }
         }
 
-        return !!matchedBase;
+        return false;
       }
 
       default:

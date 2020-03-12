@@ -11,3 +11,8 @@ declare module '@tmp/qiankunDefer.js' {
   const deferred: any;
   export { deferred };
 }
+
+declare module '@tmp/history' {
+  const setBase: (base: string) => void;
+  export { setBase };
+}
