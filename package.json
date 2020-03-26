@@ -40,7 +40,7 @@
     "address": "^1.1.2",
     "lodash": "^4.17.15",
     "path-to-regexp": "^1.7.0",
-    "qiankun": "^1.3.6"
+    "qiankun": "^1.4.5"
   },
   "peerDependencies": {
     "react": "16",
@@ -62,7 +62,7 @@
     "np": "5",
     "npm-run-all": "^4.1.5",
     "prettier": "1",
-    "umi": "^2.12.0",
+    "umi": "^2.13.6",
     "umi-plugin-react": "^1.9.13",
     "umi-request": "^1.1.0",
     "umi-test": "^1.8.2",

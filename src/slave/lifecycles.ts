@@ -45,7 +45,7 @@ export function genMount() {
     defer.resolve();
     const slaveRuntime = getSlaveRuntime();
     // 更新子应用 base
-    if (setBase) setBase(props.getMatchedBase());
+    if (setBase) setBase(props?.getMatchedBase() || (<any>window).routerBase);
     if (slaveRuntime.mount) await slaveRuntime.mount(props, ...args);
     // 第一次 mount umi 会自动触发 render，非第一次 mount 则需手动触发
     if (hasMountedAtLeastOnce) {
