@@ -18,7 +18,7 @@ export default function(api: IApi, options: GlobalOptions) {
     }
   });
 
-  const { master: masterOpts, slave: slaveOpts, shouldModifyRuntimePublicPath = true } = options || {};
+  const { master: masterOpts, slave: slaveOpts, shouldNotModifyRuntimePublicPath = false } = options || {};
 
   assert(!(masterOpts && slaveOpts), '请勿同时配置 master 和 slave 配置项');
 
@@ -32,7 +32,7 @@ export default function(api: IApi, options: GlobalOptions) {
     api.registerPlugin({
       id: 'qiankun-slave',
       apply: slave,
-      opts: { ...slaveOpts, shouldModifyRuntimePublicPath, registerRuntimeKeyInIndex: true },
+      opts: { ...slaveOpts, shouldNotModifyRuntimePublicPath, registerRuntimeKeyInIndex: true },
     });
   }
 }
