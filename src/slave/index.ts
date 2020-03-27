@@ -13,7 +13,8 @@ import { Options } from '../types';
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false } = options || {};
+  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldNotModifyRuntimePublicPath = false } =
+    options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
@@ -34,7 +35,7 @@ export default function(api: IApi, options: Options) {
   }));
 
   // 如果没有手动关闭 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
-  if (api.config.runtimePublicPath !== false) {
+  if (api.config.runtimePublicPath !== false && !shouldNotModifyRuntimePublicPath) {
     api.modifyPublicPathStr(
       `window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || window.publicPath || "${
         // 开发阶段 publicPath 配置无效，默认为 /
