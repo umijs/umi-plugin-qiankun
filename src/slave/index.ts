@@ -13,7 +13,7 @@ import { Options } from '../types';
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldModifyRuntimePublicPath } =
+  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldModifyRuntimePublicPath = true } =
     options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
