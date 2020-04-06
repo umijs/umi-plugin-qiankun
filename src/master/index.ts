@@ -85,8 +85,9 @@ export default function(api: IApi, options: Options) {
 
   const rootExportsJsFile = join(api.paths.absSrcPath, 'rootExports.js');
   const rootExportsTsFile = join(api.paths.absSrcPath, 'rootExports.ts');
-  const rootExportsFileExisted = existsSync(rootExportsJsFile) || existsSync(rootExportsTsFile);
-  api.addPageWatcher(existsSync(rootExportsJsFile) ? rootExportsJsFile : rootExportsTsFile);
+  const rootExportsJsFileExisted = existsSync(rootExportsJsFile);
+  const rootExportsFileExisted = rootExportsJsFileExisted || existsSync(rootExportsTsFile);
+  api.addPageWatcher(rootExportsJsFileExisted ? rootExportsJsFile : rootExportsTsFile);
 
   api.onGenerateFiles(() => {
     const rootExports = `
