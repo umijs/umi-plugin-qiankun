@@ -83,12 +83,15 @@ export default function(api: IApi, options: Options) {
     modifyAppRoutes(history);
   }
 
-  const rootExportsFile = join(api.paths.absSrcPath, 'rootExports.js');
-  api.addPageWatcher(rootExportsFile);
+  const rootExportsJsFile = join(api.paths.absSrcPath, 'rootExports.js');
+  const rootExportsTsFile = join(api.paths.absSrcPath, 'rootExports.ts');
+  const rootExportsJsFileExisted = existsSync(rootExportsJsFile);
+  const rootExportsFileExisted = rootExportsJsFileExisted || existsSync(rootExportsTsFile);
+  api.addPageWatcher(rootExportsJsFileExisted ? rootExportsJsFile : rootExportsTsFile);
 
   api.onGenerateFiles(() => {
     const rootExports = `
-window.g_rootExports = ${existsSync(rootExportsFile) ? `require('@/rootExports')` : `{}`};
+window.g_rootExports = ${rootExportsFileExisted ? `require('@/rootExports')` : `{}`};
     `.trim();
     api.writeTmpFile('qiankunRootExports.js', rootExports);
     api.writeTmpFile(
