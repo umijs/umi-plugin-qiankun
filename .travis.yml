@@ -12,9 +12,9 @@ script:
 before_deploy: |
   function npm_dist_tag() {
     if [[ "$TRAVIS_TAG" = *"-"* ]]; then
-      echo "next"
+      echo "umi2"
     else
-      echo "latest"
+      echo "umi2"
     fi
   }
 

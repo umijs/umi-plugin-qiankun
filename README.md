@@ -1,21 +1,21 @@
 # @umijs/plugin-qiankun
 
-Umi@2 plugin for [qiankun](https://github.com/umijs/qiankun).
+# Umi@2 plugin for [qiankun](https://github.com/umijs/qiankun).
 
-Umi@3 相应的 qiankun 插件请移步[这里](https://github.com/umijs/plugins/tree/master/packages/plugin-qiankun)
+# Umi@3 相应的 qiankun 插件请移步[这里](https://github.com/umijs/plugins/tree/master/packages/plugin-qiankun)
 
-[![NPM version](https://img.shields.io/npm/v/@umijs/plugin-qiankun.svg?style=flat)](https://npmjs.org/package/@umijs/plugin-qiankun) [![Build Status](https://img.shields.io/travis/umijs/umi-plugin-qiankun.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-qiankun) [![NPM downloads](http://img.shields.io/npm/dm/@umijs/plugin-qiankun.svg?style=flat)](https://npmjs.org/package/@umijs/plugin-qiankun)
+[![NPM version](https://img.shields.io/npm/v/@umijs/plugin-qiankun/umi2.svg?style=flat)](https://npmjs.org/package /@umijs/plugin-qiankun) [![Build Status](https://img.shields.io/travis/umijs/umi-plugin-qiankun.svg?style=flat)](https://travis-ci.org/umijs/umi-plugin-qiankun) [![NPM downloads](http://img.shields.io/npm/dm/@umijs/plugin-qiankun.svg?style=flat)](https://npmjs.org/package/@umijs/plugin-qiankun)
 
 ## Installation
 
 ```shell
-$ npm i @umijs/plugin-qiankun -S
+$ npm i @umijs/plugin-qiankun@umi2 -S
 ```
 
 or
 
 ```shell
-$ yarn add @umijs/plugin-qiankun
+$ yarn add @umijs/plugin-qiankun@umi2
 ```
 
 ## Examples
