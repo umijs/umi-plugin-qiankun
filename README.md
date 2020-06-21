@@ -1,4 +1,4 @@
-# Umi@2 plugin for [qiankun@v1](https://github.com/umijs/qiankun).
+# Umi@2 plugin for [qiankun@v1](https://github.com/umijs/qiankun/tree/1.x).
 
 # Umi@3 相应的 qiankun 插件请移步[这里](https://github.com/umijs/plugins/tree/master/packages/plugin-qiankun)
 
