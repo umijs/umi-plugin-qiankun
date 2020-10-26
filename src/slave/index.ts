@@ -13,8 +13,12 @@ import { Options } from '../types';
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldNotModifyRuntimePublicPath = false, shouldNotModifyDefaultBase = false } =
-  options || {};
+  const {
+    registerRuntimeKeyInIndex = false,
+    keepOriginalRoutes = false,
+    shouldNotModifyRuntimePublicPath = false,
+    shouldNotModifyDefaultBase = false,
+  } = options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
