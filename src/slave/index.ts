@@ -13,8 +13,8 @@ import { Options } from '../types';
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
 
 export default function(api: IApi, options: Options) {
-  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldNotModifyRuntimePublicPath = false } =
-    options || {};
+  const { registerRuntimeKeyInIndex = false, keepOriginalRoutes = false, shouldNotModifyRuntimePublicPath = false, shouldNotModifyDefaultBase = false } =
+  options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
     api.addRuntimePluginKey('qiankun');
@@ -24,15 +24,24 @@ export default function(api: IApi, options: Options) {
   const mountElementId = api.config.mountElementId || defaultSlaveRootId;
   // eslint-disable-next-line import/no-dynamic-require, global-require
   const { name: pkgName } = require(join(api.cwd, 'package.json'));
-  api.modifyDefaultConfig(memo => ({
-    ...memo,
-    // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
-    // disableGlobalVariables: true,
-    base: `/${pkgName}`,
-    mountElementId,
-    // 默认开启 runtimePublicPath，避免出现 dynamic import 场景子应用资源地址出问题
-    runtimePublicPath: true,
-  }));
+  api.modifyDefaultConfig(memo => {
+    const config: any = {
+      mountElementId,
+      // 默认开启 runtimePublicPath，避免出现 dynamic import 场景子应用资源地址出问题
+      runtimePublicPath: true,
+    };
+
+    if (!shouldNotModifyDefaultBase) {
+      config.base = `/${pkgName}`;
+    }
+
+    return {
+      ...memo,
+      // TODO 临时关闭，等这个 pr 合并 https://github.com/umijs/umi/pull/2866
+      // disableGlobalVariables: true,
+      ...config,
+    };
+  });
 
   // 如果没有手动关闭 runtimePublicPath，则直接使用 qiankun 注入的 publicPath
   if (api.config.runtimePublicPath !== false && !shouldNotModifyRuntimePublicPath) {

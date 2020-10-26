@@ -24,6 +24,7 @@ export type Options = {
   registerRuntimeKeyInIndex?: boolean; // 仅做插件本身透传用，开发者无需关心
   keepOriginalRoutes?: boolean | string;
   shouldNotModifyRuntimePublicPath?: boolean;
+  shouldNotModifyDefaultBase?: boolean;
   fetch?: typeof window.fetch;
 };
 

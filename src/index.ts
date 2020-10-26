@@ -32,7 +32,7 @@ export default function(api: IApi, options: GlobalOptions) {
     api.registerPlugin({
       id: 'qiankun-slave',
       apply: slave,
-      opts: { ...slaveOpts, shouldNotModifyRuntimePublicPath, registerRuntimeKeyInIndex: true },
+      opts: { shouldNotModifyRuntimePublicPath, registerRuntimeKeyInIndex: true, ...slaveOpts },
     });
   }
 }
