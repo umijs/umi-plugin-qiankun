@@ -25,6 +25,7 @@ export type Options = {
   keepOriginalRoutes?: boolean | string;
   shouldNotModifyRuntimePublicPath?: boolean;
   shouldNotModifyDefaultBase?: boolean;
+  shouldNotModifyMountElementId?: boolean;
   fetch?: typeof window.fetch;
 };
 
