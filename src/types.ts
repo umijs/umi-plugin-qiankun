@@ -3,8 +3,9 @@
  * @since 2019-06-20
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { LifeCycles } from 'qiankun';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved,@typescript-eslint/no-unused-vars
 import { IConfig } from 'umi-types';
 
 export type App = {
@@ -25,6 +26,7 @@ export type Options = {
   keepOriginalRoutes?: boolean | string;
   shouldNotModifyRuntimePublicPath?: boolean;
   shouldNotModifyDefaultBase?: boolean;
+  shouldNotModifyMountElementId?: boolean;
   fetch?: typeof window.fetch;
 };
 

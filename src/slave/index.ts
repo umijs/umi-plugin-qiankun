@@ -3,11 +3,12 @@ import address from 'address';
 import assert from 'assert';
 import { isString } from 'lodash';
 import { join } from 'path';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved,@typescript-eslint/no-unused-vars
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 
 import { addSpecifyPrefixedRoute, defaultSlaveRootId } from '../common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
@@ -18,6 +19,7 @@ export default function(api: IApi, options: Options) {
     keepOriginalRoutes = false,
     shouldNotModifyRuntimePublicPath = false,
     shouldNotModifyDefaultBase = false,
+    shouldNotModifyMountElementId = false,
   } = options || {};
   api.addRuntimePlugin(require.resolve('./runtimePlugin'));
   if (!registerRuntimeKeyInIndex) {
@@ -30,10 +32,13 @@ export default function(api: IApi, options: Options) {
   const { name: pkgName } = require(join(api.cwd, 'package.json'));
   api.modifyDefaultConfig(memo => {
     const config: any = {
-      mountElementId,
       // 默认开启 runtimePublicPath，避免出现 dynamic import 场景子应用资源地址出问题
       runtimePublicPath: true,
     };
+
+    if (!shouldNotModifyMountElementId) {
+      config.mountElementId = mountElementId;
+    }
 
     if (!shouldNotModifyDefaultBase) {
       config.base = `/${pkgName}`;
@@ -76,7 +81,8 @@ export default function(api: IApi, options: Options) {
     $('script').each((_, el) => {
       const scriptEl = $(el);
       const umiEntryJs = /\/?umi(\.\w+)?\.js$/g;
-      if (umiEntryJs.test(scriptEl.attr('src') ?? '')) {
+      const src = scriptEl.attr('src');
+      if (src && umiEntryJs.test(scriptEl.attr('src'))) {
         scriptEl.attr('entry', '');
       }
     });
@@ -93,6 +99,7 @@ export default function(api: IApi, options: Options) {
       memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
         {
+          // @ts-ignore
           namespace: pkgName,
           append: `\n//# sourceMappingURL=${protocol}://${localIpAddress}:${port}/[url]`,
           filename: '[file].map',

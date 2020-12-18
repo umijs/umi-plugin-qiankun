@@ -1,9 +1,10 @@
 /* eslint-disable quotes */
 import { existsSync } from 'fs';
 import { join } from 'path';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved,@typescript-eslint/no-unused-vars
 import { IApi, IConfig, IRoute } from 'umi-types';
 import { defaultHistoryMode, defaultMasterRootId, testPathWithPrefix, toArray } from '../common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Options } from '../types';
 
 export default function(api: IApi, options: Options) {

@@ -7,8 +7,10 @@ import assert from 'assert';
 import { registerMicroApps, start } from 'qiankun';
 import React from 'react';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IConfig } from 'umi-types';
 import { defaultMountContainerId, noop, testPathWithPrefix, toArray } from '../common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { App, GlobalOptions, Options } from '../types';
 
 async function getMasterRuntime() {

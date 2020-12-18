@@ -1,7 +1,9 @@
 import assert from 'assert';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IApi } from 'umi-types';
 import master from './master';
 import slave from './slave';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GlobalOptions } from './types';
 
 export default function(api: IApi, options: GlobalOptions) {
