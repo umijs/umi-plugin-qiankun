@@ -5,8 +5,10 @@
 
 import { cloneDeep } from 'lodash';
 import pathToRegexp from 'path-to-regexp';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IRoute } from 'umi-types';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { keepOriginalRoutesOption } from './types';
 
 export const defaultMountContainerId = 'root-subapp';

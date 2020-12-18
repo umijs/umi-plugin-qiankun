@@ -3,11 +3,12 @@ import address from 'address';
 import assert from 'assert';
 import { isString } from 'lodash';
 import { join } from 'path';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved,@typescript-eslint/no-unused-vars
 import { IApi } from 'umi-types';
 import webpack from 'webpack';
 
 import { addSpecifyPrefixedRoute, defaultSlaveRootId } from '../common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Options } from '../types';
 
 const localIpAddress = process.env.USE_REMOTE_IP ? address.ip() : 'localhost';
@@ -80,7 +81,8 @@ export default function(api: IApi, options: Options) {
     $('script').each((_, el) => {
       const scriptEl = $(el);
       const umiEntryJs = /\/?umi(\.\w+)?\.js$/g;
-      if (umiEntryJs.test(scriptEl.attr('src') ?? '')) {
+      const src = scriptEl.attr('src');
+      if (src && umiEntryJs.test(scriptEl.attr('src'))) {
         scriptEl.attr('entry', '');
       }
     });
@@ -97,6 +99,7 @@ export default function(api: IApi, options: Options) {
       memo.devtool(false);
       memo.plugin('source-map').use(webpack.SourceMapDevToolPlugin, [
         {
+          // @ts-ignore
           namespace: pkgName,
           append: `\n//# sourceMappingURL=${protocol}://${localIpAddress}:${port}/[url]`,
           filename: '[file].map',
