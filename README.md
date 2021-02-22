@@ -119,7 +119,7 @@ export const qiankun = fetch('/config').then(({ apps }}) => ({
 }));
 ```
 
-由于 umi 不支持在应用 render 之后修改路由，故运行时配置方式插件无法自动生成子应用相关路由，（见[代码](https://github.com/umijs/umi-plugin-qiankun/blob/master/src/master/index.ts#L34)）。所以这里需要用户手动添加子应用相关路由配置避免 404 情况：
+由于 umi 不支持在应用 render 之后修改路由，故运行时配置方式插件无法自动生成子应用相关路由，（见[代码](https://github.com/umijs/umi-plugin-qiankun/blob/2f51ccd43493a4ad2a9c9fb1f724a0bf63d73235/src/master/index.ts#L55)）。所以这里需要用户手动添加子应用相关路由配置避免 404 情况：
 
 ###### 1. 主应用新建 pages/subAppContainer.js
 
@@ -137,8 +137,8 @@ export default function() {
 // 主应用 config.js 中添加子应用相关路由配置
 export default {
   routes: [
-    { path: '/app1', exact: true, component: 'subAppContainer' },
-    { path: '/app2', exact: true, component: 'subAppContainer' },
+    { path: '/app1', exact: false, component: 'subAppContainer' },
+    { path: '/app2', exact: false, component: 'subAppContainer' },
   ],
 };
 ```
