@@ -33,7 +33,10 @@ export default function(api: IApi, options: Options) {
         if (route.path && testPathWithPrefix(basePath, route.path)) return route;
 
         if (route.routes && route.routes.length) {
-          return findRouteWithPrefix(route.routes, basePath);
+          const r = findRouteWithPrefix(route.routes, basePath);
+          if (r) {
+            return r;
+          }
         }
       }
 
