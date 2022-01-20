@@ -53,12 +53,14 @@ export function genMount() {
 }
 
 export function genUnmount(mountElementId: string) {
-  return async (...args: any[]) => {
-    const container = document.getElementById(mountElementId);
+  return async (props: any) => {
+    const container = props?.container
+      ? props.container.querySelector(`#${mountElementId}`)
+      : document.getElementById(mountElementId);
     if (container) {
       ReactDOM.unmountComponentAtNode(container);
     }
     const slaveRuntime = getSlaveRuntime();
-    if (slaveRuntime.unmount) await slaveRuntime.unmount(...args);
+    if (slaveRuntime.unmount) await slaveRuntime.unmount(props);
   };
 }
