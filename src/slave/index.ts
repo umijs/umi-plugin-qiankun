@@ -93,7 +93,9 @@ export default function(api: IApi, options: Options) {
   // source-map 跨域设置
   if (process.env.NODE_ENV === 'development' && port) {
     // 变更 webpack-dev-server websocket 默认监听地址
-    process.env.SOCKET_SERVER = `${protocol}://${localIpAddress}:${port}/`;
+    if(typeof process.env.SOCKET_SERVER === 'undefined') {
+      process.env.SOCKET_SERVER = `${protocol}://${localIpAddress}:${port}/`;
+    }
     api.chainWebpackConfig(memo => {
       // 禁用 devtool，启用 SourceMapDevToolPlugin
       memo.devtool(false);
